@@ -3,7 +3,7 @@ public without sharing class SobjectSchema_Controller {
 
     }
 
-
+    //test some changes
     @AuraEnabled(cacheable=true)
     public static Map<String,List<String>> getAllFieldsSchema(){
         Map<String,List<String>> returnValue = new Map<String,List<String>>();
