@@ -1,0 +1,130 @@
+<messaging:emailTemplate subject="Response Requested By {!IF(relatedTo.Please_respond_by_For_Draft_Share__c    != null,TEXT(DAY(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c )))+'/' + CASE(TEXT(MONTH(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c ))),'1','JAN','2','FEB','3','MAR','4','APR','5','MAY','6','JUN','7','JUL','8','AUG','9','SEP','10','OCT','11','NOV','DEC')+'/' + TEXT(YEAR(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c))),'')}- Draft {!relatedTo.Publication__r.Publication_Type__c} Available for Review on Amgen Author Collaboration Website."
+    recipientType="Contact" 
+    relatedToType="pubAuthor__c">
+
+    <messaging:htmlEmailBody >  
+    <html>
+         <style>
+        p {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+        }
+        
+        li {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+        }
+        
+        <!-- unvisited link -->
+        a:link {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #0000FF;
+        }
+        
+        <!-- visited link -->
+        a:visited {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #8181F7;
+        }
+        
+        <!-- mouse over link -->
+        a:hover {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #AEB404;
+        }
+        
+        <!-- selected link -->
+        a:active {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #0000FF;
+        }
+        </style>
+        
+        <script type="text/javascript"  src="{!$Resource.jquery}"></script>
+        <p>Dear {!recipient.name},<br></br></p>
+        <p>
+        A draft of the {!relatedTo.Publication__r.Publication_Type__c} entitled, <b>{!relatedTo.Publication__r.Publication_Title__c}</b> is ready for your review.  
+        </p>
+        <p>
+        {!IF((relatedTo.Additional_Details_For_Draft_Share__c != null && relatedTo.Additional_Details_For_Draft_Share__c != ''), relatedTo.Additional_Details_For_Draft_Share__c ,'')}
+        </p> 
+        <p>
+        Draft publication review is now managed through the Amgen Author Collaboration website. To review the draft document(s), please click on the appropriate website link below. 
+        </p> 
+
+        <p>
+        When accessing the Amgen Author Collaboration website:
+        <ul type="square">
+        <li><b>For first-time users,</b> click this <c:Appear_AuthorEmailURLComponent URLTargetType="DRAFT" PubAuthorId="{!relatedTo.id}" ContactId="{!recipient.id}" PubId="{!relatedTo.Publication__c}"  IsAuthorComm="{!IF((relatedTo.Author__r.Profile__c=='APPEAR Portal FPR Only Submitter' && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c==NULL && relatedTo.Author__r.RecordType.Name=='Appear Contact'),'AUTHOR',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'AUTHOR',IF((relatedTo.Author__r.Profile__c==NULL && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS','CORE'))))}"  IsMobile="false" URLTargetName="website link"/> and follow as described below:</li>
+            <ul>
+                <li><b>External Authors (not an Amgen employee):</b> Enter the email address you want to use as your username along with a password.</li>
+                <li><b>Amgen APPEAR users</b> will be logged into the website automatically.
+                    <ul><li>Amgen Employees, if the link above asks for login information, please click this <b><a href="mailto:appearpublicationsupport@amgen.com?subject=Re:%20APPEAR%20Author%20Collaboration%20Portal%20Access%20Issue">link</a></b> to send an email to the support group for login assistance.</li></ul>
+                </li>
+            </ul>
+        <li><b>Returning users,</b> click this <c:Appear_AuthorEmailURLComponent URLTargetType="DRAFT" PubAuthorId="{!relatedTo.id}" ContactId="{!recipient.id}" PubId="{!relatedTo.Publication__c}"  IsAuthorComm="{!IF((relatedTo.Author__r.Profile__c=='APPEAR Portal FPR Only Submitter' && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c==NULL && relatedTo.Author__r.RecordType.Name=='Appear Contact'),'AUTHOR',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'AUTHOR',IF((relatedTo.Author__r.Profile__c==NULL && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS','CORE'))))}"  IsMobile="false" URLTargetName="website link"/> and follow as described below:</li>
+            <ul>
+                <li><b>External Authors/Amgen FPR Only Submitters:</b> Enter your username and password.</li>
+                <apex:outputText escape="false" value="{!if(recipient.UserId__r.Username="","",'<li><b>Username:</b> '+recipient.UserId__r.Username)+'</li>'}" />
+                <li><b>Amgen APPEAR users</b> will be logged into the website automatically.</li>
+            </ul>
+        </ul>
+        </p>
+        
+        <p>
+        After logging into the website, you will be able to review draft publications, enter comments, and/or upload a tracked changed version with your updates. For additional details on using this website, please click here to view the <a href="http://appear-resources.amgenwebservices.com/pdf/Amgen_Author_Collaboration_Website_Quick_Reference_Guide.pdf" target="_blank">Author Quick Reference Guide</a> or a short <a href="http://appear-resources.amgenwebservices.com" target="_blank">Welcome Video</a>.
+        </p> 
+        
+        <p>
+        Please provide your comments by logging into the Amgen Author Collaboration website by <b>{!IF(relatedTo.Please_respond_by_For_Draft_Share__c    != null, TEXT(DAY(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c ))) +'/' + CASE(TEXT(MONTH(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c ))),"1","JAN","2","FEB","3","MAR","4","APR","5","MAY","6","JUN","7","JUL","8","AUG","9","SEP","10","OCT","11","NOV","DEC") +'/' + TEXT(YEAR(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c))),'')}</b>. If you have any questions, I am available by email ({!$User.Email}).
+        </p>
+        
+        <p>
+        Best Regards,<br></br>
+        <br></br>
+        {!$User.FirstName} {!$User.LastName}
+        </p>
+        
+        <p>
+         If you experience a technical issue with the website, please send an email to appearpublicationsupport@amgen.com.
+        </p>
+    </html>
+    </messaging:htmlEmailBody>  
+
+<messaging:plainTextEmailBody >
+        Dear {!recipient.name},
+
+        A draft of the {!relatedTo.Publication__r.Publication_Type__c} entitled, {!relatedTo.Publication__r.Publication_Title__c} is ready for your review.  
+        {!IF((relatedTo.Additional_Details_For_Draft_Share__c!= null && relatedTo.Additional_Details_For_Draft_Share__c != ''), relatedTo.Additional_Details_For_Draft_Share__c ,'')}
+        Draft publication review is now managed through the Amgen Author Collaboration website. To review the draft document(s), please click on the appropriate website link below. 
+
+        When accessing the Amgen Author Collaboration website:
+        * For first-time users, click this <c:Appear_AuthorEmailURLComponent URLTargetType="DRAFT" PubAuthorId="{!relatedTo.id}" ContactId="{!recipient.id}" PubId="{!relatedTo.Publication__c}"  IsAuthorComm="{!IF((relatedTo.Author__r.Profile__c=='APPEAR Portal FPR Only Submitter' && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c==NULL && relatedTo.Author__r.RecordType.Name=='Appear Contact'),'AUTHOR',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'AUTHOR',IF((relatedTo.Author__r.Profile__c==NULL && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS','CORE'))))}" IsMobile="false" URLTargetName="link"/> and follow as described below:
+            - External Authors (not an Amgen employee): Enter the email address you want to use as your username along with a password.
+            - Amgen APPEAR users will be logged into the website automatically.
+                - Amgen Employees, if the link above asks for login information, please click this <a href="mailto:appearpublicationsupport@amgen.com?subject=Re:%20APPEAR%20Author%20Collaboration%20Portal%20Access%20Issue">email link</a> to send an email to the support group for login assistance.
+        * Returning users, click this <c:Appear_AuthorEmailURLComponent URLTargetType="DRAFT" PubAuthorId="{!relatedTo.id}" ContactId="{!recipient.id}" PubId="{!relatedTo.Publication__c}"  IsAuthorComm="{!IF((relatedTo.Author__r.Profile__c=='APPEAR Portal FPR Only Submitter' && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c==NULL && relatedTo.Author__r.RecordType.Name=='Appear Contact'),'AUTHOR',IF(((relatedTo.Author__r.Profile__c=='Appear Portal Pub Author Login' || relatedTo.Author__r.Profile__c==NULL) && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'AUTHOR',IF((relatedTo.Author__r.Profile__c==NULL && relatedTo.Author__r.Federation_Identifier__c<>NULL && relatedTo.Author__r.RecordType.Name=='Internal Contact'),'FPRS','CORE'))))}" IsMobile="false" URLTargetName="link"/> and follow as described below:
+            - External Authors/Amgen FPR Only Submitters: Enter your username and password.
+            -{!if(recipient.UserId__r.Username="","",' Username: '+recipient.UserId__r.Username)} 
+            - Amgen APPEAR users will be logged into the website automatically.
+        
+        After logging into the website, you will be able to review draft publications, enter comments, and/or upload a tracked changed version with your updates. For additional details on using this website, please click here to view the <a href="http://appear-resources.amgenwebservices.com/pdf/Amgen_Author_Collaboration_Website_Quick_Reference_Guide.pdf" target="_blank">Author Quick Reference Guide</a> or a short <a href="http://appear-resources.amgenwebservices.com" target="_blank">Welcome Video</a>.
+
+        Please provide your comments by logging into the Amgen Author Collaboration website by {!IF(relatedTo.Please_respond_by_For_Draft_Share__c  != null, TEXT(MONTH(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c))) +'/' + TEXT(DAY(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c))) +'/' + TEXT(YEAR(DATEVALUE(relatedTo.Please_respond_by_For_Draft_Share__c))),'')}. If you have any questions, I am available by email ({!$User.Email}).
+
+        Best Regards,
+        
+        {!$User.FirstName} {!$User.LastName}
+        
+        If you experience a technical issue with the website, please send an email to appearpublicationsupport@amgen.com.
+</messaging:plainTextEmailBody>
+
+</messaging:emailTemplate>

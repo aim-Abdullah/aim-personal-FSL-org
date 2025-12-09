@@ -1,0 +1,37 @@
+<apex:component id="FprRequestDetails" controller="FprRequestDetailController" allowDML="true">
+
+	<apex:outputPanel id="DebugVF" rendered="{!DebugVF}">
+		<h1>FprRequestDetails</h1><br/>
+		This is where we display ReadOnly fields and custom buttons for approver. <br/><br/>
+	</apex:outputPanel>
+	
+	<apex:outputPanel >
+	  	<br/><h1>Show Readonly fields of the FPR Request here</h1><br/><br/>
+	  	<apex:outputText value="Status : " > 
+	  		<apex:param value="{!ActivePub.RecordTypeName}" />
+	  	</apex:outputText>
+	  	<br/><br/>
+	</apex:outputPanel> 
+  
+    <apex:outputPanel rendered="{!isSubmitter}" >
+    	<br/>
+    	Submitter Actions:<br/>  
+	    <apex:CommandButton action="{!ExpeditFprRequest}"  value="Expedit FPR Request" id="ExpeditFprRequest"/>
+    	<apex:CommandButton action="{!WithdrawFprRequest}" value="Withdraw FPR Request" id="WithdrawFprRequest"/>  	
+    	<br/>
+  	</apex:outputPanel>
+  
+  	<apex:outputPanel rendered="{!isCoordinator}" >
+  		<br/>
+  		Coordinator Actions:<br/>
+	    <apex:CommandButton action="{!AcceptFprRequest}"  value="Accept FPR Request" id="AcceptFprRequest"/>
+    	<apex:CommandButton action="{!RejectFprRequest}" value="Reject FPR Request" id="RejectFprRequest"/>  	
+    	<br/>
+  	</apex:outputPanel>
+  
+  	<!-- Show the PubEvent
+  	<apex:outputPanel >
+  		<br/><br/><h1>Show a list of PubEvents here - Readonly</h1><br/><br/><br/>
+  	</apex:outputPanel>
+    -->
+</apex:component>

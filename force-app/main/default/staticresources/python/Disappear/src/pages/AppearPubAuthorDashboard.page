@@ -1,0 +1,611 @@
+<apex:page name="Pub Author Action Dashboard"  controller="AppearPubAuthorController"  id="AppearPubAuthorDashboard"
+    showHeader="true" tabStyle="Pub_Author__tab" sidebar="false" action="{!saveActivePub}"  >
+    
+
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.Appear}/AppearPub.css" />
+    <script type="text/javascript"          src="{!$Resource.jquery}"></script>
+
+<style>
+/*----- Tabs -----*/
+    .tabs {
+        margin:0px 0px;
+        width:100%;
+        display:inline-block;
+    }
+ 
+    /*----- Tab Links -----*/
+    /* Clearfix */
+    .tab-links:after {
+        display:block;
+        clear:both;
+        content:'';
+        font-weight:bold; 
+    }
+ 
+    .tab-links{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
+    .tab-links li {
+        margin:0px 0px;
+        float:left;
+        list-style:none;
+        border-style: solid;
+        border-color: #E6E6E6;
+        border-width: 1px;
+        font-weight:bold; 
+    }
+ 
+    .tab-links a {
+        text-align: center;
+        padding:8px 14px;
+        display:inline-block;
+        border-radius:3px 3px 0px 0px;
+        background:#7FB5DA;
+        font-size:13px;
+        font-weight:bold;
+        color:#4c4c4c;
+        transition:all linear 0.15s;
+    }
+ 
+    .tab-links a:hover {
+        background:#a7cce5;
+        text-decoration:none;
+    }
+ 
+    li.active a, li.active a:hover {
+        background-color: #3399ff;
+        border-color: #ddd;
+        color: #ffffff;
+    }
+ 
+    /*----- Content of Tabs -----*/
+    .actiontab-content {
+        padding-left: 41px;
+        padding-right: 13px;
+        border-radius:3px;
+        box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+        background:#fff;
+    }
+  
+     .actiontab {
+         display:none;
+         margin-top: 0px; 
+         border: 1px inset;
+         padding: 5px;
+     }
+
+     .actiontab.active {
+         display:block;
+         border: 1px inset; 
+         margin-top: 0px; 
+         padding: 5px;
+     }
+     /*----- Start - Appear Enhancement 2017 R2 - BrightCove Sean Harper Video embedd -----*/
+    .closeVid{ 
+    	color: rgb(178, 180, 185);
+    	font-size: 4.5em;
+    	background: rgba(255, 255, 255, 0);
+    	border: none;
+    	cursor: pointer;
+    }
+        .closeVid:before {
+        content: "✖";
+        cursor: pointer;
+    }    
+     /*----- End -  Appear Enhancement 2017 R2 - BrightCove Sean Harper Video embedd -----*/
+     
+</style>
+
+<!--  help section -->
+<table width="100%" id="helpsection">
+<tr>
+    <td align="left" width="50%" style="font-style:italic;font-size:12px;padding-left: 41px;padding-right: 13px;">Select "Invitation","Review", or "Approve" to view your remaining tasks.</td>
+    <!-- Appear Enhancement 2017 R2 - BrightCove Sean Harper Video embedd-->
+    <!-- <td align="right" width="50%" style="padding-right: 13px;" >Help&nbsp;:&nbsp;<a href="http://appear-resources.amgenwebservices.com/pdf/Amgen_Author_Collaboration_Website_Quick_Reference_Guide.pdf" target="_blank">Quick Reference Guide</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://appear-resources.amgenwebservices.com" target="_blank">Welcome Video</a>&nbsp;</td>-->
+         <td align="right" width="50%" style="padding-right: 13px;" >Help&nbsp;:&nbsp;<a href="http://appear-resources.amgenwebservices.com/pdf/Amgen_Author_Collaboration_Website_Quick_Reference_Guide.pdf" target="_blank">Quick Reference Guide</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://appear-resources.amgenwebservices.com" target="_blank">Welcome Video</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="\" onclick="viewVideo(); return false;">Sean Harper Video</a></td>
+</tr>
+</table>
+<!-- Start - Appear Enhancement 2017 R2 - BrightCove Sean Harper Video embedd -->
+        <div class="viewVideoModalOverlay" style="display: none; position:fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px;  z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> 
+     <div class="viewVideoModal" style="display: none; position:fixed; _position: absolute; top: 10em; _top:expression(eval(document.body.scrollTop)+20); left: 30em;height:405px; width:720px; z-index: 9997; background: rgba(255, 255, 255, 0); border-radius: .5em; overflow: none;"> 
+         
+            <button id="pauseVid3" class="closeVid" style="float:right;"/>
+            <video 
+            id="Vid3" 
+            style="left: 0px; top: 0px; right: 0px;width:46em;height:405px; bottom: 0px; position:relative;border-radius: 0.5em;"
+            controls="controls"
+            class="video-js"
+            data-embed="default" 
+            data-player="rkbbY3S0JW" 
+            data-account="4229317793001" 
+            data-video-id="5436754823001"
+            >
+            <script src="//players.brightcove.net/4229317793001/rkbbY3S0JW_default/index.min.js" ></script>
+            </video>      
+      </div>
+
+     <script type="text/javascript">
+     function viewVideo(){
+        jQuery('.viewVideoModalOverlay').fadeToggle();
+        jQuery('.viewVideoModal').delay(20).fadeToggle(); 
+     }
+      
+     $('[id$=pauseVid3]').on('click', function(e) {
+        var bcPlayerID = videojs('Vid3');
+        bcPlayerID.pause();
+        jQuery('.viewVideoModalOverlay').fadeToggle();
+        jQuery('.viewVideoModal').fadeToggle();
+        
+    });    
+    </script>
+<!-- End - Appear Enhancement 2017 R2 - BrightCove Sean Harper Video embedd -->
+<!--  tab header -->
+<div class="tabs">
+    <apex:form id="tabForm">
+                <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.RemoteSetActiveOpr}" immediate="true" name="SetActiveOpr" rerender="tabForm" >                   
+                     <apex:param name="activeOpr" assignTo="{!ActivePub.PubAuthorNoSharing.activeOpr}" value="" />
+                </apex:actionFunction>
+    </apex:form>            
+    <ul class="tab-links">
+      <li><a  id="refInvite"  href="Invite" class="ui-btn-active" data-ajax="false">Invitation [{!ActivePub.PubAuthorNoSharing.MyAuthorPubInviteListCount}]</a></li>
+      <!-- Commented by Sesha based on Business Feedback (8/19/2014)
+      <li><a id="refUpdate" href="Update" data-ajax="false">Review [{!ActivePub.PubAuthorNoSharing.MyAuthorPubReviewListCount}{!IF(ActivePub.PubAuthorNoSharing.MyAuthorPubPendingAccessListCount >0, "/" + TEXT(ActivePub.PubAuthorNoSharing.MyAuthorPubReviewListCount+ActivePub.PubAuthorNoSharing.MyAuthorPubPendingAccessListCount),  "")}]</a></li>
+       -->
+       <li><a id="refUpdate" href="Update" data-ajax="false">Review [{!ActivePub.PubAuthorNoSharing.MyAuthorPubReviewListCount}]</a></li>
+      <li><a  id="refApprove"  href="Approve" data-ajax="false">Approve [{!ActivePub.PubAuthorNoSharing.MyAuthorPubApproveListCount}]</a></li>
+    </ul>
+</div>
+
+<apex:pageMessages />   
+
+<!--  tab contents -->
+<div class="actiontab-content">
+
+  <div id="Invite" class="actiontab active">
+    <apex:repeat var="myPubAuthor" value="{!ActivePub.PubAuthorNoSharing.MyAuthorPubInviteList}">
+    <h4><span style="{!IF(myPubAuthor.Publication__c==PublicationId,'background-color: yellow;font-weight: bold;font-size:13px', '')}">{!myPubAuthor.Publication__r.Publication_Title__c}</span></h4>
+      <ul>
+      <!--Appear Enhancement R2, style updated-->
+      <li> Publication Id:{!myPubAuthor.Publication__r.Name}</li>
+      <li>Current Target: {!IF(myPubAuthor.Publication__r.Current_Target__c==null, 'TBD', myPubAuthor.Publication__r.Current_Target__c)}</li>
+      <li>Publication Type: {!myPubAuthor.Publication__r.Publication_Type__c}</li>
+      <li>Invitation Due Date: 
+             <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" >
+                <apex:param value="{!myPubAuthor.By_Date_Time__c}" /> 
+            </apex:outputText>
+      </li>
+            <!--button onclick="jQuery(document.getElementById(PubAuthorIdForInviteAccept)).val('{!myPubAuthor.Id}');viewInviteDisclaimer();return false;" style="font-size: 1.2em; margin-left: 18px;">Accept Invitation</button-->
+            <button onclick="jQuery(document.getElementById(PubAuthorIdForInviteAccept)).val('{!myPubAuthor.Id}');viewInviteDisclaimer();return false;" style="font-size: 1.2em; margin-left: 18px;">View Provision and Accept</button> <!-- Appear Enhancement R3: Changing button label to View Provisions and Accept from Accept Invitation -->
+    </ul>
+    </apex:repeat>
+
+  </div>
+  
+    
+    
+    <div id="Update" class="actiontab">
+
+      <apex:form id="updateForm">
+      <apex:actionFunction name="DeleteComment" reRender="myPubDTOBlock" immediate="true" status="loadingUpdateBlock" action="{!ActivePub.PubAuthorNoSharing.DeleteComment}">
+          <apex:param name="CommentId" assignTo="{!ActivePub.PubAuthorNoSharing.CommentIdForDelete}" value="" />
+          <apex:param name="AuthorName" assignTo="{!ActivePub.PubAuthorNoSharing.CommentAuthorNameForDelete}" value="" />
+          <apex:param name="AuthorStatus" assignTo="{!ActivePub.PubAuthorNoSharing.CommentAuthorStatusForDelete}" value="" />
+       </apex:actionFunction>
+
+      <apex:pageBlock mode="maindetail" id="commentBlock" > 
+                <apex:actionStatus id="loadingUpdateBlock" 
+                startText="Refreshing Content...      "
+                stopText=""/>
+    
+    <b>{!IF( ActivePub.PubAuthorNoSharing.MyAuthorPubPendingAccessListCount>0, 
+      "Thank you for accepting the invitation for the publication(s) listed below. You will be notified via email once a draft is ready for review.", "") 
+    }</b>
+    <apex:repeat var="myPubAuthor" value="{!ActivePub.PubAuthorNoSharing.MyAuthorPubPendingAccessList}">
+      <ul  >
+      <li>{!myPubAuthor.Publication__r.Publication_Title__c}</li>
+    </ul>
+    </apex:repeat>
+    <b>{!IF( ActivePub.PubAuthorNoSharing.MyAuthorPubReviewListCount>0 && ActivePub.PubAuthorNoSharing.MyAuthorPubReviewListCount>0 , 
+      "The following publication drafts are available to review:", "") 
+    }</b>
+
+      <apex:repeat id="repeatPubDTO" var="myPubDTO" value="{!ActivePub.PubAuthorNoSharing.PubAuthorPubsDraftsAttachments}">
+        <apex:pageBlockSection id="myPubDTOBlock" collapsible="true" columns="1" title="Title: {!myPubDTO.pubTitle}">
+        <div style="font-style:italic;">Note: To provide feedback on the document, click the file name OR click "add comments" button to provide general comments</div>
+        <!-- Appear Enhancement R3: Removed the "View Author Provision" button -->
+        <!--button style="float: right;" type="button"  onclick="viewInviteProvision();SetPubAuthorIdForViewProvision('{!myPubDTO.pubAuthorId}');return false;">View Author Provisions</button-->
+        <ul data-role="listview" data-theme="c" data-inset="false">
+          <apex:repeat id="repeatPubDraftDTO" var="myPubDraftDTO" value="{!myPubDTO.PubAuthorPubDrafts}">
+           <apex:repeat id="repeatAttachmentDTO" var="myPubAttachmentDTO" value="{!myPubDraftDTO.PubAuthorPubDraftAttachments}">
+
+              <apex:pageBlockSectionItem >
+              <a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!myPubAttachmentDTO.ContentId}" target="_blank" style="white-space:normal;color: #00f; text-decoration: underline"  >File: {!myPubAttachmentDTO.AttachmentName}</a> <br></br>
+              <button type="button" onclick="jQuery(document.getElementById(CommentContextId)).val('{!myPubAttachmentDTO.AttachmentDetailId}');viewCommentForm();return false;">Add Comments</button>
+                <apex:pageBlockTable id="commentTable" value="{!myPubAttachmentDTO.CommentList}" var="myPubAttachmentComment" rendered="{!IF(myPubAttachmentDTO.CommentListSize==0, false, true)}">
+                    <apex:column width="10%" headerValue="Date" value="{!myPubAttachmentComment.CommentDateText}"/>
+                    <apex:column width="15%" headerValue="Contact Name" value="{!myPubAttachmentComment.CommentAuthor}"/>
+                    <apex:column width="75%" headerValue="Comment" value="{!myPubAttachmentComment.Comment}"/>
+                    <apex:column >
+
+                    <button type="button" onclick="DeleteComment('{!myPubAttachmentComment.commentid}','{!myPubAttachmentComment.CommentAuthor}', '{!myPubDTO.authorStatus}'); return false;">Delete</button>
+                    </apex:column>
+                </apex:pageBlockTable>
+                </apex:pageBlockSectionItem>
+
+           </apex:repeat>
+          </apex:repeat>
+        </ul>
+        </apex:pageBlockSection>
+      </apex:repeat> 
+        </apex:pageBlock>
+          
+      </apex:form>
+    </div>
+    
+    
+    <div id="Approve" class="actiontab">
+
+       <apex:repeat var="myPubAuthor" value="{!ActivePub.PubAuthorNoSharing.MyAuthorPubApproveList}">
+        <h4>{!myPubAuthor.Publication__r.Publication_Title__c}</h4>
+        <ul style="list-style: none; margin-left:0px;padding-left:0px"  >
+          <li>Publication Id: {!myPubAuthor.Publication__r.Name}&nbsp;        
+             <a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!ActivePub.PubAuthorNoSharing.ApprovePubAuthorAttachmentMap[myPubAuthor.Publication__c]}" target="_blank">(click to download Final Draft)</a>
+          </li>
+          <li>Current Target:{!IF(myPubAuthor.Publication__r.Current_Target__c==null, 'TBD', myPubAuthor.Publication__r.Current_Target__c)}</li>
+          <li>Publication Type: {!myPubAuthor.Publication__r.Publication_Type__c}</li>
+          <li>Approval Due Date: 
+                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" >
+                   <apex:param value="{!myPubAuthor.Please_respond_by_For_Approval__c}" />
+               </apex:outputText>
+          </li>
+             <!--button type="button" onclick="SetApprovePubForAttachmentId('{!myPubAuthor.Publication__c}'); jQuery('#approvePubName').text('{!myPubAuthor.Publication__r.name}');  jQuery('#approvePubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');  jQuery('#approvePubCurentTarget').text('{!myPubAuthor.Publication__r.Current_Target__c}'); jQuery(document.getElementById(pubAuthorIdForApprove)).val('{!myPubAuthor.Id}'); viewApproveForm();return false;" style="font-size: 1.2em; margin-left: 18px;" >Approve Final Draft</button>-->  
+             <!--Appear Enhancement R3 Approve button change -->
+             <!-- Appear Enhancement Backlog-R1:2017 - Special Character Issue, JSENCODE added while matching Target-->
+             <!--<button type="button" onclick="SetApprovePubForAttachmentId('{!myPubAuthor.Publication__c}'); jQuery('#approvePubName').text('{!myPubAuthor.Publication__r.name}');  jQuery('#approvePubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');  jQuery('#approvePubCurentTarget').text('{!myPubAuthor.Publication__r.Current_Target__c}'); jQuery(document.getElementById(pubAuthorIdForApprove)).val('{!myPubAuthor.Id}'); jQuery(document.getElementById(urlPubId)).val('{!myPubAuthor.Publication__c}');viewApproveForm();return false;" style="font-size: 1.2em; margin-left: 18px;" >Approve Final Draft</button>-->
+             <button type="button" onclick="SetApprovePubForAttachmentId('{!myPubAuthor.Publication__c}'); jQuery('#approvePubName').text('{!myPubAuthor.Publication__r.name}');  jQuery('#approvePubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');  jQuery('#approvePubCurentTarget').text('{!JSENCODE(myPubAuthor.Publication__r.Current_Target__c)}'); jQuery(document.getElementById(pubAuthorIdForApprove)).val('{!myPubAuthor.Id}'); jQuery(document.getElementById(urlPubId)).val('{!myPubAuthor.Publication__c}');viewApproveForm();return false;" style="font-size: 1.2em; margin-left: 18px;" >Approve Final Draft</button>    
+             &nbsp; 
+    		<!--Appear Enhancement R3 Approve button change -->
+             <!-- Appear Enhancement Backlog-R1:2017 - Special Character Issue, JSENCODE added while matching Target--> 
+            <!--button type="button" onclick="SetRejectPubForAttachmentId('{!myPubAuthor.Publication__c}'); jQuery('#rejectPubName').text('{!myPubAuthor.Publication__r.name}'); jQuery('#rejectPubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');  jQuery('#rejectPubCurentTarget').text('{!myPubAuthor.Publication__r.Current_Target__c}'); jQuery(document.getElementById(pubAuthorIdForReject)).val('{!myPubAuthor.Id}'); jQuery(document.getElementById(rejectPubId)).val('{!myPubAuthor.Publication__c}'); viewRejectForm();return false;" style="font-size: 1.2em; margin-left: 18px;">Decline to Approve</button-->
+            <button type="button" onclick="SetRejectPubForAttachmentId('{!myPubAuthor.Publication__c}'); jQuery('#rejectPubName').text('{!myPubAuthor.Publication__r.name}'); jQuery('#rejectPubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');  jQuery('#rejectPubCurentTarget').text('{!JSENCODE(myPubAuthor.Publication__r.Current_Target__c)}'); jQuery(document.getElementById(pubAuthorIdForReject)).val('{!myPubAuthor.Id}'); jQuery(document.getElementById(rejectPubId)).val('{!myPubAuthor.Publication__c}'); viewRejectForm();return false;" style="font-size: 1.2em; margin-left: 18px;">Decline to Approve</button>
+
+        </ul>
+
+      </apex:repeat> 
+    </div>
+  
+</div>
+
+    <div  id="modalBlock">
+
+
+        <div class="inviteProvisionModalOverlay" 
+         onclick="jQuery(this).fadeToggle();jQuery('.inviteProvisionModal').fadeToggle();return false;" 
+         style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />
+         <div class="inviteProvisionModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 5%; bottom: 5%; width: 85%; min-width: 600px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+            <p>
+    
+                <apex:form id="viewProvisionForm">                                
+
+                <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.RemoteSetPubAuthorIdForViewProvision}" status="loadingProvision" immediate="true" name="SetPubAuthorIdForViewProvision" rerender="viewProvisionForm" >                   
+                     <apex:param name="pubAuthorIdForViewProvision" assignTo="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForViewProvision}" value="" />
+                </apex:actionFunction>
+
+                <apex:actionStatus id="loadingProvision" 
+                startText="Refreshing Content...      "
+                stopText=""/>
+                                    
+                <apex:outputText id="provisionText" style="width:800px;height:450px;" value="{!ActivePub.PubAuthorNoSharing.pubAuthorViewProvision}" escape="false"/>
+                <br></br>
+                <input type="checkbox" name="checkbox-invacpt-0" id="checkbox-invacpt-0" checked="true" disabled="disabled"/>
+                <label for="checkbox-invacpt-0"><b>Yes, I have read the provision document and agree with the conditions</b></label>
+                <br></br>
+                <apex:commandButton value=" Close " rendered="true" onclick="parent.location.reload();" /> 
+                </apex:form>                                
+            </p>    
+        </div>
+
+        <div class="commentModalOverlay" 
+          onclick="jQuery(this).fadeToggle();jQuery('.commentModal').fadeToggle();return false;" 
+          style="display: none; position:fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px;  z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> 
+        <div class="commentModal" style="display: none; position:fixed; _position: absolute; top: 5%;_top:expression(eval(document.body.scrollTop)+20); left: 20%; width: 60%; min-width: 450px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: hidden;"> 
+                <div align="center">
+                 <apex:form id="newCommentForm" >
+                   Please enter your comment: <br></br>
+                   <apex:inputTextarea value="{!ActivePub.PubAuthorNoSharing.NewDraftComment.Body}"  rows="3" cols="80"  />
+                    <apex:inputHidden id="CommentContextId" value="{!ActivePub.PubAuthorNoSharing.NewDraftComment.ParentId}"  />
+                     <script type="text/javascript">
+                         var CommentContextId = '{!$Component.newCommentForm.CommentContextId}';
+                     </script>
+                     <br></br>
+                   <apex:commandButton action="{!ActivePub.PubAuthorNoSharing.AddDraftComment}" value="Save" id="saveCommentButton"/>
+                    <apex:commandButton value="Cancel" rendered="true"  onclick="jQuery('.commentModalOverlay').fadeToggle();jQuery('.commentModal').fadeToggle();return false;"  /> 
+                </apex:form>
+                </div>
+        </div>              
+
+        <div class="approveModalOverlay" 
+          onclick="jQuery(this).fadeToggle();jQuery('.approveModal').fadeToggle();return false;" 
+         style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> 
+        <div class="approveModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 5%; bottom: 5%; width: 85%; min-width: 600px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" > 
+
+      <apex:form id="approvePubForm" >
+          <div style="padding:20px 20px;">
+        
+
+                <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.remoteSetPubIdForAttachment}" status="loadingApproveStatus" immediate="true" name="SetApprovePubForAttachmentId" rerender="approveURL" >                   
+                     <apex:param name="pubAttachmentId" assignTo="{!ActivePub.PubAuthorNoSharing.pubIdForAttachment}" value="" />
+                </apex:actionFunction>
+
+                <apex:actionStatus id="loadingApproveStatus" 
+                startText="Refreshing Content...      "
+                stopText=""/>   
+                <br></br>
+
+        <b id="approvePubName"></b> 
+        <apex:outputPanel id="approveURL"> 
+        <span class="AttachmentLink">&nbsp;       
+        <a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!ActivePub.PubAuthorNoSharing.currentPubAuthorAttachmentId}" target="_blank">(click to download Final Draft)</a>
+        </span>
+        </apex:outputPanel>        
+        
+        <br></br>          
+              <ol>
+              <li>Do you fulfill ICMJE authorship criteria for this publication?</li>                
+               <li>To the best of your knowledge, have you complied with disclosure requirements relating to your affiliation with any
+               healthcare institutions, medical committees, and other medical or scientific organizations? These disclosures include your relationship with 
+               Amgen and all financial and other potential conflicts off interests that might bias your work.          
+               </li>
+              </ol>
+        <br></br>
+        
+        <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="jQuery('#draftApproveButton').fadeToggle();"></input>
+        <label for="checkbox-mini-0">Yes. I have downloaded and reviewed the Final Draft document. I hereby <b>Approve</b>
+        the final draft of <b id="approvePubType">TBD</b> for submission to <b id="approvePubCurentTarget">TBD</b>
+        </label>
+        <br></br>
+        
+                   <apex:actionFunction name="approvePubSF1"  action="{!ActivePub.PubAuthorNoSharing.approvePubSF1}"/>
+                    
+                   <button id="draftApproveButton" style="display: none" data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="approvePubSF1(); return false;">Approve</button>
+                   <button  onclick="jQuery(.approveModalOverlay).fadeToggle();jQuery('.approveModal').fadeToggle();return false;"  >Cancel</button>
+                  </div>
+                  <apex:inputHidden id="pubAuthorIdForApprove" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForApprove}"  />
+				  <apex:inputHidden id="urlPubId" value="{!ActivePub.PubAuthorNoSharing.urlPubId}"  /> <!-- Appear Enhancement R3 : pubstatus Actual Date population -->
+                   <script type="text/javascript">
+                        var pubAuthorIdForApprove = '{!$Component.approvePubForm.pubAuthorIdForApprove}';
+						var urlPubId = '{!$Component.approvePubForm.urlPubId}'; <!-- Appear Enhancement R3 : pubstatus Actual Date population -->
+                    </script>
+              </apex:form>
+        </div>              
+
+
+        <div class="rejectModalOverlay" 
+          onclick="jQuery(this).fadeToggle();jQuery('.rejectModal').fadeToggle();return false;" 
+         style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> 
+        <div class="rejectModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 5%; bottom: 5%; width: 85%; min-width: 600px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" > 
+
+              <apex:form id="rejectForm" >
+
+                <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.remoteSetPubIdForAttachment}" status="loadingRejectStatus" immediate="true" name="SetRejectPubForAttachmentId" rerender="rejectURL" >                   
+                     <apex:param name="pubAttachmentId" assignTo="{!ActivePub.PubAuthorNoSharing.pubIdForAttachment}" value="" />
+                </apex:actionFunction>
+
+                <apex:actionStatus id="loadingRejectStatus" 
+                startText="Refreshing Content...      "
+                stopText=""/>   
+                
+                <b id="rejectPubName"></b> 
+                <apex:outputPanel id="rejectURL"> 
+                <span class="AttachmentLink">&nbsp;       
+                <a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!ActivePub.PubAuthorNoSharing.currentPubAuthorAttachmentId}" target="_blank">(click to download Final Draft)</a>
+                </span>
+                </apex:outputPanel>        
+                <br></br>
+                
+                <div style="padding:25px 25px;text-align:center">
+                      <h3>Please enter reason for declining to approve</h3><br></br>
+                      <apex:inputTextarea id="newRejectApprovalReason" value="{!ActivePub.PubAuthorNoSharing.newRejectApprovalReason}"  rows="7" cols="100"  />
+                      <p id="reasonWarning" style="display: none;color:red;">Reason to decline is a required field</p>  
+
+                      <apex:actionFunction name="authorRejectPubSF1"  action="{!ActivePub.PubAuthorNoSharing.authorRejectPubSF1}"/>
+                      <br></br>
+                      <br></br>
+                </div>
+                    <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="jQuery('#draftRejectButton').fadeToggle();"></input>
+                    <label for="checkbox-mini-0">By <b>Declining to Approve</b> you acknowledge that you have reviewed the final Draft 
+                    provided for Author approval. Please provide the reason for declining the Author Approval request of <b id="rejectPubType">TBD</b> for submission to <b id="rejectPubCurentTarget">TBD</b>
+                    </label>
+                    
+                    <br></br>
+                 <div style="padding:25px 25px;text-align:center">   
+                      <button id="draftRejectButton"  style="display: none"  data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="validateRejectApprovalForm(); return false; "  >Decline to Approve</button>
+                      <button  onclick="jQuery(.rejectModalOverlay).fadeToggle();jQuery('.rejectModal').fadeToggle();return false;"  >Cancel</button>
+                 </div>
+
+                    <apex:inputHidden id="pubAuthorIdForReject" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForReject}"  />
+					<apex:inputHidden id="rejectPubId" value="{!ActivePub.PubAuthorNoSharing.rejectPubId}"  /> <!-- Appear Enhancement R3: Auto Populate PubStatus -->
+                   <script type="text/javascript">
+                        var pubAuthorIdForReject = '{!$Component.rejectForm.pubAuthorIdForReject}';
+						var rejectPubId = '{!$Component.rejectForm.rejectPubId}'; <!-- Appear Enhancement R3: Auto Populate PubStatus -->
+                    </script>
+              </apex:form>
+        </div>              
+
+        <div class="inviteDisclaimerModalOverlay" 
+         onclick="jQuery(this).fadeToggle();jQuery('.inviteDisclaimerModal').fadeToggle();return false;" 
+        style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />     
+        <div class="inviteDisclaimerModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 5%; bottom: 5%; width: 85%; min-width: 600px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+
+              <apex:form id="acceptInviteForm" >
+                  <div style="padding:20px 20px;">
+                  
+                  <c:Appear_AuthorInviteProvisionComponent />
+                  
+                  1) Do you agree to participate as an author in accordance with the above provisions? <br></br><br></br>
+                  2) If so, do you understand and agree to fulfill the ICMJE criteria? <br></br><br></br>
+                  3) Do agree to comply with any disclosure requirements relating to your affiliation with any 
+                  health care institutions, medical committees, and other medical or scientific organizations?
+                  These disclosures include your relationship with Amgen and all financial and other potential
+                  conflicts of interest that might bias your work.<br></br><br></br>
+                  
+                    <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="jQuery('#inviteApproveButton').fadeToggle();"></input>
+                    <label for="checkbox-mini-0"><b>Yes, I have read the provision document and accept the conditions</b></label><!--Appear Enhancement 2017 Backlog R3 ::Verbiage Change ::"agree with" replaced with "accept" -->
+                  
+                  <br></br>
+                   <apex:actionFunction name="acceptInviteSF1"  action="{!ActivePub.PubAuthorNoSharing.acceptInviteSF1}"/>
+                    
+                   <button id="inviteApproveButton" style="display: none" data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="acceptInviteSF1(); return false;">Accept</button>
+                   <button  onclick="jQuery(.inviteDisclaimerModalOverlay).fadeToggle();jQuery('.inviteDisclaimerModal').fadeToggle();return false;"  >Cancel</button>
+                
+
+                  </div>
+                  <apex:inputHidden id="PubAuthorIdForInviteAccept" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForInviteAccept}"  />
+                   <script type="text/javascript">
+                        var PubAuthorIdForInviteAccept = '{!$Component.acceptInviteForm.PubAuthorIdForInviteAccept}';
+                    </script>
+              </apex:form>
+
+
+        </div>      
+
+    </div>
+
+    <script type="text/javascript">
+        //This function will make content links relative to the author Portal's authorization URLs if page is within the FPR Portal
+        if ( location.toString().indexOf('PubAuthor') != -1 ) { //is author portal
+            $('.AttachmentLink a').each(function(index) {
+                  $(this).attr('href','{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}'+ $(this).attr('href').substring($(this).attr('href').length-18));
+               });
+           }
+    </script>
+
+
+<script>
+    
+        
+      function validateRejectApprovalForm() {
+            var reasonId = '{!$Component.rejectForm.newRejectApprovalReason}';
+            var reason = jQuery(document.getElementById(reasonId)).val();
+                        
+            if (reason == null || reason == "") {
+                jQuery("#reasonWarning").slideToggle(); 
+                return false;
+            } else {
+                authorRejectPubSF1(); 
+                return false;
+            }
+        }
+
+      function setTabSize(){
+        var numTabs = jQuery(".tabs .tab-links").children().length;
+        var tabWidth = (jQuery(window).width() -100) / numTabs;
+    
+        jQuery( ".tabs .tab-links li" ).each(function( index ) {
+           jQuery(this).width(tabWidth); 
+        });
+    
+        jQuery( ".tabs .tab-links a" ).each(function( index ) {
+           jQuery(this).width(tabWidth - 5); 
+        });            
+      }   
+
+
+      function viewCommentForm(){
+          jQuery('.commentModalOverlay').fadeToggle();
+          jQuery('.commentModal').delay(20).fadeToggle();
+      }   
+
+      function viewApproveForm(){
+          jQuery('.approveModalOverlay').fadeToggle();
+          jQuery('.approveModal').delay(20).fadeToggle();
+      }   
+      
+      function viewRejectForm(){
+          jQuery('.rejectModalOverlay').fadeToggle();
+          jQuery('.rejectModal').delay(20).fadeToggle();
+      }   
+
+       function viewInviteDisclaimer(){
+           jQuery('.inviteDisclaimerModalOverlay').fadeToggle();
+           jQuery('.inviteDisclaimerModal').delay(20).fadeToggle();
+       }
+
+       function viewInviteProvision(){
+           
+           var provisionTextId = '{!$Component.viewProvisionForm.provisionText}';
+           jQuery(document.getElementById(provisionTextId)).val(''); // reset the value       
+           jQuery('.inviteProvisionModalOverlay').fadeToggle();
+           jQuery('.inviteProvisionModal').delay(20).fadeToggle();
+       }
+
+
+    function selectActiveTab(tabName){
+        // Show/Hide Tabs
+        jQuery('.actiontab-content ' + '#'+ tabName).show().siblings().hide();
+        // Change/remove current tab to active
+        jQuery('#ref'+ tabName).parent('li').addClass('active').siblings().removeClass('active');
+    }
+    
+    jQuery( window ).resize(function() {
+        setTabSize();
+    });
+
+
+    jQuery('.tabs .tab-links a').on('click', function(e)  {
+        
+        var currentAttrValue = jQuery(this).attr('href');
+ 
+        // Show/Hide Tabs
+        jQuery('.actiontab-content ' + '#' + currentAttrValue).show().siblings().hide();
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+        
+        SetActiveOpr(currentAttrValue); 
+    });
+    
+    // initi functions 
+
+    var urlParams;  
+    $( document ).ready(function() {
+        $('.headerSearchContainer').hide();
+        var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+        urlParams = {};
+        while (match = search.exec(query))
+           urlParams[decode(match[1])] = decode(match[2]);       
+
+        jQuery('#modalBlock').appendTo('body');
+        setTabSize();   
+        
+        switch(urlParams['activeopr']) {
+        case "invite":
+            selectActiveTab('Invite');
+            break;
+        case "update":
+            selectActiveTab('Update');
+            break;
+        case "approve":
+            selectActiveTab('Approve');
+            break;
+        default:
+                if ({!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} == 0 ) {
+                    selectActiveTab('Invite');
+                } else if ({!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} == 1) {
+                    selectActiveTab('Update');
+                } else if ({!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} == 2) {
+                    selectActiveTab('Approve');
+                }
+        }
+    });
+</script>
+</apex:page>

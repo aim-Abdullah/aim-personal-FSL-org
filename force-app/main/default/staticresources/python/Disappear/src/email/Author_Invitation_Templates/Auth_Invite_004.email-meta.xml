@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>31.0</apiVersion>
+    <available>true</available>
+    <description>Used for Manuscript and Review Articles Author Agreement (Co-Author)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Manuscript and Review Articles Author Agreement (Co-Author)</name>
+    <style>none</style>
+    <subject>Author Invitation for Publication: ,</subject>
+    <type>visualforce</type>
+</EmailTemplate>

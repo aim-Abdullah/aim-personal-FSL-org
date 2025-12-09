@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Acronym__c</fullName>
+        <externalId>false</externalId>
+        <label>Acronym</label>
+        <length>300</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Amgen_Ind__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Amgen Indicator</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Investigator__c</fullName>
+        <externalId>false</externalId>
+        <label>Investigator</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsLogicallyDeleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Expired</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Latest_Study_Status_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Latest Study/Project Status Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Latest_Study_status__c</fullName>
+        <externalId>false</externalId>
+        <label>Latest Study/Project Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accrued</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CSR Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Proposed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Legacy_Internal_Contacts__c</fullName>
+        <externalId>false</externalId>
+        <label>Legacy Internal Contacts</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NCT__c</fullName>
+        <externalId>false</externalId>
+        <label>NCT#</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>N__c</fullName>
+        <description>Number of subjects</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of subjects</inlineHelpText>
+        <label>N</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PASS__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>PASS field/flag for tracking.</description>
+        <externalId>false</externalId>
+        <label>PASS</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Posted_on_ClinTrials__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Posted on Clinical Trials</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Project_Sponsor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Department that sponsor this Project</description>
+        <externalId>false</externalId>
+        <label>Project Sponsor</label>
+        <referenceTo>Department__c</referenceTo>
+        <relationshipName>Studies</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Published_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Published Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SiebelRowId__c</fullName>
+        <externalId>true</externalId>
+        <label>SiebelRowId</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>StudySponsor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sponsor Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Studies</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Study_Phase__c</fullName>
+        <externalId>false</externalId>
+        <label>Study/Project Phase</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Investigator Initiated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 0</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 1a</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 1b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 1b/2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 2/3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 3b</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phase 1/2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Study_TA__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Study/Project TA</label>
+        <referenceTo>TherapeuticArea__c</referenceTo>
+        <relationshipLabel>Studies/Projects</relationshipLabel>
+        <relationshipName>Studies</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Study_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Study/Project Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Analysis of existing Data</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chart Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clinical Trial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cross-sectional</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Epidemiology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow-up Study</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health Econ Study</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In-Vitro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MUE/DUE Study</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PK-PD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Registry Study</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Registry/Observational</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Study/Project</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Acronym__c</columns>
+        <columns>Title__c</columns>
+        <columns>Study_Type__c</columns>
+        <columns>Published_Date__c</columns>
+        <columns>Study_Phase__c</columns>
+        <columns>Project_Sponsor__c</columns>
+        <columns>IsLogicallyDeleted__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Study_search</fullName>
+        <columns>NAME</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Acronym__c</columns>
+        <columns>Title__c</columns>
+        <columns>Study_Type__c</columns>
+        <columns>Published_Date__c</columns>
+        <columns>Study_Phase__c</columns>
+        <columns>Project_Sponsor__c</columns>
+        <columns>IsLogicallyDeleted__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>contains</operation>
+            <value>2015</value>
+        </filters>
+        <label>Study # search</label>
+    </listViews>
+    <nameField>
+        <label>Study/Project #</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Studies/Projects</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>LegacyStudyRecord</fullName>
+        <active>true</active>
+        <description>Used for legacy data migration from Siebel</description>
+        <label>LegacyStudyRecord</label>
+        <picklistValues>
+            <picklist>Latest_Study_status__c</picklist>
+            <values>
+                <fullName>Accrued</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CSR Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Proposed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Study_Phase__c</picklist>
+            <values>
+                <fullName>Investigator Initiated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1%2F2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1a</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1b</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1b%2F2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 2%2F3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 3b</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Study_Type__c</picklist>
+            <values>
+                <fullName>Analysis of existing Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chart Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinical Trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cross-sectional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Epidemiology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow-up Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Econ Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In-Vitro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MUE%2FDUE Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PK-PD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registry Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registry%2FObservational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Project</fullName>
+        <active>true</active>
+        <label>Project</label>
+        <picklistValues>
+            <picklist>Latest_Study_status__c</picklist>
+            <values>
+                <fullName>Accrued</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CSR Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Proposed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Study_Phase__c</picklist>
+            <values>
+                <fullName>Investigator Initiated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1%2F2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1a</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1b</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1b%2F2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 2%2F3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 3b</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Study_Type__c</picklist>
+            <values>
+                <fullName>Analysis of existing Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chart Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinical Trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cross-sectional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Epidemiology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow-up Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Econ Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In-Vitro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MUE%2FDUE Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PK-PD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registry Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registry%2FObservational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Study</fullName>
+        <active>true</active>
+        <label>Study</label>
+        <picklistValues>
+            <picklist>Latest_Study_status__c</picklist>
+            <values>
+                <fullName>Accrued</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CSR Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Proposed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Study_Phase__c</picklist>
+            <values>
+                <fullName>Investigator Initiated</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 0</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1%2F2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1a</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1b</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 1b%2F2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 2%2F3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 3b</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Phase 4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Study_Type__c</picklist>
+            <values>
+                <fullName>Analysis of existing Data</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chart Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinical Trial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cross-sectional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Epidemiology</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow-up Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health Econ Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In-Vitro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MUE%2FDUE Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PK-PD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PreClinical</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registry Study</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Registry%2FObservational</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>RECORDTYPE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Title__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Acronym__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Study_Phase__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Latest_Study_status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Published_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Study_Type__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>RECORDTYPE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Title__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Acronym__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Study_Phase__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Latest_Study_status__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Published_Date__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Study_Type__c</lookupDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>RECORDTYPE</searchFilterFields>
+        <searchFilterFields>Title__c</searchFilterFields>
+        <searchFilterFields>Study_Phase__c</searchFilterFields>
+        <searchFilterFields>Latest_Study_status__c</searchFilterFields>
+        <searchFilterFields>Published_Date__c</searchFilterFields>
+        <searchFilterFields>Study_Type__c</searchFilterFields>
+        <searchFilterFields>SiebelRowId__c</searchFilterFields>
+        <searchFilterFields>Investigator__c</searchFilterFields>
+        <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Title__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Acronym__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Study_Phase__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Latest_Study_status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Published_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Study_Type__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

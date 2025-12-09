@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Review Cycle Has Been Terminated, Email for Notified Users of Original Distribution List</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Review cycle Terminated - Original</name>
+    <style>none</style>
+    <subject>IMPORTANT: The Current FPR cycle of FPR {!Publication__c.Name} has been Terminated</subject>
+    <textOnly>Do not reply to this email message.
+
+The current FPR cycle of FPR {!Publication__c.Name} has been terminated. You have received this email for notification purposes only. No action is required from you.
+
+Thank you,
+FPR System</textOnly>
+    <type>custom</type>
+</EmailTemplate>

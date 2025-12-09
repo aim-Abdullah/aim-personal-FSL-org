@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>30.0</apiVersion>
+    <available>true</available>
+    <description>Template for sending emails to the Authors during &quot;Draft - Share with Authors&quot; attachment upload by an Amgen Core User</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Draft Share Email</name>
+    <style>none</style>
+    <subject>Author Invitation for Publication: ,</subject>
+    <type>visualforce</type>
+</EmailTemplate>

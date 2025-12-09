@@ -1,0 +1,1984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Publication</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Publication</value>
+    </caseValues>
+    <fields>
+        <label><!-- Add First Author --></label>
+        <name>Add_First_Author__c</name>
+    </fields>
+    <fields>
+        <help><!-- If the target is not found using the Target button on the Details page, then enter the target in this field by clicking the Edit button on the top. --></help>
+        <label><!-- Target Not Found --></label>
+        <name>Add_Meeting_Journal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Add Products --></label>
+        <name>Add_Products__c</name>
+    </fields>
+    <fields>
+        <label><!-- Add Spon Team Members --></label>
+        <name>Add_Spon_Team_Members__c</name>
+    </fields>
+    <fields>
+        <label><!-- AdditionalStudyNumbers --></label>
+        <name>AdditionalStudyNumbers__c</name>
+    </fields>
+    <fields>
+        <label><!-- Analysis Description --></label>
+        <name>Analysis_Desc__c</name>
+        <picklistValues>
+            <masterLabel>Adhoc</masterLabel>
+            <translation><!-- Adhoc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Final</masterLabel>
+            <translation><!-- Final --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Interim</masterLabel>
+            <translation><!-- Interim --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Subgroup</masterLabel>
+            <translation><!-- Subgroup --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Analysis Type --></label>
+        <name>Analysis_Type__c</name>
+        <picklistValues>
+            <masterLabel>Bio-Markers</masterLabel>
+            <translation><!-- Bio-Markers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Demographics</masterLabel>
+            <translation><!-- Demographics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Economic Models</masterLabel>
+            <translation><!-- Economic Models --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Efficacy</masterLabel>
+            <translation><!-- Efficacy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Epidemiology</masterLabel>
+            <translation><!-- Epidemiology --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Immune Markers</masterLabel>
+            <translation><!-- Immune Markers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Long-term Safety and Efficacy</masterLabel>
+            <translation><!-- Long-term Safety and Efficacy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mechanism of Action</masterLabel>
+            <translation><!-- Mechanism of Action --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Outcomes</masterLabel>
+            <translation><!-- Outcomes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pharmacodynamics</masterLabel>
+            <translation><!-- Pharmacodynamics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pharmacokinetics</masterLabel>
+            <translation><!-- Pharmacokinetics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Safety</masterLabel>
+            <translation><!-- Safety --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Toxicology</masterLabel>
+            <translation><!-- Toxicology --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Assigned to FPR Coordinator --></label>
+        <name>Assigned_FPRC__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Authors Not Found --></label>
+        <name>Authors_Not_Found__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authors --></label>
+        <name>Authors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Category --></label>
+        <name>Category__c</name>
+        <picklistValues>
+            <masterLabel>PVC</masterLabel>
+            <translation><!-- PVC --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Please include the FULL citation from PubMed: Once the publication is located at http://www.ncbi.nlm.nih.gov/pubmed/, click &apos;send to&apos; &gt; &apos;file&apos; &gt; and select &apos;summary (text)&apos;.  Click &apos;open&apos; to copy and paste the citation from the clipboard --></help>
+        <label><!-- Citation --></label>
+        <name>Citation__c</name>
+    </fields>
+    <fields>
+        <help><!-- Comments provided by author(s) collaborated in this publication --></help>
+        <label><!-- Comments by Author(s) --></label>
+        <name>CommentsByAuthors__c</name>
+    </fields>
+    <fields>
+        <help><!-- Comments for authors collaborated in this publication --></help>
+        <label><!-- Comments for all Author(s) --></label>
+        <name>CommentsForAllAuthors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments for FPR Reviewers --></label>
+        <name>Comments_For_Approvers__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments for FPR Coordinator --></label>
+        <name>Comments_For_Coordinator__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cost Ctr# --></label>
+        <name>Cost_Ctr__c</name>
+    </fields>
+    <fields>
+        <help><!-- Country is required if SubGroup selected is LACAN, JAPAC, EEMEA for &apos;Global Development&apos; Data Source --></help>
+        <label><!-- Country Link --></label>
+        <name>Country__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Country is required if SubGroup selected is Global Dev – Europe, Global Dev – Intercont,Global Dev – JAPAC,Global Dev – US for &apos;Development&apos; Data Source --></help>
+        <label><!-- Country --></label>
+        <name>Country_pick__c</name>
+        <picklistValues>
+            <masterLabel>Albania</masterLabel>
+            <translation><!-- Albania --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Algeria</masterLabel>
+            <translation><!-- Algeria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Argentina</masterLabel>
+            <translation><!-- Argentina --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Armenia</masterLabel>
+            <translation><!-- Armenia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Australia</masterLabel>
+            <translation><!-- Australia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Austria</masterLabel>
+            <translation><!-- Austria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Azerbaijan</masterLabel>
+            <translation><!-- Azerbaijan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bahrain</masterLabel>
+            <translation><!-- Bahrain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Balkans</masterLabel>
+            <translation><!-- Balkans --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bangladesh</masterLabel>
+            <translation><!-- Bangladesh --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Belarus</masterLabel>
+            <translation><!-- Belarus --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Belgium</masterLabel>
+            <translation><!-- Belgium --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bosnia &amp; Herzegovina</masterLabel>
+            <translation><!-- Bosnia &amp; Herzegovina --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brazil</masterLabel>
+            <translation><!-- Brazil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brunei</masterLabel>
+            <translation><!-- Brunei --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bulgaria</masterLabel>
+            <translation><!-- Bulgaria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cambodia</masterLabel>
+            <translation><!-- Cambodia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Canada</masterLabel>
+            <translation><!-- Canada --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Central And Eastern Europe (CEE)</masterLabel>
+            <translation><!-- Central And Eastern Europe (CEE) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chile</masterLabel>
+            <translation><!-- Chile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>China</masterLabel>
+            <translation><!-- China --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Colombia</masterLabel>
+            <translation><!-- Colombia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Costa Rica</masterLabel>
+            <translation><!-- Costa Rica --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Croatia</masterLabel>
+            <translation><!-- Croatia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cyprus</masterLabel>
+            <translation><!-- Cyprus --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Czech Republic</masterLabel>
+            <translation><!-- Czech Republic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Denmark</masterLabel>
+            <translation><!-- Denmark --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dominican Republic</masterLabel>
+            <translation><!-- Dominican Republic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ecuador</masterLabel>
+            <translation><!-- Ecuador --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Egypt</masterLabel>
+            <translation><!-- Egypt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>El Salvador</masterLabel>
+            <translation><!-- El Salvador --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Estonia</masterLabel>
+            <translation><!-- Estonia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Europe HQ</masterLabel>
+            <translation><!-- Europe HQ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Finland</masterLabel>
+            <translation><!-- Finland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>France</masterLabel>
+            <translation><!-- France --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Georgia</masterLabel>
+            <translation><!-- Georgia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Germany</masterLabel>
+            <translation><!-- Germany --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ghana</masterLabel>
+            <translation><!-- Ghana --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global HQ</masterLabel>
+            <translation><!-- Global HQ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Greece</masterLabel>
+            <translation><!-- Greece --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Guatemala</masterLabel>
+            <translation><!-- Guatemala --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Honduras</masterLabel>
+            <translation><!-- Honduras --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hong Kong</masterLabel>
+            <translation><!-- Hong Kong --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hungary</masterLabel>
+            <translation><!-- Hungary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Iceland</masterLabel>
+            <translation><!-- Iceland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>India</masterLabel>
+            <translation><!-- India --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Indonesia</masterLabel>
+            <translation><!-- Indonesia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Iran</masterLabel>
+            <translation><!-- Iran --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Iraq</masterLabel>
+            <translation><!-- Iraq --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ireland</masterLabel>
+            <translation><!-- Ireland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Israel</masterLabel>
+            <translation><!-- Israel --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Italy</masterLabel>
+            <translation><!-- Italy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jamaica</masterLabel>
+            <translation><!-- Jamaica --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Japan</masterLabel>
+            <translation><!-- Japan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jordan</masterLabel>
+            <translation><!-- Jordan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Kazakhstan</masterLabel>
+            <translation><!-- Kazakhstan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Korea</masterLabel>
+            <translation><!-- Korea --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Kuwait</masterLabel>
+            <translation><!-- Kuwait --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Kyrgyzstan</masterLabel>
+            <translation><!-- Kyrgyzstan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Laos</masterLabel>
+            <translation><!-- Laos --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Latvia</masterLabel>
+            <translation><!-- Latvia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lebanon</masterLabel>
+            <translation><!-- Lebanon --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Libya</masterLabel>
+            <translation><!-- Libya --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lithuania</masterLabel>
+            <translation><!-- Lithuania --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Luxembourg</masterLabel>
+            <translation><!-- Luxembourg --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Macau</masterLabel>
+            <translation><!-- Macau --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Macedonia</masterLabel>
+            <translation><!-- Macedonia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Malaysia</masterLabel>
+            <translation><!-- Malaysia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Malta</masterLabel>
+            <translation><!-- Malta --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mexico</masterLabel>
+            <translation><!-- Mexico --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Moldova</masterLabel>
+            <translation><!-- Moldova --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Montenegro</masterLabel>
+            <translation><!-- Montenegro --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Morocco</masterLabel>
+            <translation><!-- Morocco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Myanmar</masterLabel>
+            <translation><!-- Myanmar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Namibia</masterLabel>
+            <translation><!-- Namibia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nepal</masterLabel>
+            <translation><!-- Nepal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Netherlands</masterLabel>
+            <translation><!-- Netherlands --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Zealand</masterLabel>
+            <translation><!-- New Zealand --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nicaragua</masterLabel>
+            <translation><!-- Nicaragua --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nigeria</masterLabel>
+            <translation><!-- Nigeria --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Norway</masterLabel>
+            <translation><!-- Norway --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oman</masterLabel>
+            <translation><!-- Oman --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pakistan</masterLabel>
+            <translation><!-- Pakistan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Panama</masterLabel>
+            <translation><!-- Panama --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Paraguay</masterLabel>
+            <translation><!-- Paraguay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Peru</masterLabel>
+            <translation><!-- Peru --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Philippines</masterLabel>
+            <translation><!-- Philippines --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Poland</masterLabel>
+            <translation><!-- Poland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Portugal</masterLabel>
+            <translation><!-- Portugal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Qatar</masterLabel>
+            <translation><!-- Qatar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Romania</masterLabel>
+            <translation><!-- Romania --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Russia</masterLabel>
+            <translation><!-- Russia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Saudi Arabia</masterLabel>
+            <translation><!-- Saudi Arabia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Serbia</masterLabel>
+            <translation><!-- Serbia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Singapore</masterLabel>
+            <translation><!-- Singapore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Slovakia</masterLabel>
+            <translation><!-- Slovakia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Slovenia</masterLabel>
+            <translation><!-- Slovenia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>South Africa</masterLabel>
+            <translation><!-- South Africa --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>South Korea</masterLabel>
+            <translation><!-- South Korea --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Spain</masterLabel>
+            <translation><!-- Spain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sri Lanka</masterLabel>
+            <translation><!-- Sri Lanka --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sweden</masterLabel>
+            <translation><!-- Sweden --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switzerland</masterLabel>
+            <translation><!-- Switzerland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Taiwan</masterLabel>
+            <translation><!-- Taiwan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tajikistan</masterLabel>
+            <translation><!-- Tajikistan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thailand</masterLabel>
+            <translation><!-- Thailand --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trinidad/Tobago</masterLabel>
+            <translation><!-- Trinidad/Tobago --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tunisia</masterLabel>
+            <translation><!-- Tunisia --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Turkey</masterLabel>
+            <translation><!-- Turkey --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Turkmenistan</masterLabel>
+            <translation><!-- Turkmenistan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ukraine</masterLabel>
+            <translation><!-- Ukraine --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>United Arab Emirates</masterLabel>
+            <translation><!-- United Arab Emirates --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>United Kingdom</masterLabel>
+            <translation><!-- United Kingdom --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>United States</masterLabel>
+            <translation><!-- United States --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Uruguay</masterLabel>
+            <translation><!-- Uruguay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Uzbekistan</masterLabel>
+            <translation><!-- Uzbekistan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Venezuela</masterLabel>
+            <translation><!-- Venezuela --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vietnam</masterLabel>
+            <translation><!-- Vietnam --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yemen</masterLabel>
+            <translation><!-- Yemen --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Cumulative ME --></label>
+        <name>CumulativeME__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current FPR Cycle Id --></label>
+        <name>Current_FPRCycle_Id_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current FPR Cycle Num --></label>
+        <name>Current_FPR_Cycle_Num__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current FPR Cycle num for sorting --></label>
+        <name>Current_FPR_Cycle_sort_num__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Status Date --></label>
+        <name>Current_Status_Date_FormulaField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Status --></label>
+        <name>Current_Status_FormulaField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Status Id --></label>
+        <name>Current_Status_Id_FormulaField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Submission Cycle Id --></label>
+        <name>Current_SubmissionCycle_Id_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Submission Cycle Num --></label>
+        <name>Current_Submission_Cycle_Num__c</name>
+    </fields>
+    <fields>
+        <help><!-- This field is populated automatically by using the &quot;Target&quot; button on the Details tile.  If the desired target is NOT found using the Target button, please use the &quot;Target Not Found&quot; field below. --></help>
+        <label><!-- Current Target --></label>
+        <name>Current_Target__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Source --></label>
+        <name>DataSourceFormulaField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Source --></label>
+        <name>Data_Source__c</name>
+        <picklistValues>
+            <masterLabel>Development</masterLabel>
+            <translation><!-- Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GRAAS</masterLabel>
+            <translation><!-- GRAAS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Operations</masterLabel>
+            <translation><!-- Operations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research</masterLabel>
+            <translation><!-- Research --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Date Expected By --></label>
+        <name>Date_Expected_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Days to FPR Due Date --></label>
+        <name>Days_to_FPR_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Department --></label>
+        <name>Department__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Electron Copy Filename --></label>
+        <name>Electron_Copy_Filename__c</name>
+    </fields>
+    <fields>
+        <label><!-- Execution Notes Last Mod --></label>
+        <name>Execution_Notes_Last_Mod__c</name>
+    </fields>
+    <fields>
+        <label><!-- Execution Notes --></label>
+        <name>Execution_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- FPR CurrentStatus Id --></label>
+        <name>FPR_CurrentStatus_Id__c</name>
+        <relationshipLabel><!-- Publication - FPR Status --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- As best practice, select an FPR due date that is more than 10 business days from today. If this is a rush request, provide business justification in the Comments for FPR Coordinator section and we will try to facilitate your request. --></help>
+        <label><!-- FPR Due Date --></label>
+        <name>FPR_Due_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- FPR Submitter --></label>
+        <name>FPR_Submitter__c</name>
+        <relationshipLabel><!-- Publication (FPR Submitter) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- FPR Submitter_text --></label>
+        <name>FPR_Submitter_text__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Author --></label>
+        <name>First_Author__c</name>
+        <relationshipLabel><!-- Publication (First Author) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- GMWArea --></label>
+        <name>GMWArea__c</name>
+        <picklistValues>
+            <masterLabel>Biosimilars</masterLabel>
+            <translation><!-- Biosimilars --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bone</masterLabel>
+            <translation><!-- Bone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cardio-Renal</masterLabel>
+            <translation><!-- Cardio-Renal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Inflammation</masterLabel>
+            <translation><!-- Inflammation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oncology</masterLabel>
+            <translation><!-- Oncology --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Publication Classification --></label>
+        <name>GPP_Type__c</name>
+        <picklistValues>
+            <masterLabel>CSP</masterLabel>
+            <translation><!-- CSP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CSP Encore</masterLabel>
+            <translation><!-- CSP Encore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal Deliverable</masterLabel>
+            <translation><!-- Internal Deliverable --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SP</masterLabel>
+            <translation><!-- SP --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HasFprOnlyStatus --></label>
+        <name>HasFprOnlyStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has US Authors --></label>
+        <name>HasUSAuthors__c</name>
+    </fields>
+    <fields>
+        <help><!-- Select the box if this publication record may be related to Biosimilars --></help>
+        <label><!-- Biosimilars --></label>
+        <name>IsBiosimilars__c</name>
+    </fields>
+    <fields>
+        <help><!-- Intended for comments only review --></help>
+        <label><!-- Courtesy Review --></label>
+        <name>IsComments_Only__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is FPR Only --></label>
+        <name>IsFprOnly__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsSelected --></label>
+        <name>IsSelected__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tracking Only --></label>
+        <name>Is_Tracking_Only__c</name>
+    </fields>
+    <fields>
+        <label><!-- Journal --></label>
+        <name>Journal__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Kirin Number --></label>
+        <name>Kirin_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Created By --></label>
+        <name>LegacyCreatedBy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Created Date --></label>
+        <name>LegacyCreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Last Modified By --></label>
+        <name>LegacyLastModifiedBy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Last Modified Date --></label>
+        <name>LegacyLastModifiedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Authors --></label>
+        <name>Legacy_Authors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy FPR Submitters not found --></label>
+        <name>Legacy_FPR_Submitters_not_found__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Pub ID --></label>
+        <name>Legacy_PublicationID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Link to File2 --></label>
+        <name>Link_to_File2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Link to File 1 --></label>
+        <name>Link_to_File_1__c</name>
+    </fields>
+    <fields>
+        <help><!-- Please copy this url in your browser to get to the final publication. --></help>
+        <label><!-- Link to Final Publication --></label>
+        <name>Link_to_Final_Publication_Version__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL to the repository where the final publication is stored. --></help>
+        <label><!-- Link to Final Publication --></label>
+        <name>Link_to_Final_Publication__c</name>
+    </fields>
+    <fields>
+        <label><!-- MTA # --></label>
+        <name>MTA__c</name>
+    </fields>
+    <fields>
+        <label><!-- MeetingName --></label>
+        <name>MeetingName__c</name>
+    </fields>
+    <fields>
+        <help><!-- Meeting --></help>
+        <label><!-- Meeting --></label>
+        <name>Meeting__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- NoGlobalStatus --></label>
+        <name>NoGlobalStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- No Product No TA --></label>
+        <name>No_Product_No_TA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Not Product / Policy --></label>
+        <name>Not_Product_Policy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Organization --></label>
+        <name>Organization__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- PASS --></label>
+        <name>PASS__c</name>
+    </fields>
+    <fields>
+        <label><!-- PST Approved Submission Date --></label>
+        <name>PST_Approval_Submission_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- PST Approved Audit Date --></label>
+        <name>PST_Approved_Audit_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner # --></label>
+        <name>Partner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Plan --></label>
+        <name>Plan__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Planned ME --></label>
+        <name>PlannedME__c</name>
+    </fields>
+    <fields>
+        <label><!-- Planning Comments --></label>
+        <name>Planning_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pre-FPR Reviewers Not Found --></label>
+        <name>PreFPRReviewers_Not_Found__c</name>
+    </fields>
+    <fields>
+        <help><!-- Some publication types may additionally require selection of a Presentation Type. --></help>
+        <label><!-- Presentation Type --></label>
+        <name>Presentation_Type__c</name>
+        <picklistValues>
+            <masterLabel>Moderated Poster</masterLabel>
+            <translation><!-- Moderated Poster --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oral</masterLabel>
+            <translation><!-- Oral --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Poster</masterLabel>
+            <translation><!-- Poster --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Publication Only</masterLabel>
+            <translation><!-- Publication Only --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Primary Sci Stmnt id --></label>
+        <name>Primary_Sci_Stmnt__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Prod Ind Id --></label>
+        <name>Primary__c</name>
+    </fields>
+    <fields>
+        <help><!-- A = Highest Priority
+B = Medium Priority
+C = Lowest Priority --></help>
+        <label><!-- Priority --></label>
+        <name>Priority__c</name>
+        <picklistValues>
+            <masterLabel>A</masterLabel>
+            <translation><!-- A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>B</masterLabel>
+            <translation><!-- B --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C</masterLabel>
+            <translation><!-- C --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Product - Indication Not Found --></label>
+        <name>Product_Indication_Not_Found__c</name>
+    </fields>
+    <fields>
+        <help><!-- Product - Indication is a required field that is available for selection when a publication is first saved. Once saved, the Product Indication may be edited using the Product Indication button. --></help>
+        <label><!-- Product - Indication --></label>
+        <name>Product_Indication__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project Acronymns --></label>
+        <name>Project_Acronyms__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project Ids --></label>
+        <name>Project_Ids__c</name>
+    </fields>
+    <fields>
+        <label><!-- PubMed ID --></label>
+        <name>PubMed_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- PubState --></label>
+        <name>PubState__c</name>
+    </fields>
+    <fields>
+        <label><!-- PubStatus --></label>
+        <name>PubStatus__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- PubType Link --></label>
+        <name>PubType__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Identify if publication is defined as a Scientific Publication (SP) or Clinical Scientific Publication (CSP) as per the Publications SOP. --></help>
+        <label><!-- Pub Classification --></label>
+        <name>Pub_Classification__c</name>
+        <picklistValues>
+            <masterLabel>Clinical Scientific Publications (CSP)</masterLabel>
+            <translation><!-- Clinical Scientific Publications (CSP) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scientific Publication (SP)</masterLabel>
+            <translation><!-- Scientific Publication (SP) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Publication Team --></label>
+        <name>Publication_Team__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is a succinct but descriptive Title of the Publication --></help>
+        <label><!-- Publication Title --></label>
+        <name>Publication_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publication Type --></label>
+        <name>Publication_Type__c</name>
+        <picklistValues>
+            <masterLabel>AMCP Dossier</masterLabel>
+            <translation><!-- AMCP Dossier --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstract</masterLabel>
+            <translation><!-- Abstract --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ad Board Summary</masterLabel>
+            <translation><!-- Ad Board Summary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Book Chapter</masterLabel>
+            <translation><!-- Book Chapter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brief Report</masterLabel>
+            <translation><!-- Brief Report --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CMS/Response</masterLabel>
+            <translation><!-- CMS/Response --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Case Report</masterLabel>
+            <translation><!-- Case Report --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Editorial</masterLabel>
+            <translation><!-- Editorial --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GVD</masterLabel>
+            <translation><!-- GVD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HTA</masterLabel>
+            <translation><!-- HTA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Letter to Editor</masterLabel>
+            <translation><!-- Letter to Editor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manuscript</masterLabel>
+            <translation><!-- Manuscript --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meeting Summary</masterLabel>
+            <translation><!-- Meeting Summary --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Newsletter Article</masterLabel>
+            <translation><!-- Newsletter Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oral Presentation (Slide Deck)</masterLabel>
+            <translation><!-- Oral Presentation (Slide Deck) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Poster</masterLabel>
+            <translation><!-- Poster --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Review Article</masterLabel>
+            <translation><!-- Review Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supplement Article (Non English Language Only)</masterLabel>
+            <translation><!-- Supplement Article (Non English Language Only) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Translation</masterLabel>
+            <translation><!-- Translation --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Responsible Amgen Employee (RAE) --></label>
+        <name>RAE__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Region --></label>
+        <name>Region_FormulaField__c</name>
+    </fields>
+    <fields>
+        <label><!-- Region Pick --></label>
+        <name>Region_pick__c</name>
+        <picklistValues>
+            <masterLabel>Asia Pacific</masterLabel>
+            <translation><!-- Asia Pacific --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>China</masterLabel>
+            <translation><!-- China --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EEMEA</masterLabel>
+            <translation><!-- EEMEA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Europe</masterLabel>
+            <translation><!-- Europe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Japan</masterLabel>
+            <translation><!-- Japan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LACAN</masterLabel>
+            <translation><!-- LACAN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>US</masterLabel>
+            <translation><!-- US --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown</masterLabel>
+            <translation><!-- Unknown --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Request Approval By --></label>
+        <name>Request_Approval_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Route Pattern --></label>
+        <name>Route_Pattern__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOP Exception --></label>
+        <name>SOP_Exception__c</name>
+    </fields>
+    <fields>
+        <label><!-- SP Full --></label>
+        <name>SP_Full__c</name>
+    </fields>
+    <fields>
+        <label><!-- Scope Of Work --></label>
+        <name>ScopeOfWork__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Enter a brief identifier you can use to search on for this publication later --></help>
+        <label><!-- Search Identifier --></label>
+        <name>Search_Identifier__c</name>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sponsoring Amgen Department --></label>
+        <name>SponsorDept_Pick__c</name>
+        <picklistValues>
+            <masterLabel>Center for Observational Research (CfOR)</masterLabel>
+            <translation><!-- Center for Observational Research (CfOR) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Clinical Development</masterLabel>
+            <translation><!-- Clinical Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Discovery Research</masterLabel>
+            <translation><!-- Discovery Research --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Government Affairs</masterLabel>
+            <translation><!-- Global Government Affairs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Health Economics (GHE)</masterLabel>
+            <translation><!-- Global Health Economics (GHE) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Medical</masterLabel>
+            <translation><!-- Global Medical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Regulatory Affairs</masterLabel>
+            <translation><!-- Global Regulatory Affairs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Safety</masterLabel>
+            <translation><!-- Global Safety --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Scientific Affairs</masterLabel>
+            <translation><!-- Global Scientific Affairs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Value, Access, and Policy</masterLabel>
+            <translation><!-- Global Value, Access, and Policy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manufacturing</masterLabel>
+            <translation><!-- Manufacturing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Translational Sciences</masterLabel>
+            <translation><!-- Translational Sciences --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sponsoring Organization --></label>
+        <name>SponsorOrg_Pick__c</name>
+        <picklistValues>
+            <masterLabel>Amgen</masterLabel>
+            <translation><!-- Amgen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Astellas</masterLabel>
+            <translation><!-- Astellas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AstraZeneca/MedImmune</masterLabel>
+            <translation><!-- AstraZeneca/MedImmune --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cytokinetics</masterLabel>
+            <translation><!-- Cytokinetics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Daiichi-Sankyo</masterLabel>
+            <translation><!-- Daiichi-Sankyo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Genentech, Inc.</masterLabel>
+            <translation><!-- Genentech, Inc. --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GlaxoSmithKline (GSK)</masterLabel>
+            <translation><!-- GlaxoSmithKline (GSK) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Kirin</masterLabel>
+            <translation><!-- Kirin --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Novartis</masterLabel>
+            <translation><!-- Novartis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pfizer</masterLabel>
+            <translation><!-- Pfizer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Servier</masterLabel>
+            <translation><!-- Servier --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Takeda</masterLabel>
+            <translation><!-- Takeda --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>UCB Pharma</masterLabel>
+            <translation><!-- UCB Pharma --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- FPR Submitted Date --></label>
+        <name>Sponsored_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Department from which publication data are generated. --></help>
+        <label><!-- Sponsoring Amgen Department (Lookup) --></label>
+        <name>SponsoringDept__c</name>
+        <relationshipLabel><!-- Publication (SponsoringDept) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Company from which publication is generated.  (e.g. Amgen, Pfizer, etc.) --></help>
+        <label><!-- Sponsoring Organization (Lookup) --></label>
+        <name>SponsoringOrg__c</name>
+        <relationshipLabel><!-- Publication (SponsoringOrg) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- For purposes of FPR routing, functional group from which publication content/or data was orignated. Enter one of these selections - Research, Development, Operations - before clicking the Lookup icon.  Then select a SubGroup from the Search Results list. --></help>
+        <label><!-- SubGroup Link --></label>
+        <name>SubGroup__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Required and depends on Data Source selected --></help>
+        <label><!-- Data Source Subgroup --></label>
+        <name>SubGroup_pick__c</name>
+        <picklistValues>
+            <masterLabel>GRAAS</masterLabel>
+            <translation><!-- GRAAS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - Asia Pac</masterLabel>
+            <translation><!-- Global Dev - Asia Pac --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - China</masterLabel>
+            <translation><!-- Global Dev - China --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - EEMEA</masterLabel>
+            <translation><!-- Global Dev - EEMEA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - Europe</masterLabel>
+            <translation><!-- Global Dev - Europe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - Intercont</masterLabel>
+            <translation><!-- Global Dev - Intercont --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - JAPAC</masterLabel>
+            <translation><!-- Global Dev - JAPAC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - Japan</masterLabel>
+            <translation><!-- Global Dev - Japan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - LACAN</masterLabel>
+            <translation><!-- Global Dev - LACAN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - Other</masterLabel>
+            <translation><!-- Global Dev - Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Dev - US</masterLabel>
+            <translation><!-- Global Dev - US --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ops - Comm Quality</masterLabel>
+            <translation><!-- Ops - Comm Quality --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ops - DP&amp;DD</masterLabel>
+            <translation><!-- Ops - DP&amp;DD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ops - Mfg Sciences &amp; Tech</masterLabel>
+            <translation><!-- Ops - Mfg Sciences &amp; Tech --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ops - Other</masterLabel>
+            <translation><!-- Ops - Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ops - Process Dev</masterLabel>
+            <translation><!-- Ops - Process Dev --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ops - Quality Admin</masterLabel>
+            <translation><!-- Ops - Quality Admin --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - CBSS</masterLabel>
+            <translation><!-- Research - CBSS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - CardMet. Disorders</masterLabel>
+            <translation><!-- Research - CardMet. Disorders --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Early Dev</masterLabel>
+            <translation><!-- Research - Early Dev --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Genome Analysis</masterLabel>
+            <translation><!-- Research - Genome Analysis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Hem &amp; Onc</masterLabel>
+            <translation><!-- Research - Hem &amp; Onc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Inflammation</masterLabel>
+            <translation><!-- Research - Inflammation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Neuroscience</masterLabel>
+            <translation><!-- Research - Neuroscience --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Other</masterLabel>
+            <translation><!-- Research - Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - P&amp;PD</masterLabel>
+            <translation><!-- Research - P&amp;PD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - PKDM</masterLabel>
+            <translation><!-- Research - PKDM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Pharmaceutics</masterLabel>
+            <translation><!-- Research - Pharmaceutics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - SMP&amp;PD</masterLabel>
+            <translation><!-- Research - SMP&amp;PD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Therapeutic Discovery</masterLabel>
+            <translation><!-- Research - Therapeutic Discovery --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Research - Therapeutic Innovation</masterLabel>
+            <translation><!-- Research - Therapeutic Innovation --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Suggestor Name --></label>
+        <name>Suggestor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Summary --></label>
+        <name>Summary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Therapeutic Area --></label>
+        <name>TA__c</name>
+        <relationshipLabel><!-- Publication --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Target Submission Date --></label>
+        <name>Target_Submission_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Target Type --></label>
+        <name>Target_Type__c</name>
+        <picklistValues>
+            <masterLabel>Journal</masterLabel>
+            <translation><!-- Journal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meeting</masterLabel>
+            <translation><!-- Meeting --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Updated --></label>
+        <name>Updated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Updated by Login --></label>
+        <name>Updated_by_Login__c</name>
+    </fields>
+    <fields>
+        <label><!-- isBiosimilarAcronym --></label>
+        <name>isBiosimilarAcronym__c</name>
+    </fields>
+    <fields>
+        <label><!-- isEnbrel --></label>
+        <name>isEnbrel__c</name>
+    </fields>
+    <fields>
+        <label><!-- isExecution --></label>
+        <name>isExecution__c</name>
+    </fields>
+    <fields>
+        <label><!-- FPR --></label>
+        <name>isFPR__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISS --></label>
+        <name>isISS__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISS # --></label>
+        <name>isISStext__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part of GPP --></label>
+        <name>isPlanning__c</name>
+    </fields>
+    <fields>
+        <label><!-- isSuggestion --></label>
+        <name>isSuggestion__c</name>
+    </fields>
+    <fields>
+        <label><!-- MTA --></label>
+        <name>is_MTA__c</name>
+    </fields>
+    <layouts>
+        <layout>Accepted Version</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>After Submit to FPR</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>After Suggested</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Assigned to FPRC</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Execution</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>FPR Only</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>FPR Only After Submit</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Information --></label>
+            <section>Information</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>In FPR</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>In FPR for FPRC only</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Legacy Pub</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Planning</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Pub Detail Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Pub Team Submit</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Information --></label>
+            <section>Information</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Resubmit to FPR</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Review</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Reviewers Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Submit</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Suggested</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Suggestion</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Planning Details --></label>
+            <section>Planning Details</section>
+        </sections>
+        <sections>
+            <label><!-- Review Details --></label>
+            <section>Review Details</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Accepted Version --></label>
+        <name>Accepted_Version</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Assigned to FPRC --></label>
+        <name>Assigned_to_FPRC</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Execute --></label>
+        <name>Execute</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- FPR Only --></label>
+        <name>FPR_Only</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- In FPR --></label>
+        <name>In_FPR</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Legacy FPR Only --></label>
+        <name>LegacyFPROnly</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Legacy FPR Only In Progress --></label>
+        <name>LegacyFPROnlyInProgress</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Legacy In Progress --></label>
+        <name>LegacyInProgress</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Legacy Publication --></label>
+        <name>Legacy_Publication</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Plan --></label>
+        <name>Plan</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Resubmit to FPR --></label>
+        <name>Resubmit_to_FPR</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Review --></label>
+        <name>Review</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Submit --></label>
+        <name>Submit</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Suggested --></label>
+        <name>Suggested</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Suggestion --></label>
+        <name>Suggestion</name>
+    </recordTypes>
+    <sharingReasons>
+        <label><!-- Appear External Writer --></label>
+        <name>ExternalWriter</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label><!-- Review Team Member --></label>
+        <name>PubReviewTeamMember</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label><!-- Publication Team Member --></label>
+        <name>PubTeamMember</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label><!-- Publication Team Member Read Only --></label>
+        <name>PubTeamMemberReadOnly</name>
+    </sharingReasons>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Required in Details Tile --></errorMessage>
+        <name>Country_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Publication Classification is a required field. --></errorMessage>
+        <name>GPP_Type_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- ISS # is a required field when ISS flag is checked. --></errorMessage>
+        <name>ISS_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter MTA # as MTA flag has been selected/checked --></errorMessage>
+        <name>MTA_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- PST Approved Submission Date cannot be modified after Feb 15th after it has been entered for the first time. --></errorMessage>
+        <name>PST_Approval_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Suggestor have Read Only access to this suggestion --></errorMessage>
+        <name>Rejected_publication_is_read_only</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Required  in Details Tile --></errorMessage>
+        <name>Responsible_Amgen_Employee</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please reach out to your GPPL to update the Publication Classification.  You can find a list of GPPLs on the GPPL SharePoint page located at https://myteams.amgen.com/sites/PubPlanning/Pages/GPPLLayout.aspx --></errorMessage>
+        <name>Restrict_Pub_Classification_Field_Update</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Required in  Details Tile --></errorMessage>
+        <name>Sponsoring_Amgen_Department_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Required in Details  Tile --></errorMessage>
+        <name>Sponsoring_Organization_required</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Accept --></label>
+        <name>Accept</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Cancel_Publication --></label>
+        <name>Cancel_Publication</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- MaterialChangeForCongressJournal --></label>
+        <name>MaterialChangeForCongressJournal</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Product_Indications --></label>
+        <name>Product_Indications</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Reject --></label>
+        <name>Reject</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Rejected --></label>
+        <name>Rejected</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Route_For_Review --></label>
+        <name>Route_For_Review</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Submit --></label>
+        <name>Submit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Submit_For_FPR --></label>
+        <name>Submit_For_FPR</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Submit_To_Target --></label>
+        <name>Submit_To_Target</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Target --></label>
+        <name>Target</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Terminate_FPR_Cycle --></label>
+        <name>Terminate_FPR_Cycle</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.SponsoringDept__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Country_pick__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.isPlanning__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.IsFprOnly__c</field>
+    </columns>
+    <description>Pubs with Spon Dept.requiring Country update</description>
+    <filter>
+        <criteriaItems>
+            <column>Publication__c.SponsoringDept__c</column>
+            <operator>contains</operator>
+            <value>Belgium Value,Access &amp; Policy,Canada Value,Center for Obs Research - Int&apos;l,Center for Obs Research - US,Czech Value,EU Regional - GHE,EU SA - UK,EU SA - Zug,France Value,Germany Value,GHE - TO,IM - Australia,IM - Austria,IM - Germany,IM - Spain,Intl Scientific Affairs,ISA - UK,Medical - Canada,Romania Value,Spain Value</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Pubs with Spon Dept.requiring Country up</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>Publication__c.isPlanning__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.Current_Status_Date_FormulaField__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

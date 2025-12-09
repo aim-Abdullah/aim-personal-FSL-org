@@ -1,0 +1,22 @@
+<apex:page controller="BlockResourceVisibleTime" >
+
+ this is the returned value {!returnedValues}
+  <!--flow:interview name="Get_Appointment_Custom">
+  <apex:param name="recordId" value="08p5g0000004XAAAA2"/>
+  </flow:interview-->
+    
+    <apex:includeLightning />
+    <div id="LightningComponentid" />
+    
+    <script>
+        $Lightning.use("c:AppointmentBookingApp", function(){
+            
+            $Lightning.createComponent("c:embeddedVFPage",{"sarecordId":"08p5g0000004XAAAA2"},"LightningComponentid", function(cmp){
+                
+                console.log('Dispatcher Console Page');            
+            });
+        
+        });
+    
+    </script>
+</apex:page>

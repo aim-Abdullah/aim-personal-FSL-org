@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PubReviewTeam__c.Publication__c</field>
+    </columns>
+    <columns>
+        <field>FK_CUSTENT_ID</field>
+    </columns>
+    <columns>
+        <field>FK_CREATED</field>
+    </columns>
+    <columns>
+        <field>FK_$PubReviewTeam__c.Reviewer__c</field>
+    </columns>
+    <columns>
+        <field>FK_$PubReviewTeam__c.Type__c</field>
+    </columns>
+    <columns>
+        <field>FK_$PubReviewTeam__c.Delivered__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>FK_CREATED</column>
+            <operator>contains</operator>
+            <value>Tady,Merril</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Pub By Primary Reviewer already Triaged</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$PubReviewTeam__c@PubReviewTeam__c.TriagedTo__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>PubReviewTeam__c.Publication__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>PubReviewTeam__c.Delivered__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

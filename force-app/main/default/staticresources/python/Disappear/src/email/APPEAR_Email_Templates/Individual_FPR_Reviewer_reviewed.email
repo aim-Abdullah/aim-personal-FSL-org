@@ -1,0 +1,17 @@
+<HTML>
+
+<BODY>
+<P>Do not reply to this email message.</P>
+
+<P> FPR <b>{!PubReviewTeam__c.PubIDLink__c}</b> has been reviewed by {!PubReviewTeam__c.Reviewer__c}. Please note, the FPR process has not completed and other reviews are still pending.<br>
+
+<br>Contact the FPR coordinator, {!PubReviewTeam__c.AssignedFPRCFF__c}, If you have questions or need support.<br>
+
+<br>{!PubReviewTeam__c.PubIDLink__c}<br>
+
+<br><br>Thank you,
+<br>FPR System
+</P>
+
+<BODY>
+<HTML>

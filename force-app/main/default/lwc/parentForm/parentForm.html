@@ -1,0 +1,28 @@
+<template>
+   <lightning-card>
+        
+    <!--div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+            <c-child-form work-order-id={recordId} woli-type="Neumo" status={status} logged-device={loggedDevice}></c-child-form>
+        </div>
+    </div>
+
+    <template lwc:if={isInprogress}>
+        <p>ALL WORK ORDER FIELD VALUE</p>
+        <p>STATUS :: {workOrderRecord.fields.Status.value}</p>
+        <p>RECORDTYPEID :: {workOrderRecord.fields.RecordTypeId.value}</p>
+        <p>RECORDTYPE.NAME :: {workOrderRecord.fields.RecordType.value.fields.Name.value}</p>
+        <p>WORKTYPENAME :: {workOrderRecord.fields.WorkType.value.fields.Name.value}</p>
+    </template-->  
+
+   
+            <!--c-offline-utility-bar onstatus={statusChangeHandler}></c-offline-utility-bar-->
+            <c-offline-utility-bar></c-offline-utility-bar>
+            <template lwc:if={loadingComplete}>
+                <c-annoying-child ct-record-type-id={ctRecordTypeId} ct-record-type-name={ctRecordTypeName}></c-annoying-child>
+            </template>
+
+
+
+    </lightning-card>
+</template>

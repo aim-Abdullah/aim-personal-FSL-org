@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Type__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Title__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Authors__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Target__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.SponsoringOrg__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.SponsoringDept__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Status_FormulaField__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Status_Date_FormulaField__c</field>
+    </columns>
+    <description>Developed based on requirement given by Emma Thomas (using a Slide deck)</description>
+    <filter>
+        <criteriaItems>
+            <column>Publication__c.Publication_Type__c</column>
+            <operator>equals</operator>
+            <value>Manuscript,Review Article,Poster</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$PubStatus__c.Status__c</column>
+            <operator>equals</operator>
+            <value>Courtesy FPR Completed,Courtesy FPR Completed with Comments,FPR Completed,FPR Completed with Comments</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Publication__c.isFPR__c</column>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Publication__c.Authors__c</column>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>TD FPR Tracking</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c@Publication__c.PubStatus__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>FK_$PubStatus__c.ActualDate__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

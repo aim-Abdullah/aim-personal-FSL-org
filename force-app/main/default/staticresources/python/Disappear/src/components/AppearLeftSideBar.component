@@ -1,0 +1,30 @@
+<apex:component id="AppearLeftSideBar">
+	<div class="AppearSideBar">
+		<apex:attribute name="PcTileBar" description="" type="PcTileBar" required="false" />
+
+		<ul class="SideBarList">
+		<apex:repeat value="{!PcTileBar.Tiles}" var="tileItem" >
+			<li>
+				<apex:OutputText rendered="{!!tileItem.isSeparator}" >
+					<apex:OutputText rendered="{!tileItem.isRequired}" >
+						<div style="
+						    height: 50px;
+						    width: .6em;
+						    background: #C00;
+						    position: absolute;
+						    margin-left: 0.3em;
+						"> </div>
+					</apex:OutputText>
+					<a class="squareTile {!IF(tileItem.isSelected,"activeSquareTile ", "")} primaryPalette" 
+						style="width: {!PcTileBar.maxLabelEm}em; white-space: nowrap;" href="{!tileItem.Url}" title="{!tileItem.help}">
+						{!tileItem.Label}
+					</a>
+				</apex:OutputText>
+				<apex:OutputText rendered="{!tileItem.isSeparator}" >
+					<span class="separatorTile primaryPalette" style="width: {!PcTileBar.maxLabelEm}em;"> </span>
+				</apex:OutputText>
+			</li>
+		</apex:repeat>
+		</ul>
+	</div>
+</apex:component>

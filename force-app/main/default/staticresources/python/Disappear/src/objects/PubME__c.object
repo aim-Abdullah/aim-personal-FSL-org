@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Record all Manuscript Equivalent points award to authors and others for their work on a publication</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ActualME__c</fullName>
+        <description>Actual ME = Calculated ME unless a Business Admin enters the Override ME for this record</description>
+        <externalId>false</externalId>
+        <label>Actual Me</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_ME_GUI__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;Recalculate&quot; button is used for planning purpose and displays the potential Actual ME value in Actual ME GUI column. The values are not SAVED permanently. You need to click &quot;Save&quot; button to store the value(s) permanently.</inlineHelpText>
+        <label>Actual ME GUI</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AppearRole__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>The Role that the Pub Team member played in the preparation of this Publication
+
+Will be used to look up Awarded ME in PubTypeME</description>
+        <externalId>false</externalId>
+        <inlineHelpText>APPEAR Roles include: Writing Coordinator, Writer, Editorial Support, GPPL, and Pub Specialist.</inlineHelpText>
+        <label>Appear Role</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Appear_Role__c.isWritingRole__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Appear_Role__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>AwardedME__c</fullName>
+        <description>not being used - should be deleted after confirming with Swapnil</description>
+        <externalId>false</externalId>
+        <label>Awarded ME</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CalculatedME__c</fullName>
+        <description>ME from PubType / Role / Scope of Work calculation</description>
+        <externalId>false</externalId>
+        <label>Calculated ME</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Department__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Department</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Department__c.isLogicallyDeleted__c</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </filterItems>
+            <infoMessage>Please do not select [EXPIRED] Department values</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Department__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Diff_Actual_Calc__c</fullName>
+        <externalId>false</externalId>
+        <formula>ActualME__c - CalculatedME__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Diff Actual Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Diff_Override_Calc__c</fullName>
+        <externalId>false</externalId>
+        <formula>ActualME__c - OverrideME__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Diff Override Calc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Emp_Type__c</fullName>
+        <description>This field indicates whether the Writing Role Member is Amgen Full Time Employee or Outsourced</description>
+        <externalId>false</externalId>
+        <label>Emp. Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Contingent Worker</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ext Bus Partner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intern</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Staff</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Temporary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vendor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FPR_Cycle__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>FPR Cycle</label>
+        <referenceTo>FPR_Cycle__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FPR_Cycle_sort_num__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(FPR_Cycle__c = null, 0, FPR_Cycle__r.FPR_Cycle_Num__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FPR Cycle num for sorting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsCurrentSubmissionCycleForPub__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication__r.Current_SubmissionCycle_Id_Formula__c = Submission_Cycle__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsCurrentSubmissionCycleForPub</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsResend__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IsResend</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LegacyGMWUse__c</fullName>
+        <description>Used for Siebel-originated legacy data.</description>
+        <externalId>false</externalId>
+        <label>LegacyGMWUse</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LegacyPrior_ActualME__c</fullName>
+        <externalId>false</externalId>
+        <label>LegacyPrior ActualME</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ME_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>ME Status</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MeCycleNum__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>ME Cycle Num - starts at 0 for new records.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to differentiate between Non-Material-Changes within an FPR cycle.  
+if no NMC - then ME cycle # = FPR Cycle #.</inlineHelpText>
+        <label>ME Cycle #</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MeType__c</fullName>
+        <description>Column heading is [Pub Status] for this field on the Writing Coordinators grid.</description>
+        <externalId>false</externalId>
+        <formula>IF( IsResend__c , &quot;Resent&quot;, &quot;Submitted/Completed&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MeType</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Organization__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Field to identify the Organization of the Writing Role Member</description>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Organization__c.isLogicallyDeleted__c</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </filterItems>
+            <infoMessage>Please do not select [EXPIRED] Company values</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Organization__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OverrideME__c</fullName>
+        <description>Available for Business Admin to override the calculated ME</description>
+        <externalId>false</externalId>
+        <label>Override ME</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PubStatus__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Publication Status</label>
+        <referenceTo>PubStatus__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Publication__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Publication</label>
+        <referenceTo>Publication__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ReasonForMEChange__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason For ME Change</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SiebelRowId__c</fullName>
+        <externalId>true</externalId>
+        <label>SiebelRowId</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Siebel_Actual__c</fullName>
+        <description>This field contains the Actual Pub ME Migrated from Siebel system.
+Appear WILL NOT be writing into this field after data migration has been completed
+it can be used to create reports to make sure Actual ME for Legacy pub did not get change by accident.</description>
+        <externalId>false</externalId>
+        <label>Siebel_Actual</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_Cycle_Num_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission_Cycle__r.Submission_Cycle_Num__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Submission Cycle #</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_Cycle__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission Cycle</label>
+        <referenceTo>SubmissionCycle__c</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>WritingRoleMember__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Writing Role Member</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Publication MEs</relationshipLabel>
+        <relationshipName>Publication_MEs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>isSelected__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>UI Operation Only - Do not store or migrate data into this Field</description>
+        <externalId>false</externalId>
+        <label>isSelected</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isSubmissionCycleSubmitted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Do not award Actual ME unless the SubmissionCycle has been submitted</description>
+        <externalId>false</externalId>
+        <label>isSubmissionCycleSubmitted</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Publication ME</label>
+    <listViews>
+        <fullName>Publication_ME_Upd</fullName>
+        <booleanFilter>1</booleanFilter>
+        <columns>Publication__c</columns>
+        <columns>NAME</columns>
+        <columns>WritingRoleMember__c</columns>
+        <columns>Department__c</columns>
+        <columns>AppearRole__c</columns>
+        <columns>PubStatus__c</columns>
+        <columns>MeCycleNum__c</columns>
+        <columns>CalculatedME__c</columns>
+        <columns>OverrideME__c</columns>
+        <columns>ActualME__c</columns>
+        <columns>Submission_Cycle_Num_Formula__c</columns>
+        <columns>FPR_Cycle__c</columns>
+        <columns>ME_Status__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-010962</value>
+        </filters>
+        <label>Publication ME Upd</label>
+    </listViews>
+    <listViews>
+        <fullName>RanjeetView</fullName>
+        <columns>NAME</columns>
+        <columns>FPR_Cycle__c</columns>
+        <columns>FPR_Cycle_sort_num__c</columns>
+        <columns>IsCurrentSubmissionCycleForPub__c</columns>
+        <columns>MeCycleNum__c</columns>
+        <columns>ME_Status__c</columns>
+        <columns>Submission_Cycle__c</columns>
+        <columns>Submission_Cycle_Num_Formula__c</columns>
+        <columns>WritingRoleMember__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-055069</value>
+        </filters>
+        <label>RanjeetView</label>
+    </listViews>
+    <nameField>
+        <displayFormat>PME-{000000000}</displayFormat>
+        <label>Publication ME Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Publication MEs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

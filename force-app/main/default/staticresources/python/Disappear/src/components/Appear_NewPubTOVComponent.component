@@ -1,0 +1,48 @@
+<apex:component allowDML="true">
+    <apex:attribute name="PubTOVModel" description="" type="PubTOVModel" required="true" />
+    <apex:attribute name="PubStatusModel" description="" type="PubStatusModel" required="true" />
+    <apex:attribute name="SubmissionCycleModel" description="" type="SubmissionCycleModel" required="true" />
+    <apex:attribute name="pubProdIndModel" description="" type="PubProdIndModel" required="true" />
+    
+    <apex:form id="newTOVFrm" >
+        <apex:pageblock title="New Publication TOV" mode="edit">
+            <apex:pageMessages />
+		   
+            <apex:pageblockSection columns="2">
+                <apex:inputField value="{!PubTOVModel.newPubTOV.ContractNumber__c}"/>
+                <apex:inputField value="{!PubTOVModel.newPubTOV.Description__c}"/>
+                <apex:inputField value="{!PubTOVModel.newPubTOV.FormOfPayment__c}"/>
+                <apex:inputField value="{!PubTOVModel.newPubTOV.InvoiceNumber__c}"/>
+                <apex:inputField value="{!PubTOVModel.newPubTOV.NatureOfPayment__c}"/>
+                <apex:inputField value="{!PubTOVModel.newPubTOV.PaymentAmount__c}"/>
+                <apex:inputField value="{!PubTOVModel.newPubTOV.PaymentDate__c}" />
+
+				<apex:selectList id="pubProdInd" value="{!PubTOVModel.newPubTOV.Product_Name__c}" size="1"> 	          
+				        <apex:selectOptions value="{!pubProdIndModel.PubProductNameOptions}"/>
+		        </apex:selectList> 
+
+				<!--Appear Enhancement 2017 Backlog R4 : Commented as status is already shown in Header component
+                <apex:selectList id="pubStatus" value="{!PubTOVModel.newPubTOV.PublicationStatus__c}" size="1"> 	          
+				        <apex:selectOptions value="{!PubStatusModel.PubStatusOptions}"/>
+		        </apex:selectList> 
+				-->
+				
+				<!-- Commented because the Submission Cycle is displayed in the Publication Status and it tracked very well over there. 
+                <apex:selectList id="submissionCycle" value="{!PubTOVModel.newPubTOV.SubmissionCycle__c}" size="1"> 	          
+				        <apex:selectOptions value="{!SubmissionCycleModel.SubmissionCycleOptions}"/>
+		        </apex:selectList>
+		         --> 
+            </apex:pageblockSection>            
+            
+        </apex:pageblock>
+        <div style="float: right; margin-top: 25px;">           
+            <apex:commandButton action="{!PubTOVModel.saveNewPubTOV}" value="Save" />
+            <input type="submit" value="Cancel" class="btn" onclick="document.getElementById('{!$Component.newTOVFrm}').reset(); location.reload(); return false;" />
+        </div>
+    </apex:form>
+    
+    <script>
+	    jQuery('.NewTOVModal .pbTitle').next().hide(); // elminate the wrapping of the title
+    </script>
+    
+</apex:component>

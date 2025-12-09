@@ -1,0 +1,21 @@
+.warningCSS {
+    background-color: var(--sds-c-alert-color-background,#ffb75d);
+    font-size: var(--sds-c-alert-font-size, 18px);
+    text-align: center;
+    padding: var(--sds-c-alert-padding, 1rem);
+    background-size: var(--sds-c-alert-size-background, 64px 64px);
+    background-image: var(--sds-c-alert-image-background, linear-gradient(45deg, rgba(0, 0, 0, 0.025) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.025) 50%, rgba(0, 0, 0, 0.025) 75%, transparent 75%, transparent));
+}
+
+.errorCSS{
+    background-color: var(--sds-c-alert-color-background, #c23934);
+    font-size: var(--sds-c-alert-font-size, 18px);
+    text-align: center;
+    padding: var(--sds-c-alert-padding, 1rem);
+    background-image: var(--sds-c-alert-image-background, linear-gradient(45deg, rgba(0, 0, 0, 0.025) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.025) 50%, rgba(0, 0, 0, 0.025) 75%, transparent 75%, transparent));
+    background-size: var(--sds-c-alert-size-background, 64px 64px);
+}
+
+.toastMessage.forceActionsText{
+    white-space : pre-line !important;
+}

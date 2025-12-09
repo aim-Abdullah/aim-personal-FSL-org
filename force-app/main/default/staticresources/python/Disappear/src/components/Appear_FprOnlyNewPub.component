@@ -1,0 +1,245 @@
+<apex:component allowDml="true" controller="AppearPubViewModel" >
+    <apex:attribute name="ActivePub" description="" type="AppearPubModel" required="true" />
+     <!-- Appear Enhancement R1:2017 :: Questionnaires :: starts -->
+    <style>
+       .radio input[type=radio]:checked + label{
+        background-position: 0 -24px;
+        color : #003f77;
+        font-weight : bold;
+        }
+        
+        .radio input[type=radio]:not(:checked) + label{
+        color: #754646;
+        font-weight : normal;//bold;
+        background-position: 0 -24px;
+        }
+        
+       .radio input[type=radio] + label{
+            font-family:Lucida Bright,'Trebuchet MS',Georgia, serif ;
+            display:inline-block;
+            line-height:24px;
+            background-repeat:no-repeat;
+            pointer-events :inherit;
+            font-size : 16px;
+            font-weight : bold;
+        }
+        
+        .questionStyle{
+            font-family:Lucida Bright,'Trebuchet MS',Georgia, serif ;
+            font-size:16px;font-weight:bold;color : #003f77;
+            white-space:pre-wrap;
+            padding-top : 1.2em;
+            margin: 0 5px 0 5px;
+        	text-align : left;
+        }
+        .messageClass .message{background:none;border:none;text-align :center;position: relative}
+        .messageClass .messageText{font-size:16px;color:#003f77;text-align :center;font-weight:bold}
+        .messageClass .errorM3 .msgIcon, .errorMedium{background-image:none;height:0px;width:0px;}
+        .messageClass .messageText h4{text-align :center;}    
+        .messageClass .messageTable .messageCell{text-align :center;min-width: 62.5em;}
+    </style> 
+   
+    <apex:form id="qform"> <!-- id Added as part of R1:2017 -->
+        
+        <apex:actionFunction action="{!ActivePub.closeQuestionModal}" name="cancelAction" immediate="true"/>
+         
+     <apex:actionRegion rendered="{!!gotoFPROnly}">
+      
+        <apex:actionFunction action="{!FPRQuestionresponse}" id="FPRQuestionresponse" name="FPRQuestionresponse" reRender="qform"/>
+      
+         <div class="QuestionOverlay" style="display: none; position:fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px;  z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> 
+         <div class="QuestionModal"  style="display: none; position:fixed; _position: absolute; top: 30%;_top:expression(eval(document.body.scrollTop)+20); left: 20%; width: 67.3em; min-width: 450px;height:auto; padding: 2em; z-index: 9998; background: #f8f8f8; border-radius: .5em; overflow: auto;box-shadow: 1.1em 1.1em 1.1em rgb(0, 4, 8);transition: all 0.5s ease-in-out;"> 
+             <apex:pageBlock id="pB"  >
+             <div class="messageClass" rendered="{!disableRad}" ><apex:pageMessages escape="false" /></div>
+             <div id="qDiv" Class="questionStyle"> <apex:outputText escape="false" value="{!SUBSTITUTE(HTMLENCODE(QuestionContent),'\n','</br>')}" rendered="{!!disableRad}" id="abcf"/></div>
+             
+			 <div class="radioDiv" style="width:5em;" >
+             <apex:selectRadio styleClass="radio" immediate="true" rendered="{!!disableRad}" id="radiobttn" label="R1" value="{!answerValue}"  layout="pageDirection" onchange="FPRQuestionresponse()"> <!-- -->
+             <apex:selectOptions id="radioptions" value="{!ReqOptions}" >
+             </apex:selectOptions>
+             </apex:selectRadio>
+             </div>
+             <br/><br/>
+          </apex:pageBlock>         
+             <apex:commandButton rendered="{!!disableRad}" style="margin-top:-0.5em;float:right; margin-right:5px;width:78px;height:32px;font-size:13px;" action="{!ActivePub.closeQuestionModal}" id="closeQModal" value="Cancel"/>
+      		 <apex:commandButton rendered="{!disableRad}" style="margin-top:-0.5em;margin-left: 28.2em;width:78px;height:32px;font-size:13px;" action="{!ActivePub.closeQuestionModal}" id="OKQModal" value="OK"/>
+             
+        </div>
+     <script type="text/javascript" >
+           window.document.onload = new function(e)
+             {
+                jQuery('.QuestionOverlay').fadeToggle();
+                jQuery('.QuestionModal').delay(20).fadeToggle(); 
+			 }
+           
+         $('input[type=radio]').on('change',function(){
+             $('[id$=radiobttn]').css('pointer-events','none');
+             $('[id$=radiobttn]').attr('disabled','disabled'); 
+             //document.getElementById('{!$Component.qform.pB.closeQModal}').disabled = true; // Appear Enhancement 2017 : Backlog R4
+             document.getElementById('{!$Component.qform.closeQModal}').disabled = true;
+             });
+               
+     </script>     
+    </apex:actionRegion>  
+    <!-- Appear Enhancement R1:2017 :: Questionnaires :: ends --> 
+         <apex:actionRegion rendered="{!gotoFPROnly}"> 
+         <!-- Input Hiddens -->
+         <apex:inputHidden id="courtesyReview" value="{!courtesyReview}"  />
+         <apex:inputHidden id="ansRecId" value="{!ansRecId}"  />
+         <apex:inputHidden id="isSPFull" value="{!isSPFull}"  />
+         <apex:inputHidden id="isISS" value="{!isISS}"  />
+         <apex:inputHidden id="isMTA" value="{!isMTA}"  />
+         <apex:inputHidden id="sopException" value="{!sopException}"  />
+         <apex:inputHidden id="noProdPolicy" value="{!noProdPolicy}"  />
+         <apex:inputHidden id="ansRecId2" value="{!ActivePub.ansRecIdVal}"/>
+         <!--Input Hiddens-->
+
+        
+        <apex:pageblock title="New FPR Request" id="pBlock"> <!-- id Added as part of R1:2017 -->
+            <apex:facet name="header">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <!-- Commented below as part of R1:2017-->
+                        <!--<tr>
+                            <td style="padding: 5px 12px; padding-bottom: 10px; vertical-align: middle; font-size: 91%;" colspan="2">
+								<!-- Appear Enhancement R3 - Change "MedCom Representative" to "Global Publication Planning Lead"                           
+                                <h2 style="font-size: 1.4em; color: #C00;">If this publication is part of a Global Publication Plan (GPP) contact your Global Publication Planning Lead for the assigned Pub ID and FPR submission instructions.</h2>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td class="pbTitle">
+                                <h2 class="mainTitle">New FPR Request</h2>
+                            </td>
+                            <td class="pbButton ">
+                                <input type="submit" value="Save" onclick="clickSave(); return false;" class="btn"></input>
+                                <!-- Updated as part of Appear Enhancment R1:2017
+								<input type="submit" value="Cancel" onclick="window.location.reload(); return false;" class="btn"></input>-->
+                 				<input type="submit" value="Cancel" onclick="clickCancel(); return false;" class="btn"></input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </apex:facet>
+            <apex:pageMessages />
+            <apex:pageblockSection id="pBSection"> <!-- id Added as part of R1:2017 -->
+                <apex:outputField value="{!ActivePub.NewFprOnlyPublication.Name}" /> 
+                <!-- Updated as part of Appear Enhancment R1:2017 -->
+                <!--Appear Enhancement 2017 Backlog R4 : changed field display condition based on questions-->
+                <apex:inputField id="MTA1" value="{!ActivePub.NewFprOnlyPublication.is_MTA__c}" />
+               	<!--apex:inputCheckbox id="chkboxIsMTA" value="{!ActivePub.NewFprOnlyPublication.is_MTA__c}" disabled="{!gotoFPROnly}" /-->
+                <apex:inputField onkeyup="predictiveSearchKeyUp();" onclick="predictiveSearchKeyUp();" onblur="$('#PubTitleSearchDropdown').hide(250);" id="PubTitle" value="{!ActivePub.NewFprOnlyPublication.Publication_Title__c}" required="true" />        
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.MTA__c}" /> 
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Publication_Type__c}" required="true" />
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Partner__c}" /> 
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Data_Source__c}" required="true" /> 
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.IsBiosimilars__c}" /> 
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.SubGroup_pick__c}"  required="true"/> 
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Comments_For_Approvers__c}" />
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Country_pick__c}" />             
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Comments_For_Coordinator__c}" />
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.Region_FormulaField__c}" /> 
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.FPR_Due_Date__c}" required="true" /> 
+                <!-- Updated as part of Appear Enhancment R1:2017-->
+                <!--<apex:inputField value="{!ActivePub.NewFprOnlyPublication.IsComments_Only__c}" /> 
+                <td align="left" style="width:49%"><apex:inputField value="{!ActivePub.NewFprOnlyPublication.isISS__c}" /></td>-->
+                <!-- new --><apex:inputCheckbox id="chkboxIsComment" disabled="{!gotoFPROnly}" value="{!ActivePub.NewFprOnlyPublication.IsComments_Only__c}"  />
+                <!-- new --><td align="left" style="width:49%"><apex:inputCheckbox id="chkboxisISS" disabled="{!gotoFPROnly}"  value="{!ActivePub.NewFprOnlyPublication.isISS__c}" /></td>
+                <apex:inputField value="{!ActivePub.NewFprOnlyPublication.isISStext__c}" /> 
+                 <!-- Appear Enhancement R1:2017 :: starts -->
+                <apex:inputCheckbox id="chkboxSPFull" disabled="{!gotoFPROnly}" value="{!ActivePub.NewFprOnlyPublication.SP_Full__c}"  />
+                <apex:inputCheckbox id="chkboxSOPEx" disabled="{!gotoFPROnly}" value="{!ActivePub.NewFprOnlyPublication.SOP_Exception__c}"  /> <!-- disabled="{!IF(ActivePub.sopException <> null,true,false)}"-->
+                <apex:inputCheckbox id="chkboxNoPrd" disabled="{!gotoFPROnly}" value="{!ActivePub.NewFprOnlyPublication.Not_Product_Policy__c}"  />
+                <!-- Appear Enhancement R1:2017 :: ends -->
+                <script type="text/javascript">         
+                    var inputElement = jQuery(document.getElementById('{!$Component.PubTitle}')).attr('autocomplete','off').wrap('<div id="PubTitleSearchContainer" style="position: relative; z-index: 9999;" />');
+                    $('#PubTitleSearchContainer').append('<div id="PubTitleSearchDropdown" style="display: none; position: absolute; top: 19px; left: 2px; border: 1px solid gray; width: 450px; height: 150px; background: white; overflow-y: scroll;"> <h1 style="margin: 3px 0 0 3px; display: block;">Existing Publications:</h1> <table style="padding:  0px; margin: 5px 0 0 0;">  <tbody id="PubTitleSearchList">  </tbody>  </table>  </div>');
+                    
+                    function predictiveSearchKeyUp(){   
+                        var inputElement = document.getElementById('{!$Component.PubTitle}');
+                        var inputText = inputElement.value;
+                        var searchDropdown = $('#PubTitleSearchDropdown');
+                        var searchList = searchDropdown.find('#PubTitleSearchList');
+                        var minChars = 2;
+                        
+                        if (inputText.length < minChars) {
+                            searchDropdown.hide(250);
+                            return;
+                        }
+                        
+                        AppearPubViewModel.findPubsByName(inputText, function(result, event){
+                            if (event.status) {
+                                if (result.length == 0) {
+                                    searchDropdown.hide(250);
+                                    return;
+                                }
+                                searchList.html('');
+                                $.each(result, function(key, pub){
+                                    searchList.append('<tr><td style="padding: 2px;">'+pub.name+'</td></tr>');
+                                });
+                                searchDropdown.show(250);
+                            }
+                        }, {escape:true})
+                    }
+                    function clickSave() {
+                        jQuery('input[type="submit"][value="Save"]').eq(1).click();
+                    }
+                //Appear Enhancement R1: 2017 :: starts
+                	function clickCancel() {
+                        jQuery('input[type="submit"][value="Cancel"]').eq(1).click();
+                    }	                
+                	var ansRecId = document.getElementById('{!$Component.qform.ansRecId}').value;
+                	var ansRecId2 = document.getElementById('{!$Component.qform.ansRecId2}');
+                	ansRecId2.value = ansRecId;	
+                	var isMTA = document.getElementById('{!$Component.qform.isMTA}').value;
+					var isSPFull = document.getElementById('{!$Component.qform.isSPFull}').value;
+					var isISS = document.getElementById('{!$Component.qform.isISS}').value;
+					var courtesyReview = document.getElementById('{!$Component.qform.courtesyReview}').value;
+                	var noProdPolicy = document.getElementById('{!$Component.qform.noProdPolicy}').value;
+                	var sopException = document.getElementById('{!$Component.qform.sopException}').value;
+                	var gotoFPROnly = '{!gotoFPROnly}';
+                    
+    				if(isISS == 'Yes'){ 
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.chkboxisISS}').checked = true;
+        			}
+                	/*if(isMTA == 'Yes'){ 
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.chkboxIsMTA}').checked = true;
+                    }*/
+                	if(isMTA == '' && gotoFPROnly ){
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.MTA1}').disabled = true;
+                    }
+                	if(isMTA == 'Optional' && gotoFPROnly ){
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.MTA1}').disabled = false;
+                    }
+                	if(isSPFull == 'Yes'){ 
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.chkboxSPFull}').checked = true;
+                    }
+                	if(courtesyReview == 'Yes'){
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.chkboxIsComment}').checked = true;
+                        
+                    }
+                	if(noProdPolicy == 'Yes'){
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.chkboxNoPrd}').checked = true;
+                    }
+                	if(sopException == 'Yes'){
+                        document.getElementById('{!$Component.qform.pBlock.pBSection.chkboxSOPEx}').checked = true;
+                    }
+    				function cancelFunc(){
+                        if(confirm('Do you really want to exit New FPR Request') == true){
+                        cancelAction();
+                      }
+                    } 
+                //Appear Enhancement R1: 2017 :: ends
+                </script>
+            </apex:pageblockSection>
+            
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!ActivePub.SaveNewFprOnlyPublication}" value="Save" /> 
+                <!--Updated as part of Appear Enhancment R1:2017-->
+                <!--<apex:commandButton onclick="window.location.reload(); return false;" value="Cancel" />-->
+                <apex:commandButton onclick="cancelFunc(); return false;" value="Cancel" /> 
+            </apex:pageBlockButtons>
+        </apex:pageblock>
+</apex:actionRegion>
+    </apex:form>
+</apex:component>

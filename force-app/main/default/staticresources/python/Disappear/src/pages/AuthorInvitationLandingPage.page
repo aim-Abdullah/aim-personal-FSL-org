@@ -1,0 +1,54 @@
+<apex:page controller="AuthorInvitationLandingPageController" showHeader="false" sidebar="false" action="{!RedirecttoPage}"> <!-- action method introduced as part of Appear Enhancement R2 for Author Login redirection -->
+<apex:outputPanel id="myJS"></apex:outputpanel>
+<script>
+    function refresh()
+    {   
+        if({!haserror==false}){
+            window.open('', '_self', '');
+            window.close();
+        }
+    }
+
+    function toggleButton(box, id) {
+        var elm = document.getElementById(id);
+        if(box.checked){
+            elm.style.display = "";
+        } else {
+            elm.style.display = "none";
+        }
+    }
+</script>
+    <apex:form id="LandingForm">
+        <table align="center" >
+            <tr width="100%">
+                <td width="10%"/>
+                <td width="80%" border="1px solid black;">
+                 
+                    <!--<iframe id="iframeUrl" width="800" height="450" frameborder="1" scrolling="yes" marginheight="0" marginwidth="0" src="{!comp.ProvisionDocumentContent__c}"></iframe>--><br></br><br></br>
+               
+                <apex:outputField style="width:800px;height:400px;" value="{!comp.ProvisionDocumentContent__c}" /></td>
+                <td width="10%"/>
+            </tr>
+            <tr width="100%">
+                    <td width="10%"/>
+                    <td width="80%">
+                    <iframe id="iframeUrl" width="800" height="150" frameborder="1" scrolling="No" marginheight="0" marginwidth="0" src="{!$Page.AuthorLandingPageStaticText}"></iframe>
+                    </td>
+                    <td width="10%"/>
+            </tr>
+            <tr width="100%">
+                <td width="10%"/>
+                <td width="80%"><input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="javascript: toggleButton(this,'j_id0:LandingForm:inviteApproveButton');"></input>&nbsp;<b>Yes, I have read the provisions document and agree with the conditions</b></td>
+                <td></td>
+            </tr>
+            <tr width="100%">
+                 <td width="10%"/>
+                 <td width="80%">
+                     <apex:commandButton id="inviteApproveButton" value="Accept Invitation" style="display:none;width:125px;height:25px;font-weight:bold;font-size:12px;background-color:#f9f9f9;border-radius:6px;" action="{!AppearPubAuthor}"/>&nbsp;&nbsp;
+                     <apex:commandButton id="btn" value="Cancel" oncomplete="refresh();" rerender="myJS" style="width:80px;height:25px;font-weight:bold;font-size:12px;background-color:#f9f9f9;border-radius:6px;" action="{!CancelAppearPubAuthor}"/>
+                 </td>
+                 <td width="10%"/>
+            </tr>
+        </table>
+    </apex:form>
+</apex:page>

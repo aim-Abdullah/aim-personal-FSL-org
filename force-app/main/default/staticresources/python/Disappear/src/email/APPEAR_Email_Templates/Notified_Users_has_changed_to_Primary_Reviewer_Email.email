@@ -1,0 +1,11 @@
+<p>Do not reply to this email message.</p>
+
+</p>FPR {!PubReviewTeam__c.PubIDLink__c} has been assigned for your review by {!PubReviewTeam__c.FPRDueDateFF__c}.<br>
+<br> It is your responsibility to uphold this assignment.  If you are unavailable to review and cannot meet this deadline contact the FPR coordinator, {!PubReviewTeam__c.AssignedFPRCFF__c}, to arrange a delegate in your place.  Thank you in advance for your review. <br>
+
+<br>{!PubReviewTeam__c.PubIDLink__c}<br>
+
+<br><b>Note</b>: If additional reviewers are needed, triage this assignment BEFORE voting.  All new reviewers must be trained on the FPR system. </p>
+
+<br>Thank you,</br>
+FPR System

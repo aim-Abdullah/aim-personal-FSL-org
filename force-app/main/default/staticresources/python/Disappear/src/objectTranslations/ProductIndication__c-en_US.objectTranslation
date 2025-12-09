@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Product Indication</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Product Indications</value>
+    </caseValues>
+    <fields>
+        <label><!-- EndDate --></label>
+        <name>EndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Indication --></label>
+        <name>Indication__c</name>
+        <relationshipLabel><!-- Product Indications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Product --></label>
+        <name>Product__c</name>
+        <relationshipLabel><!-- Product Indications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <fields>
+        <label><!-- StartDate --></label>
+        <name>StartDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Therapeutic Area --></label>
+        <name>Therapeutic_Area__c</name>
+        <relationshipLabel><!-- Product Indications --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- isEnbrel --></label>
+        <name>isEnbrel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expired --></label>
+        <name>isLogicallyDeleted__c</name>
+    </fields>
+    <layouts>
+        <layout>ProductIndication Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

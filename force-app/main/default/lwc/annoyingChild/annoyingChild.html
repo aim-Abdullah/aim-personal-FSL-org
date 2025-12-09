@@ -1,0 +1,46 @@
+<template>
+
+    <!-- Object With Record Type :: Starts-->
+    <lightning-card title="Object With Record Type">
+        <p>Check Record Type Id :: {ctRecordTypeId}</p>
+        <p>Check Record Type Name :: {ctRecordTypeName}</p>
+        <p>Check recordId :: {recordId}</p>
+
+    <lightning-record-edit-form  data-id="citizenForm" object-api-name="Citizen__c" record-type-id={ctRecordTypeId}>
+        <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
+                    <div><abbr data-div="Full_Name__c"></abbr>Full Name</div> 
+                    <lightning-input-field data-id="Full_Name__c" field-name="Full_Name__c" variant="label-hidden" > </lightning-input-field>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <div><abbr data-div="Category__c"></abbr>Category</div> 
+                    <lightning-input-field data-id="Category__c" field-name="Category__c" variant="label-hidden" > </lightning-input-field>
+                </div>
+        </div>
+    </lightning-record-edit-form> 
+    </lightning-card>
+    <!-- Object With Record Type :: Ends -->
+
+    <!-- Object With No Record Type :: Starts-->
+    <lightning-card title="Object With No Record Type">
+    <lightning-record-edit-form  data-id="immigForm" object-api-name="Immigration_Enforcement__c" >
+        <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
+                    <div><abbr data-div="Departments__c">* </abbr>Department</div> 
+                    <lightning-input-field data-id="Departments__c" field-name="Departments__c" variant="label-hidden" > </lightning-input-field>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <div><abbr data-div="Reporting_Centers__c">* </abbr>Reporting Centers</div> 
+                    <lightning-input-field data-id="Reporting_Centers__c" field-name="Reporting_Centers__c" variant="label-hidden" > </lightning-input-field>
+                </div>
+        </div>
+    </lightning-record-edit-form> 
+    </lightning-card> 
+    <!-- Object With No Record Type :: Ends -->
+
+     
+    <lightning-button type="button" variant="brand" label="Save" onclick={handleSubmit} ></lightning-button>
+    
+</template>

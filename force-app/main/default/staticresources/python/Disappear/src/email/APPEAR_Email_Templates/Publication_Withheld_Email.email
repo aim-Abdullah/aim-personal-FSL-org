@@ -1,0 +1,19 @@
+<HTML>
+
+<BODY>
+<P>Do not reply to this email message.</P>
+
+<P> FPR <b>{!PubReviewTeam__c.PubIDLink__c} </b>has been withheld by {!PubReviewTeam__c.Reviewer__c}. 
+To expedite the process contact the withholding reviewer directly to address their concerns. The updated version will need to be submitted to FPR for a subsequent review cycle. Contact your assigned FPR coordinator, {!PubReviewTeam__c.AssignedFPRCFF__c}, if you have questions or need support.
+<br>
+
+<br>FPR reviewers, no further action is required for this FPR record. <br>
+
+<br>{!PubReviewTeam__c.PubIDLink__c}<br>
+
+<br>Thank you,
+<br>FPR System<br>
+</P>
+
+<BODY>
+<HTML>

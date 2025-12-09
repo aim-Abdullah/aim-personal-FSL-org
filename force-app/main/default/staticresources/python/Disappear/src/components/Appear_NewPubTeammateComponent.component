@@ -1,0 +1,20 @@
+<apex:component allowDML="true">
+    <apex:attribute name="PubTeamMemberModel" description="" type="PubTeamMemberModel" required="true" />
+    <apex:attribute name="IsFprOnly" description="" type="Boolean" required="false" default="false"/>
+    <apex:form id="newTeammateFrm" >
+        <apex:pageblock title="New Publication Teammate" mode="edit">
+            <apex:pageMessages />
+            <apex:pageblockSection columns="2">
+                <apex:inputField value="{!PubTeamMemberModel.NewPubTeamMember.Member__c}"/>
+                <!--apex:inputField value="{!PubTeamMemberModel.NewPubTeamMember.Appear_Role__c}" rendered="{!!IsFprOnly}"/-->
+            </apex:pageblockSection>
+            <!-- CR 247 03/19/2014 <apex:pageblockSection columns="1" rendered="{!!IsFprOnly}">
+                <apex:outputText value="{!PubTeamMemberModel.ValidAppearRoles}" escape="false"/>
+            </apex:pageblockSection> -->
+        </apex:pageblock>
+        <div style="float: right; margin-top: 25px;">           
+            <apex:commandButton action="{!PubTeamMemberModel.saveNewTeamMember}" value="Save" />
+            <input type="submit" value="Cancel" class="btn" onclick="document.getElementById('{!$Component.newTeammateFrm}').reset(); location.reload(); return false;" />
+        </div>
+    </apex:form>
+</apex:component>

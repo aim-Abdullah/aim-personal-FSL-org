@@ -1,0 +1,218 @@
+<apex:page name="AppearFPR" controller="AppearFprController"
+    showHeader="true" tabStyle="FPR__tab" sidebar="false" action="{!saveActivePub}">
+    
+    <link rel="Stylesheet" type="text/css" href="{!$Resource.Appear}/AppearPub.css" />
+    <script type="text/javascript"          src="{!$Resource.jquery}"></script>
+    
+    <div class="modalOverlay" onclick="jQuery('.ListDetailModal').fadeOut();jQuery(this).delay(20).fadeOut();" style="display: none; position: absolute; left: 0px; top: 0px; z-index: 9000; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;"> </div>
+    <div class="ListDetailModal" style="display: none; position: fixed; top: 30%; left: 10%; width: 80%; height: 40%; overflow: auto; padding: 2em; z-index: 9999; background: white; border-radius: .5em;">
+         <apex:pageblock >
+            <apex:pageblocktable value="{!ActivePub.routedPublicationsForReviewerMainNav}" var="pub">
+                <apex:column >
+                    <apex:facet name="header">Pub Id</apex:facet>
+                    <apex:outputLink value="{!$Page.AppearFpr}?id={!pub.Id}&sfdc.override=1" id="eventlink">{!pub.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Pub Title</apex:facet>
+                    <apex:outputText value="{!pub.Publication_Title__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Pub Type</apex:facet>
+                    <apex:outputText value="{!pub.Publication_Type__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">FPR Status</apex:facet>
+                    <apex:outputText value="{!pub.Current_Status_FormulaField__c}" />
+                </apex:column>
+                <apex:column >    
+                    <apex:facet name="header">Submission Cycle</apex:facet>
+                    <apex:outputText value="{!pub.Current_Submission_Cycle_Num__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">FPR Cycle</apex:facet>
+                    <apex:outputText value="{!pub.Current_FPR_Cycle_Num__c}" />  
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Assigned Coordinator</apex:facet>
+                    <apex:outputText value="{!pub.Assigned_FPRC__r.name}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Date Expected By</apex:facet>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!pub.FPR_Due_Date__c}" /> 
+                    </apex:outputText>
+                </apex:column>
+            </apex:pageblocktable>
+        </apex:pageblock>
+    </div>
+    <script type="text/javascript">
+        var detailModal = jQuery('.ListDetailModal').appendTo('body');
+        var modalOverlay = jQuery('.modalOverlay').appendTo('body');
+        
+        if (!{!ActivePub.hasErrors} && window.location.search.indexOf('&') == -1 && window.location.search.indexOf('?') != -1)
+         { //Redirect from list view edit changed 
+            detailModal.fadeIn(0);          
+            modalOverlay.fadeIn(0);
+        }
+    </script>
+    <div class="AppearMain" role="main"> 
+        <apex:outputPanel rendered="{!showPubTiles}">
+            <c:AppearLeftSideBar PcTileBar="{!TileBar}"/> 
+        </apex:outputPanel>
+
+        <div class="AppearMainColumn">
+            <apex:OutputPanel Rendered="{!showPubNoActiveView}">
+                <c:PubNoActiveView PubStatusModel="{!ActivePub.PubStatus}" />  
+            </apex:OutputPanel>
+            <apex:OutputPanel Rendered="{!!showPubNoActiveView}">
+            
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Pub Details'}"> 
+                    <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                    <c:Appear_FprPubDetailsComponent ActivePub="{!ActivePub}" />
+                    
+                    <apex:outputPanel Rendered="{!showSharingDetails}">  
+                        <c:Appear_SharingComponent activePub="{!ActivePub}" />
+                    </apex:outputPanel> 
+                </apex:OutputPanel>
+                
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Reviewer Activity'}">                     
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                     <c:Appear_FprReviewersComponent ShowRoleColumn="False"  TeamModel="{!ActivePub.PubReviewTeam}" ActivePub="{!ActivePub}" />
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Studies/Projects'}">
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                     <c:Appear_PubStudyComponent PubStudyModel="{!ActivePub.PubStudy}"/>
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Scientific Statements'}"> 
+                     Scientific Statements Placeholder 
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Publication Team'}">   
+                    <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                     <c:Appear_PubTeamComponent Pub="{!ActivePub.PubRecord}" PubTeamMemberModel="{!ActivePub.PubTeamMember}"/>
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Writing Roles'}"> 
+                     Writing Roles Placeholder <br/>
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Statuses'}">
+                    <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                    <!--<c:Appear_PubStatusComponent PubStatusModel="{!ActivePub.PubStatus}" Pub="{!ActivePub.PubRecord}" />-->
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Pre-FPR Reviewers'}"> 
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                     <c:Appear_PreFprReviewersComponent PreFprReviewerModel="{!ActivePub.PreFprReviewer}"/>
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Authors'}"> 
+                     Authors Placeholder <br/>
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'MEs'}"> 
+                     MEs Placeholder<br/>
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" /> 
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Related Pubs'}"> 
+                     Related Pubs Placeholder <br/>
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Publications For Review'}">
+                     <apex:form id="pubsForReviewForm">                     
+                        <apex:selectList value="{!ActivePub.SelectedFprSubmitterMyRequestOption}" styleClass="showAllCheckbox" size="1" style="display: none;">
+                            <apex:selectOptions value="{!ActivePub.ReviewerMyRequestOptions}" />
+                            <apex:actionSupport event="onchange" status="refreshingRequestsStatus" rerender="pubsForReviewForm"/> 
+                        </apex:selectList>
+                        <apex:pageblock mode="maindetail" title="Publications For Review" >
+                            <apex:pageblockButtons >
+                                <apex:outputText styleClass="showAllLabel" value="Show: " style="margin-left: 25px; margin-right: 5px; font-weight: bold; color: #4a4a56; font-size: 11px; display: none;" />
+                                <apex:actionStatus id="refreshingRequestsStatus" 
+                                    startText=" loading publications...      "
+                                    stopText=""/>   
+                            </apex:pageblockButtons>                            
+                            <apex:pageblocktable value="{!ActivePub.routedPublicationsForReviewer}" var="pub">
+                                <apex:column >
+                                    <apex:facet name="header">Pub Id</apex:facet>
+                                    <apex:outputLink value="{!$Page.AppearFpr}?tile=Pub%20Details&sfdc.override=1&id={!pub.Id}" id="eventlink">{!pub.Name}</apex:outputLink>
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Pub Title</apex:facet>
+                                    <apex:outputText value="{!pub.Publication_Title__c}" />
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Pub Type</apex:facet>
+                                    <apex:outputText value="{!pub.Publication_Type__c}" />
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">FPR Status</apex:facet>
+                                    <apex:outputText value="{!pub.Current_Status_FormulaField__c}" />
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Submission Cycle</apex:facet>
+                                    <apex:outputText value="{!pub.Current_Submission_Cycle_Num__c}" />
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">FPR Cycle</apex:facet>
+                                    <apex:outputText value="{!pub.Current_FPR_Cycle_Num__c}" />  
+                                </apex:column>
+                                <apex:column >
+                                    <apex:facet name="header">Assigned Coordinator</apex:facet>
+                                    <apex:outputText value="{!pub.Assigned_FPRC__r.name}" />
+                                </apex:column>
+                               <apex:column >
+                                    <apex:facet name="header">Date Expected By</apex:facet>
+                                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+				                        <apex:param value="{!pub.FPR_Due_Date__c}" /> 
+				                    </apex:outputText>
+                                </apex:column>
+                            </apex:pageblocktable>
+                        </apex:pageblock>
+                        
+                        <script type="text/javascript">
+                            jQuery( '.showAllLabel' ).each(function( index ) {
+                                if (index == 0) {
+                                    jQuery(this).show().after(jQuery('.showAllCheckbox').show());
+                                } else { this.remove(); }
+                            });
+                        </script>
+                    </apex:form>
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'New FPR Submission'}">
+                     <c:Appear_FprOnlyNewPub ActivePub="{!ActivePub}" />
+                </apex:OutputPanel>
+                
+                <apex:OutputPanel Rendered="{!TileBar.ActiveTile.PcTileId = 'Publication Content'}"> 
+                     <c:PubHeader PubHeaderDTO="{!ActivePub.PubHeader}" />
+                     <div id="newAttachmentsDiv" style="display: none;">
+                        <c:Appear_PubAttachments AttachmentModel="{!ActivePub.PubAttachments}" IsFpr="true" ActivePub="{!ActivePub}" />
+                     </div>
+                     <div id="crossAttachmentsDiv" style="display: none;">
+                        <c:Appear_PubAttachmentsCrossbrowser AttachmentModel="{!ActivePub.PubAttachments}" IsFpr="true" ActivePub="{!ActivePub}" />
+                     </div>
+                     
+                     <script>
+                         if (typeof window.FormData != 'undefined') {
+                            jQuery('#newAttachmentsDiv').show(0);
+                         } else {
+                            jQuery('#crossAttachmentsDiv').show(0);
+                         }
+                     </script>                 
+                </apex:OutputPanel>
+                
+            </apex:OutputPanel>
+        </div>
+             
+    </div> 
+
+
+</apex:page>

@@ -1,0 +1,28 @@
+<HTML>
+
+<BODY>
+<P>Do not reply to this email message.</P>
+
+<P> Courtesy FPR <b>{!PubReviewTeam__c.PubIDLink__c}</b>has been reviewed and is now complete. Reviewer comments can be accessed using the link below.<br>
+
+<br>Contact the FPR coordinator, {!PubReviewTeam__c.AssignedFPRCFF__c}, If you have questions or need support.<br></p>
+
+
+<P><b>LEGAL AND COMPLIANCE DISCLAIMER:</b> If an electronic copy of the publication is submitted to external reviewers or meeting/journal, please ensure the following: <br>
+•	There are no embedded data (links to data or confidential information). Pay special attention to tables and/or figures generated from underlying Excel spreadsheets that may contain Amgen Confidential Information. <br>
+•	Remove proprietary information that may appear in the Speaker Notes of oral presentations. <br>
+•	Set the security on all documents. Note that PDFs are editable unless secured. <br>
+•	Be aware that Amgen may not wish to disclose AMG numbers for early-phase products.<br> 
+•	Remove “Amgen Confidential” from versions of documents to be publicly disseminated. <br><br>
+
+Please note that the FPR process does not fulfill the Amgen requirement for Final Review by All Authors. Refer to the Amgen Publications SOP (014321-7.0) for policy and standard practices across all groups that collaborate with outside authors.
+</P>
+
+{!PubReviewTeam__c.PubIDLink__c}<br>
+
+<br>Thank you,
+<br>FPR System
+
+
+<BODY>
+<HTML>

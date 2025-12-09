@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Profile Tab Tile</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Profile Tab Tiles</value>
+    </caseValues>
+    <fields>
+        <label><!-- APPEAR 626 --></label>
+        <name>APPEAR_626__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR Business Admin --></label>
+        <name>APPEAR_Business_Admin__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR External Writer --></label>
+        <name>APPEAR_External_Writer__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR FPRC --></label>
+        <name>APPEAR_FPRC__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR FPR Only Submitters --></label>
+        <name>APPEAR_FPR_Only_Submitters__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR Functional Pub Team --></label>
+        <name>APPEAR_Functional_Pub_Team__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR GPPL --></label>
+        <name>APPEAR_GPPL__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR International FPRC --></label>
+        <name>APPEAR_International_FPRC__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR Pub Team --></label>
+        <name>APPEAR_Pub_Team__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR Read-Only --></label>
+        <name>APPEAR_Read_Only__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR Reviewers --></label>
+        <name>APPEAR_Reviewers__c</name>
+    </fields>
+    <fields>
+        <label><!-- APPEAR Writing --></label>
+        <name>APPEAR_Writing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Profile Tab --></label>
+        <name>Profile_Tab__c</name>
+        <relationshipLabel><!-- Profile Tab Tiles --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- System Admin --></label>
+        <name>System_Admin__c</name>
+    </fields>
+    <layouts>
+        <layout>Profile Tab Tile Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

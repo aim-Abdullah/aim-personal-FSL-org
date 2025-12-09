@@ -1,0 +1,32 @@
+<template>
+    <lightning-layout vertical-align="stretch" multiple-rows="true" class="x-large">
+        <!-- Column 1 :: Starts-->
+        <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
+        <div class="slds-box slds-p-around_medium slds-text-align_center">
+            <div class="slds-text-heading_large">Select Shift Fields</div>
+            <!--c-upcoming-posts></c-upcoming-posts-->
+            <c-sobject-schema></c-sobject-schema>
+        </div>
+        </lightning-layout-item>
+        <!-- Column 1 :: Ends-->
+
+        <!-- Column 2 :: Starts-->
+        <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
+        <div class="slds-box slds-p-around_medium slds-text-align_center">
+            <div class="slds-text-heading_large">Shift From Pattern Layout</div>
+            <c-completed-posts></c-completed-posts>
+        </div>
+        </lightning-layout-item>
+        <!-- Column 2 :: Ends-->
+        
+        <!-- Column 3 :: Starts-->
+        <lightning-layout-item flexibility="auto" padding="around-small" class="custom-box">
+        <div class="slds-box slds-p-around_medium slds-text-align_center">
+            <div class="slds-text-heading_large">Shift From Template Layout</div>
+        </div>
+        </lightning-layout-item>
+        <!-- Column 3 :: Ends-->
+        
+        
+    </lightning-layout>
+</template>

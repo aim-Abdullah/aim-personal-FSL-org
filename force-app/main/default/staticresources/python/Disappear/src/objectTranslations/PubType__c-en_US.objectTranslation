@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Publication Type</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Publication Types</value>
+    </caseValues>
+    <fields>
+        <label><!-- DefaultTargetType --></label>
+        <name>DefaultTargetType__c</name>
+        <picklistValues>
+            <masterLabel>Journal</masterLabel>
+            <translation><!-- Journal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meeting</masterLabel>
+            <translation><!-- Meeting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Expired --></label>
+        <name>IsLogicallyDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- ME + --></label>
+        <name>ME_plus__c</name>
+    </fields>
+    <fields>
+        <label><!-- ME --></label>
+        <name>MePoint__c</name>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <fields>
+        <label><!-- displayOrder --></label>
+        <name>displayOrder__c</name>
+    </fields>
+    <fields>
+        <label><!-- InitalStatus = Suggested --></label>
+        <name>isInitalStatusSuggested__c</name>
+    </fields>
+    <layouts>
+        <layout>PubType Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- APPEARPubTypeRecord --></label>
+        <name>APPEARPubTypeRecord</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- LegacyPubTypeRecord --></label>
+        <name>LegacyPubTypeRecord</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

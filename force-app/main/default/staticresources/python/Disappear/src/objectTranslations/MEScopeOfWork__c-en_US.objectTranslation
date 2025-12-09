@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>MEScopeOfWork</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>MEScopeOfWork</value>
+    </caseValues>
+    <fields>
+        <label><!-- Begin dt --></label>
+        <name>Begin_dt_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expired --></label>
+        <name>IsLogicallyDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Scaling Factor --></label>
+        <name>Scaling_Factor__c</name>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <layouts>
+        <layout>MEScopeOfWork Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

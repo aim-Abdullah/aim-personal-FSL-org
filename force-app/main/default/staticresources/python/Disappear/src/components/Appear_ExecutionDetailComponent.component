@@ -1,0 +1,28 @@
+<apex:component allowDml="true">
+
+    <apex:attribute name="ActivePub" description="" type="AppearPubModel" required="true" />
+    <br />      
+    <script type="text/javascript">
+        beenfocused = true;
+        function setFocusOnLoad() {} 
+    </script>
+    <apex:form >
+        <apex:pageBlock mode="mainDetail">
+            <apex:pageBlockSection title="Execution Details" >
+            
+                <!-- {!ActivePub.ExecutionNotes.NotesReadOnly} -->
+                <apex:inputTextarea style="width: 100%;" rows="10" label="Notes" readonly="{!ActivePub.ExecutionNotes.NotesReadOnly}" 
+                    value="{!ActivePub.ExecutionNotes.Notes}"/>
+                
+                <br />
+            
+                <apex:inputTextarea style="width: 100%;" label=" " rows="3" value="{!ActivePub.ExecutionNotes.SingleNote}"/>
+                <br />
+                    
+                <apex:commandButton style="float: right;" action="{!ActivePub.ExecutionNotes.SaveComment}" value="Save Comment" rendered="{!IF($Profile.Name =='APPEAR Read-Only',false,true)}" />
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:component>

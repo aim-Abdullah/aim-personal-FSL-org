@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowMembersToFlag>false</allowMembersToFlag>
+    <branding>
+        <loginFooterText>Amgen.com</loginFooterText>
+        <loginLogo>Communities_Shared_Document_Folder1/AppearAuthorPortalLoginLogo_png.png</loginLogo>
+        <pageFooter>WM4SF3__WalkMe_Resources/WM4SF3__WalkMe_Footer.html</pageFooter>
+        <pageHeader>SharedDocuments/Appear_Logo.png</pageHeader>
+        <primaryColor>#007700</primaryColor>
+        <primaryComplementColor>#FFFFFF</primaryComplementColor>
+        <quaternaryColor>#B1BAC1</quaternaryColor>
+        <quaternaryComplementColor>#222222</quaternaryComplementColor>
+        <secondaryColor>#51606E</secondaryColor>
+        <tertiaryColor>#DDE4E9</tertiaryColor>
+        <tertiaryComplementColor>#222222</tertiaryComplementColor>
+        <zeronaryColor>#51606E</zeronaryColor>
+        <zeronaryComplementColor>#FFFFFF</zeronaryComplementColor>
+    </branding>
+    <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
+    <description>Community to serve the Author Collaboration Activities for Amgen Publications</description>
+    <emailSenderAddress>skurmana@amgen.com</emailSenderAddress>
+    <emailSenderName>Pub Author Portal</emailSenderName>
+    <enableGuestChatter>false</enableGuestChatter>
+    <enableInvitation>false</enableInvitation>
+    <enableKnowledgeable>false</enableKnowledgeable>
+    <enableNicknameDisplay>false</enableNicknameDisplay>
+    <enablePrivateMessages>false</enablePrivateMessages>
+    <enableReputation>false</enableReputation>
+    <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <networkMemberGroups>
+        <profile>Admin</profile>
+        <profile>APPEAR Pub Team</profile>
+        <profile>Appear Portal Pub Author Login</profile>
+        <profile>APPEAR Portal FPR Only Submitter</profile>
+        <profile>APPEAR Writing</profile>
+        <profile>APPEAR Business Admin</profile>
+        <profile>APPEAR FPRC</profile>
+        <profile>APPEAR GPPL</profile>
+        <profile>APPEAR Reviewers</profile>
+        <profile>APPEAR International FPRC</profile>
+        <profile>APPEAR Read-Only</profile>
+        <profile>APPEAR External Writer</profile>
+        <profile>APPEAR Functional Pub Team</profile>
+    </networkMemberGroups>
+    <picassoSite>Pub_Author1</picassoSite>
+    <selfRegProfile>appear portal pub author login</selfRegProfile>
+    <selfRegistration>true</selfRegistration>
+    <sendWelcomeEmail>false</sendWelcomeEmail>
+    <site>Pub_Author</site>
+    <status>Live</status>
+    <tabs>
+        <customTab>Pub_Author</customTab>
+        <defaultTab>01rU0000000DpBA</defaultTab>
+    </tabs>
+    <urlPathPrefix>PubAuthor</urlPathPrefix>
+    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
+</Network>

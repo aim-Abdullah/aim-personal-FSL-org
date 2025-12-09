@@ -1,0 +1,5 @@
+<apex:component id="FprRequestViewView">
+	<h1>FprRequestViewView</h1><br/>
+	<apex:image url="{!URLFOR($Resource.FprRequest, 'FprRequest/FprRequest.jpg')}" />
+  
+</apex:component>

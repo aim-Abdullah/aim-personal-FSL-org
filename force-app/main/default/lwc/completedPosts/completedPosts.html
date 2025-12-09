@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="COMPLETED POSTS LWC">
+        <lightning-layout>
+            <div class="slds-p-around_small">
+                <div id="idCompletedPosts" class="flex-container" ondragover={allowDrop} ondrop={drop}>
+                    <template for:each={lstPosts} for:item="post">
+                        <p key={post}>
+                            <c-post title={post}></c-post>
+                        </p>
+                    </template>
+                </div>
+            </div>
+        </lightning-layout>
+    </lightning-card>
+</template>

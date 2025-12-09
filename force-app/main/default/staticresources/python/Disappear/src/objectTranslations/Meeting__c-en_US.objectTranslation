@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Meeting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Meetings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Abs Pub Book --></label>
+        <name>Abs_Pub_Book__c</name>
+    </fields>
+    <fields>
+        <label><!-- Abs Pub CDROM --></label>
+        <name>Abs_Pub_CDROM__c</name>
+    </fields>
+    <fields>
+        <label><!-- Abs Pub Website --></label>
+        <name>Abs_Pub_Website__c</name>
+    </fields>
+    <fields>
+        <label><!-- Abstracts Published Journal Issue --></label>
+        <name>Abstracts_Published_Journal_Issue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Abstracts Published Journal Title --></label>
+        <name>Abstracts_Published_Journal_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Abstracts Published Journal --></label>
+        <name>Abstracts_Published_Journal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Acronym --></label>
+        <name>Acronym__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attendees Lower --></label>
+        <name>Attendees_Lower__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attendees Upper --></label>
+        <name>Attendees_Upper__c</name>
+    </fields>
+    <fields>
+        <label><!-- Audience --></label>
+        <name>Audience__c</name>
+    </fields>
+    <fields>
+        <label><!-- Author Instructions --></label>
+        <name>Author_Instructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ends --></label>
+        <name>Ends__c</name>
+    </fields>
+    <fields>
+        <label><!-- Latest Target Submission Date --></label>
+        <name>Latest_Target_Submission_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Meeting Begin Date --></label>
+        <name>Legacy_Meeting_Begin_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Meeting End Date --></label>
+        <name>Legacy_Meeting_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legacy Meeting --></label>
+        <name>Legacy_Meeting__c</name>
+    </fields>
+    <fields>
+        <label><!-- MeetingName255 --></label>
+        <name>MeetingName255__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meeting Name --></label>
+        <name>Meeting_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Meeting URL --></label>
+        <name>Meeting_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prior Publication --></label>
+        <name>Prior_Publication__c</name>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Starts --></label>
+        <name>Starts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sylogent Meeting Id --></label>
+        <name>Sylogent_Meeting_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Therapy --></label>
+        <name>Therapy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unique Meeting Name --></label>
+        <name>Unique_Meeting_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Venue City --></label>
+        <name>Venue_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Venue Country --></label>
+        <name>Venue_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Venue --></label>
+        <name>Venue__c</name>
+    </fields>
+    <layouts>
+        <layout>Meeting Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Meeting must have a Meeting Name or a Legacy Meeting Name --></errorMessage>
+        <name>Meeting_must_have_a_name</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- A Start and End must be entered for new meetings entered by Business Administrators. --></errorMessage>
+        <name>Start_End_Must_Be_Added_to_New_Meetings</name>
+    </validationRules>
+</CustomObjectTranslation>

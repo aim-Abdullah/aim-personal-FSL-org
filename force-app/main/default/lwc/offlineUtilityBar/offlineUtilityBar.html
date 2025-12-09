@@ -1,0 +1,32 @@
+<template>
+    <template lwc:if={checkMobileDevices}>
+        This is a {formFactor} device. fire after 1 sec
+        <div class="bottom-bar">
+            
+            <template lwc:if={isOffline}>
+                <div class="offline-indicator"></div>
+                <span class="message">You are Offline</span>
+            </template>
+
+            <template lwc:else>
+                <!--lightning-dynamic-icon  type="ellie" alternative-text="You are Online">
+                </lightning-dynamic-icon-->
+
+                <div class="online-indicator">
+                    <span class="blink"></span>
+                </div>
+                <span class="message">You are Online</span>
+                <!--lightning-button label="Publish Online" onclick={handleOnline}></lightning-button>
+                <lightning-button label="Publish Offline" onclick={handleOffline}></lightning-button-->
+            </template>
+
+            
+        </div>
+    </template>
+
+    <template lwc:else>
+        Else condition
+    </template>
+
+    
+</template>

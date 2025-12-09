@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Appear_Role__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Appear Role</label>
+        <referenceTo>Appear_Role__c</referenceTo>
+        <relationshipLabel>Review Team Members</relationshipLabel>
+        <relationshipName>Review_Team_Members</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ReviewTeamMember__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Review Team Member</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Review Team Members</relationshipLabel>
+        <relationshipName>Review_Team_Members</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Review_Team__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Review Team</label>
+        <referenceTo>Review_Team__c</referenceTo>
+        <relationshipLabel>Review Team Members</relationshipLabel>
+        <relationshipName>Review_Team_Members</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ReviewerType__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Primary</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Notify</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPA Approver</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPA Comments Only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPA Copy Only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPA Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FPA Triagee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reviewer_Role__c</fullName>
+        <externalId>false</externalId>
+        <label>Reviewer Role</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Area VP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EDL/GDL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IML</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>US Legal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>International Legal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biostatistics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IBL International</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global TA Head</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Biosimilars</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SiebelRowId__c</fullName>
+        <externalId>true</externalId>
+        <label>SiebelRowId</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Review Team Member</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>RTM-{00000000}</displayFormat>
+        <label>Review Team Member Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Review Team Members</pluralLabel>
+    <recordTypes>
+        <fullName>APPEARReviewTeamMemberRecord</fullName>
+        <active>true</active>
+        <label>APPEARReviewTeamMemberRecord</label>
+        <picklistValues>
+            <picklist>ReviewerType__c</picklist>
+            <values>
+                <fullName>Notify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Primary</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reviewer_Role__c</picklist>
+            <values>
+                <fullName>Area VP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biosimilars</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biostatistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EDL%2FGDL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Global TA Head</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IBL International</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IML</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>International Legal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US Legal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>LegacyReviewTeamMemberRecord</fullName>
+        <active>true</active>
+        <description>Used for legacy data migration from Siebel</description>
+        <label>LegacyReviewTeamMemberRecord</label>
+        <picklistValues>
+            <picklist>ReviewerType__c</picklist>
+            <values>
+                <fullName>FPA Approver</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FPA Comments Only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FPA Copy Only</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FPA Delegate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FPA Triagee</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reviewer_Role__c</picklist>
+            <values>
+                <fullName>Area VP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biosimilars</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biostatistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EDL%2FGDL</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Global TA Head</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IBL International</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>IML</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>International Legal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US Legal</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

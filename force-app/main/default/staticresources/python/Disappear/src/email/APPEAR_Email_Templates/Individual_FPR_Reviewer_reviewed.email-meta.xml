@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Individual FPR Reviewer reviewed, others are still pending Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Individual FPR Reviewer reviewed</name>
+    <style>none</style>
+    <subject>FPR {!PubReviewTeam__c.Publication__c} Has Been Reviewed by {!PubReviewTeam__c.Reviewer__c}</subject>
+    <textOnly>Do not reply to this email message.
+
+FPR {!PubReviewTeam__c.PubIDLink__c} has been reviewed by {!PubReviewTeam__c.Reviewer__c}. Please note, the FPR process has not completed and other reviews are still pending.
+
+Contact the FPR coordinator, {!PubReviewTeam__c.AssignedFPRCFF__c}, If you have questions or need support.
+
+{!PubReviewTeam__c.PubIDLink__c}
+
+
+Thank you,
+FPR System</textOnly>
+    <type>custom</type>
+</EmailTemplate>

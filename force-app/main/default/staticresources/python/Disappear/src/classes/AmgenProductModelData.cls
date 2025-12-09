@@ -1,0 +1,161 @@
+public class AmgenProductModelData extends AppearBaseData {
+	
+	public static AmgenProduct__c  amg103mt103 {
+		get {
+			return AmgenProductModel.AmgenProductMapByName.get('AMG 103 (MT103)');
+		}
+	}
+
+	public static void createData() {
+		
+		integer dataCount = [select count() from AmgenProduct__c];
+		if ( dataCount <> 0) return;
+		
+		List<AmgenProduct__c> ProductList = new List<AmgenProduct__c>();
+
+		ProductList.add( new AmgenProduct__c(name= 'ABP 215', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'ABP 494', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'ABP 501', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'ABP 710', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'ABP 798', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'ABP 980', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 103 (MT103)', Product_Description__c= 'Molecule not partnered'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 108', Product_Description__c= 'Monoclonal antibody to IL-1 receptor (Rheumatoid Arthritis)'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 110 (MT110)', Product_Description__c= 'Molecule not partnered'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 112 (MT112)', Product_Description__c= 'Molecule partnered with Bayer Schering'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 114', Product_Description__c= 'Hyperglycosylated Analog of Aranesp'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 131', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 139', Product_Description__c= 'anti-IL-23'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 145', Product_Description__c= 'human monoclonal immunoglobulin'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 151', Product_Description__c= 'glucokinase (GK) activator'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 157', Product_Description__c= 'anti-TSLP (thymic stromal lymphopoietin)'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 167', Product_Description__c= 'Sclerostin Antibody'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 172', Product_Description__c= 'CD27L'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 181', Product_Description__c= 'alpha4-beta7'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 191', Product_Description__c= 'c-Kit Ab'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 195', Product_Description__c= 'AMP5'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 203 (MT203)', Product_Description__c= 'Molecule partnered'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 208', Product_Description__c= 'c-Met #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 211 (MT111)', Product_Description__c= 'Molecule partnered with MedImmune'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 212 (MT212)', Product_Description__c= 'Molecule partnered with Bayer Schering'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 218 (MT118)', Product_Description__c= 'Molecule partnered with Sanofi'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 221', Product_Description__c= '11B-HSD1'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 222', Product_Description__c= 'DPP-IV Antagonist'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 223', Product_Description__c= 'Phosphate Binder'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 232', Product_Description__c= 'MDM2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 245', Product_Description__c= 'Anti-myostatin peptibody'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 247', Product_Description__c= 'GM-CSF #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 273', Product_Description__c= 'A novel multi-kinase inhibitor'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 277', Product_Description__c= 'S1P1'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 282', Product_Description__c= 'ST2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 287', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 303', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 317', Product_Description__c= 'Monoclonal antibody to IL-4 receptor alpha'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 319', Product_Description__c= 'PI3K delta'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 330 (MT114)', Product_Description__c= 'Molecule not partnered'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 331', Product_Description__c= '11b-Hydroxysteroid Dehydrogenase Type 1'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 333', Product_Description__c= 'TRPM8'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 334', Product_Description__c= 'CGRP R#2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 337', Product_Description__c= 'c-Met #3'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 357', Product_Description__c= 'PI3K delta #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 379', Product_Description__c= 'B1 MP'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 401 (MT201)', Product_Description__c= 'Molecule not partnered'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 403', Product_Description__c= 'NGF Ab'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 416', Product_Description__c= 'CaSR peptide'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 420 (MT120)', Product_Description__c= 'Molecule partnered with Boehringer Ingelheim'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 429', Product_Description__c= 'VEGFR SG'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 434', Product_Description__c= 'sACT2BR #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 458', Product_Description__c= 'c-Met'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 477', Product_Description__c= 'GCGR'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 492', Product_Description__c= 'PCSK9 #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 507', Product_Description__c= 'rLCAT'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 511', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 517', Product_Description__c= 'VR1'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 548', Product_Description__c= 'p38 alpha MAP kinase inhibitor'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 557', Product_Description__c= 'anti-B7RP-1 MAb'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 575', Product_Description__c= 'P55 TNFR'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 579', Product_Description__c= 'PDE10 #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 580', Product_Description__c= 'PDE10  Pet Tracer'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 581', Product_Description__c= 'PDE10A'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 595', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 601', Product_Description__c= 'IL-18R'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 623', Product_Description__c= 'AGP3'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 641', Product_Description__c= 'Second Generation Calcimimetics'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 655', Product_Description__c= 'TRAIL R2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 706', Product_Description__c= 'Small Molecule Angiogenesis Inhibitor'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 714', Product_Description__c= 'Monoclonal antibody to IL-15'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 719', Product_Description__c= 'Kin-2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 725', Product_Description__c= 'Mesothelin MSLN'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 729', Product_Description__c= 'Anti-CD19'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 745', Product_Description__c= 'Myostatin Backup'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 747', Product_Description__c= 'Gly-T1'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 753', Product_Description__c= 'Tek Delta'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 761', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 763', Product_Description__c= 'Anti-IL-21R'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 777', Product_Description__c= 'Anti-Activin A'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 780', Product_Description__c= 'Anti-Ang2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 811', Product_Description__c= 'IFN g ab'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 819', Product_Description__c= 'NGF Pb'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 820', Product_Description__c= 'C-FMS'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 827', Product_Description__c= 'IL-17R'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 847', Product_Description__c= 'GlyT-1 #2'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 853', Product_Description__c= 'Orally bioavailable small molecule that inhibits binding of PGD2 to its receptors CRTH2 and DP'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 864', Product_Description__c= 'Amyloid'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 876', Product_Description__c= 'FGF21'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 888', Product_Description__c= 'HER-3'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 891', Product_Description__c= 'hepcidin'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 900', Product_Description__c= 'aurora kinase inhibitor'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 947', Product_Description__c= 'IL-15'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 949', Product_Description__c= 'FLT3L'	));
+		ProductList.add( new AmgenProduct__c(name= 'AMG 951 (Apo2L/TRAIL)', Product_Description__c= 'Soluble Human Protein involved in the regulation of apoptosis'	));
+		ProductList.add( new AmgenProduct__c(name= 'Abarelix', Product_Description__c= 'Abarelix'	));
+		ProductList.add( new AmgenProduct__c(name= 'Alfimeprase', Product_Description__c= 'Modified fibrolase that degrades fibrin'	));
+		ProductList.add( new AmgenProduct__c(name= 'Aranesp', Product_Description__c= 'darbepoetin alfa'	));
+		ProductList.add( new AmgenProduct__c(name= 'Avrend/Mobista', Product_Description__c= 'CD40 Ligand/FLT3 Ligand'	));
+		ProductList.add( new AmgenProduct__c(name= 'BDNF', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'Biosimilars GPPT', Product_Description__c= 'Biosimilars'	));
+		ProductList.add( new AmgenProduct__c(name= 'Biosimilars Teams', Product_Description__c= 'Biosimilars'	));
+		ProductList.add( new AmgenProduct__c(name= 'CD40 Ligand', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'Denosumab', Product_Description__c= 'RANK ligand inhibitor'	));
+		ProductList.add( new AmgenProduct__c(name= 'Enbrel', Product_Description__c= 'TNFR:Fc', isEnbrel__c = true	));
+		ProductList.add( new AmgenProduct__c(name= 'Epogen', Product_Description__c= 'epoetin alfa'	));
+		ProductList.add( new AmgenProduct__c(name= 'Epratuzumab', Product_Description__c= 'E-MAB'	));
+		ProductList.add( new AmgenProduct__c(name= 'GDNF', Product_Description__c= 'Glial Cell Derived Neurotrophic Factor'	));
+		ProductList.add( new AmgenProduct__c(name= 'GM-CSF', Product_Description__c= 'granulocyte macrophage colony-stimulating factor'	));
+		ProductList.add( new AmgenProduct__c(name= 'Ganitumab (AMG 479)', Product_Description__c= 'IGF-1R'	));
+		ProductList.add( new AmgenProduct__c(name= 'H010', Product_Description__c= 'for Anemia'	));
+		ProductList.add( new AmgenProduct__c(name= 'IL-15', Product_Description__c= 'Humax'	));
+		ProductList.add( new AmgenProduct__c(name= 'IL-33', Product_Description__c= 'ST2'	));
+		ProductList.add( new AmgenProduct__c(name= 'Infergen', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'Kepivance', Product_Description__c= 'Recombinant Keratinocyte Growth Factor (rHuKGF)'	));
+		ProductList.add( new AmgenProduct__c(name= 'Kineret', Product_Description__c= 'IL-1ra'	));
+		ProductList.add( new AmgenProduct__c(name= 'Leptin', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'MGDF', Product_Description__c= 'Megakaryocyte Growth and Differentiation Factor'	));
+		ProductList.add( new AmgenProduct__c(name= 'NABT (FPA Admin Use Only)', Product_Description__c= 'North American Biosimilars Team (FPA Admin Use Only)'	));
+		ProductList.add( new AmgenProduct__c(name= 'NABT Non Pubs', Product_Description__c= 'Biosimilars'	));
+		ProductList.add( new AmgenProduct__c(name= 'NOVANTRONE', Product_Description__c= 'Mitoxantrone'	));
+		ProductList.add( new AmgenProduct__c(name= 'Neulasta', Product_Description__c= 'pegfilgrastim'	));
+		ProductList.add( new AmgenProduct__c(name= 'Neupogen', Product_Description__c= 'Filgrastim'	));
+		ProductList.add( new AmgenProduct__c(name= 'Not Applicable', Product_Description__c= 'Cross product or not product-specific'	));
+		ProductList.add( new AmgenProduct__c(name= 'Nplate', Product_Description__c= 'Thrombopoietic agent'	));
+		ProductList.add( new AmgenProduct__c(name= 'Nuvance', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'PEG sTNFRI', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'Prolia', Product_Description__c= 'RANK ligand inhibitor'	));
+		ProductList.add( new AmgenProduct__c(name= 'RANK-Fc/OPG-Fc/OPG', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'Romosozumab (AMG 785)', Product_Description__c= 'Humanized monoclonal antibody that inhibits sclerostin'	));
+		ProductList.add( new AmgenProduct__c(name= 'SLPI', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'Sensipar', Product_Description__c= 'Cinacalcet HCL'	));
+		ProductList.add( new AmgenProduct__c(name= 'Stemgen', Product_Description__c= 'Stem Cell Factor'	));
+		ProductList.add( new AmgenProduct__c(name= 'T-VEC', Product_Description__c= 'Talimogene Laherparepvec'	));
+		ProductList.add( new AmgenProduct__c(name= 'TIMP-3', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'TSLP', Product_Description__c= 'thymic stromal lymphopoietin'	));
+		ProductList.add( new AmgenProduct__c(name= 'Thioplex', Product_Description__c= 'Thiotepa'	));
+		ProductList.add( new AmgenProduct__c(name= 'Trebananib (AMG 386)', Product_Description__c= 'Ang2'	));
+		ProductList.add( new AmgenProduct__c(name= 'Vectibix', Product_Description__c= 'mAb to Epidermal Growth Factor Receptor'	));
+		ProductList.add( new AmgenProduct__c(name= 'omecamtivmecarbil (AMG 423)', Product_Description__c= ''	));
+		ProductList.add( new AmgenProduct__c(name= 'rilotumumab(AMG 102)', Product_Description__c= 'HGF Ab'	));
+		
+		insert ProductList;
+
+	}
+}

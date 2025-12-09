@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>FPR Only Questions</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FPR Only Questions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Answer Field Name --></label>
+        <name>Answer_Field_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Message 2 --></label>
+        <name>Error_Message_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Message --></label>
+        <name>Error_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is inActive --></label>
+        <name>Is_inActive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Question Response --></label>
+        <name>Parent_Question_Response__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Question --></label>
+        <name>Parent_Question__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question Content 2 --></label>
+        <name>Question_Content_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question Content --></label>
+        <name>Question_Content__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

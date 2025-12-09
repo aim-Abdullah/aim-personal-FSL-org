@@ -1,0 +1,226 @@
+<apex:page controller="UserSearchController" sidebar="false">
+ <h1> Please enter the first name, last name, email address, or username on the left hand side to search for an APPEAR user. Tab out of the field and the results will appear in the screen on the right.</h1>
+  <apex:form >
+  <apex:pageMessages id="errors" />
+
+  <apex:pageBlock title="Search for User" mode="edit">
+  
+  <table width="100%" border="0">
+  <tr>  
+    <td width="200" valign="top">
+ 
+      <apex:pageBlock title="Parameters" mode="edit" id="criteria">
+ 
+      <script type="text/javascript">
+      function doSearch() {
+        searchServer(
+          document.getElementById("firstName").value,
+          document.getElementById("lastName").value,
+          document.getElementById("email").value,
+          document.getElementById("username").value,
+          document.getElementById("alias").value,
+          document.getElementById("federationidentifier").value,
+          );
+      }
+      </script> 
+ 
+      <apex:actionFunction name="searchServer" action="{!runSearch}" rerender="results,debug,errors">
+          <apex:param name="firstName" value="" />
+          <apex:param name="lastName" value="lau" />
+          <apex:param name="email" value="" />
+          <apex:param name="username" value="" />
+          <apex:param name="alias" value="" />
+          <apex:param name="federationidentifier" value="" />     
+      </apex:actionFunction>
+ 
+      <table cellpadding="2" cellspacing="2">
+      <tr>
+        <td style="font-weight:bold;">First Name<br/>
+            <apex:inputText id="firstName" value="{!firstName}" />
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Last Name<br/>
+            <apex:inputText id="lastName" value="{!lastName}" />
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Email<br/>
+            <apex:inputText id="email" value="{!email}" />
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Username<br/>
+            <apex:inputText id="username" value="{!username}" />
+        </td>
+      </tr>
+       <tr>
+        <td style="font-weight:bold;">Alias<br/>
+            <apex:inputText id="alias" value="{!alias}" />
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight:bold;">Federation Identifier<br/>
+            <apex:inputText id="federationidentifier" value="{!federationidentifier}" />
+        </td>
+      </tr>
+      </table>
+ 
+ 
+        
+
+      </apex:pageBlock>
+ 
+    </td>
+    <td valign="top">
+ 
+    <apex:pageBlock mode="edit" id="results">
+ 
+        <apex:pageBlockTable value="{!users}" var="user">
+ 
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="First Name" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="firstName" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.firstName}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+ 
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Last Name" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="lastName" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.lastName}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+ 
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Email" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="email" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.email}" rendered="{!IF(($Profile.Name=='APPEAR Business Admin' || $Profile.Name=='System Administrator') && (user.IsPortalEnabled),true,false)}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+ 
+         <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Username" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="username" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.username}" rendered="{!IF(($Profile.Name=='APPEAR Business Admin' || $Profile.Name=='System Administrator') && (user.IsPortalEnabled),true,false)}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+             <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Alias" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="alias" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.alias}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+           
+             <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Federation ID" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="federationid" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.federationidentifier}" />
+
+            </apex:column>
+            
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="New Fed Id" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="federationid" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.Delegate_Admin_Federation_ID__c}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+            
+            
+            
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Role" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="Role" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.UserRoleID}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+            
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Profile" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="Profile" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.ProfileID}" />
+            </apex:column>
+  
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="New Profile" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="Profile" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.Delegate_Admin_Profile__c}" rendered="{!IF(($Profile.Name=='APPEAR Business Admin' || $Profile.Name=='System Administrator') && (!user.IsPortalEnabled),true,false)}">
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" />
+                </apex:outputField>
+            </apex:column>
+            
+            <apex:column >
+                <apex:facet name="header">
+                    <apex:commandLink value="Active" action="{!toggleSort}" rerender="results,debug">
+                        <apex:param name="sortField" value="Active" assignTo="{!sortField}"/>
+                    </apex:commandLink>
+                </apex:facet>
+                <apex:outputField value="{!user.IsActive}" >
+                    <apex:inlineEditSupport showOnEdit="SaveChangesButton, cancelButton" 
+                        hideOnEdit="SearchButton" event="ondblclick" disabled="{!IF(($Profile.Name=='APPEAR Business Admin' || $Profile.Name=='System Administrator') && (user.IsPortalEnabled),true,false)}"/>
+                </apex:outputField>
+            </apex:column>
+        </apex:pageBlockTable>
+        
+        <apex:pageBlockButtons >
+            <apex:commandButton action="{!runSearch}" value="Search" id="SearchButton"/>
+            <apex:commandButton action="{!SaveChanges}" value="Save Changes" id="SaveChangesButton" style="display: none;"/>  
+            <apex:commandButton onclick="resetInlineEdit()" value="Cancel" id="cancelButton"  style="display: none;"/>  
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+ 
+    </td>
+  </tr>
+  </table> 
+
+ 
+  </apex:pageBlock> 
+ 
+  </apex:form>
+ 
+</apex:page>

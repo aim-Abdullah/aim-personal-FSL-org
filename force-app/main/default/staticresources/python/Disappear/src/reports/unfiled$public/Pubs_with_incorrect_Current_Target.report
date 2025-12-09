@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Target__c</field>
+    </columns>
+    <columns>
+        <field>CUST_LAST_UPDATE_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_LAST_UPDATE</field>
+    </columns>
+    <columns>
+        <field>Publication__c.isPlanning__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.isExecution__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.isFPR__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Publication__c.Current_Target__c</column>
+            <operator>equals</operator>
+            <value>Cancer Treatment Reviews</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Pubs with incorrect Current Target</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.Current_Status_Date_FormulaField__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

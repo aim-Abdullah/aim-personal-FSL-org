@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Sponsored_Date__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.FPR_Due_Date__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.DataSourceFormulaField__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Status_FormulaField__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Status_Date_FormulaField__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Publication__c.DataSourceFormulaField__c</column>
+            <operator>equals</operator>
+            <value>Development</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Publication__c.isFPR__c</column>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$PubStatus__c.Status__c</column>
+            <operator>equals</operator>
+            <value>In FPR,Assigned to FPRC,Routed,FPR Withdrawn,Withheld,FPR Withheld,Discussion Required,Courtesy FPR Completed,Courtesy FPR Completed with Comments,FPR Completed,FPR Completed with Comments</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Publication__c.Product_Indication__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Sponsor Lead Time by Product Indication</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c@Publication__c.PubStatus__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.Sponsored_Date__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

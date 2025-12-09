@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$PubStatus__c.Status__c</field>
+    </columns>
+    <columns>
+        <field>FK_$PubStatus__c.Submission_Cycle_Num_Formula__c</field>
+    </columns>
+    <columns>
+        <field>FK_$PubStatus__c.FPR_Cycle_Num_Formula__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>FK_$PubStatus__c.Status__c</column>
+            <operator>equals</operator>
+            <value>Published/Presented</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Pubs with missing FPR Cycle</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c@Publication__c.PubStatus__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>CUST_NAME</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.Current_Status_Date_FormulaField__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

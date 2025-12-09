@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Type__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Title__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.FPR_Due_Date__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Target_Submission_Date__c</field>
+    </columns>
+    <description>See what FPRC is assigned what Pubs</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Publication__c.Assigned_FPRC__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Assigned to FPRC</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.FPR_Due_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

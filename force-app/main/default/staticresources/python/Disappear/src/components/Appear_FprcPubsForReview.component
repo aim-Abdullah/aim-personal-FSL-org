@@ -1,0 +1,86 @@
+<apex:component allowDml="true" >
+    <apex:attribute name="ActivePub" description="" type="AppearPubModel" required="true" />
+    <apex:form >
+        <apex:pageblock mode="maindetail" >
+            <apex:pageblockSection columns="1" title="My Assigned Publications" collapsible="false" >
+                <apex:pageMessages />
+                <apex:pageblocktable value="{!ActivePub.MyFPRCPubList}" var="myPub">
+                    <apex:column >
+                        <apex:facet name="header">Id</apex:facet>
+                        <apex:outputLink value="{!$Page.AppearPub}?id={!myPub.Id}&sfdc.override=1">{!myPub.Name}</apex:outputLink>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Title</apex:facet>
+                        <apex:outputField value="{!myPub.Publication_Title__c}" />
+                    </apex:column>
+                    <!-- Appear Enhancement R1:2017 -->
+                    <apex:column >
+                        <apex:facet name="header">Publication Classification</apex:facet>
+                        <apex:outputText value="{!myPub.GPP_Type__c}" />
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Current Status</apex:facet>
+                        <apex:outputText value="{!myPub.Current_Status_FormulaField__c}" />
+                    </apex:column>
+                <apex:column >
+                    <apex:facet name="header">FPR Due Date</apex:facet>
+                    <apex:outputText value="{!myPub.FPR_Due_Date__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Submitted Date</apex:facet>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!myPub.Sponsored_Date__c}" /> 
+                    </apex:outputText>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Submitter</apex:facet>
+                    <apex:outputText value="{!myPub.FPR_Submitter__r.Name}" />
+                </apex:column>
+                </apex:pageblocktable>
+            </apex:pageblockSection>
+        </apex:pageblock>
+        <apex:pageblock title="Publication Queue for FPR" mode="edit" >     
+            <apex:pageblocktable value="{!ActivePub.AllFPRCPubList}" var="pub">
+                <apex:column width="28px" >
+                    <apex:inputField value="{!pub.IsSelected__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Id</apex:facet>
+                        <apex:outputLink value="{!$Page.AppearPub}?id={!pub.Id}&sfdc.override=1">{!pub.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Title</apex:facet>
+                    <apex:outputField value="{!pub.Publication_Title__c}" />
+                </apex:column>
+                <!-- Appear Enhancement R1:2017 -->
+                    <apex:column >
+                        <apex:facet name="header">Publication Classification</apex:facet>
+                        <apex:outputText value="{!pub.GPP_Type__c}" />
+                    </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Current Status</apex:facet>
+                    <apex:outputText value="{!pub.Current_Status_FormulaField__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">FPR Due Date</apex:facet>
+                    <apex:outputText value="{!pub.FPR_Due_Date__c}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Submitted Date</apex:facet>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!pub.Sponsored_Date__c}" /> 
+                    </apex:outputText>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Submitter</apex:facet>
+                    <apex:outputText value="{!pub.FPR_Submitter__r.Name}" />
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Assigned To</apex:facet>
+                    <apex:outputText value="{!pub.Assigned_FPRC__r.Name}" />
+                </apex:column>
+            </apex:pageblocktable>
+            <apex:pageBlockButtons ><apex:commandButton action="{!ActivePub.FPRCAssignToMe}" value="Assign To Me" /></apex:pageBlockButtons>
+        </apex:pageblock> 
+    </apex:form>
+</apex:component>

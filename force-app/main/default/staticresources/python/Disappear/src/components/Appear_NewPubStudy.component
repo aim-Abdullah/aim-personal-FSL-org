@@ -1,0 +1,87 @@
+<apex:component allowDML="true" controller="PubStudyViewModel">
+   <apex:attribute name="PubStudyModel" description="" type="PubStudyModel" required="true" />
+    <apex:form id="newPubStudyFrm" >
+        <apex:pageblock title="New Study / Project" mode="edit">
+            <apex:pageMessages />
+            <table class="detailList">
+                <tbody>
+                    <tr>
+                        <td class="labelCol">
+                            Type
+                        </td>
+                        <td class="dataCol">
+                            <select id="studyTypeSelect" onChange="onStudyTypeChanged();">
+                                <option value="study">1. Study</option>
+                                <option value="project">2. Project</option>
+                            </select>
+                        </td>
+                        <td class="labelCol">
+                            Name
+                        </td>
+                        <td class="data2Col">
+                            <div id="StudySearchContainer" style="position: relative;">
+                                <input type="text" class="StudyInput" 
+                                    onclick="predictiveSearchKeyUp('Study');" onkeyup="predictiveSearchKeyUp('Study');" id="StudySearch"/>
+                                    <div id="StudySearchDropdown" style="display: none; position: absolute; top: 19px; left: 2px; border: 1px solid gray; width: 325px; height: 150px; background: white; overflow-y: scroll;">
+                                        <ul id="StudySearchList" style="list-style-type: none; padding:  0px; margin: 5px 0 0 0;">
+                                        </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </apex:pageblock>
+        
+        <apex:inputHidden id="newStudyInput" value="{!PubStudyModel.StudyProjectId}"/>
+        <apex:inputHidden id="newStudyName" value="{!PubStudyModel.StudyProjectName}"/>
+        
+        <div style="float: right; margin-top: 25px;">           
+            <apex:commandButton action="{!PubStudyModel.saveNewPubStudy}" value="Save" />
+            <input type="submit" value="Cancel" class="btn" onclick="document.getElementById('{!$Component.newPubStudyFrm}').reset(); location.reload(); return false;" />
+        </div>
+        
+        <script type="text/javascript">
+            jQuery('input.StudyInput').attr('autocomplete','off');      
+            
+            function onStudyTypeChanged() {
+                document.getElementById('{!$Component.newPubStudyFrm.studyModeInput}').value = jQuery('#studyTypeSelect').val();
+                $('input.StudyInput')[0].value = '';
+            }
+            
+            function studyClicked(studyId, studyName) {
+                $('input.StudyInput')[0].value = studyName;
+                document.getElementById('{!$Component.newPubStudyFrm.newStudyName}').value = studyName;
+                document.getElementById('{!$Component.newPubStudyFrm.newStudyInput}').value = studyId;
+                $('#StudySearchDropdown').hide(250);            
+            }
+            
+            function predictiveSearchKeyUp(searchType){ 
+                var inputElement = $('input.'+searchType+'Input')[0];
+                var inputText = inputElement.value;             
+                document.getElementById('{!$Component.newPubStudyFrm.newStudyName}').value = inputText;
+                var searchDropdown = $('#'+searchType+'SearchDropdown');
+                var searchList = searchDropdown.children('#'+searchType+'SearchList');
+                var minChars = 2;
+                
+                if (inputText.length < minChars) {
+                        searchDropdown.hide(250);
+                    return;
+                }
+                var studyType = jQuery('#studyTypeSelect').val();
+                
+                if (searchType == 'Study') {
+                    PubStudyViewModel.findStudiesByNameTitle(studyType ,inputText, function(result, event){
+                        if (event.status && document.activeElement.className == 'StudyInput') {
+                            searchList.html('');
+                            $.each(result, function(key, study){
+                                searchList.append('<li><a onClick="studyClicked(\'' + study.id + '\', \'' + study.name + '\')" style="cursor: pointer;">'+study.name+', '+study.title+'</a></li>');
+                            });
+                            searchDropdown.show(250);
+                        }
+                    }, {escape:true})
+                }
+            }
+        </script>
+    </apex:form>
+</apex:component>

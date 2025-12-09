@@ -1,0 +1,71 @@
+<apex:component allowDML="true" >
+	<apex:attribute name="PubProdIndModel" description="" type="PubProdIndModel" required="true" />
+	<apex:attribute name="parentFrmId" description="" type="String" required="false" />
+	<script type="text/javascript" src="{!$Resource.Appear}/chosen.jquery.min.js" />	
+	<apex:stylesheet value="{!$Resource.Appear}/chosen.css"/>
+	
+	<apex:form >
+		<apex:pageBlock title="Product - Indication is a Mandatory field. Please select one." mode="edit">			
+            <apex:pageMessages />
+			<table class="detailList">
+				<tbody>
+					<tr>
+						<td class="labelCol">
+							Product Indications
+						</td>
+						<td class="dataCol">
+							<div id="prodIndSelectContainer" style="width: 100%">
+								<apex:selectList value="{!PubProdIndModel.SelectedProductIndications}" multiselect="true">
+								     <apex:selectOptions value="{!PubProdIndModel.ProdIndicationMultiSelect}"/>
+								</apex:selectList>		
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="labelCol">
+							Primary
+						</td>
+						<td class="dataCol">
+							<div id="keyIndicationContainer" style="width: 100%">
+								<select onChange="jQuery('#keyIndicationContainer>input[type=hidden]').val(jQuery(this).val());" style="height: 26px;" id="keyIndSelect">
+									<option value="">None</option>
+								</select>
+
+								<apex:inputHidden id="keyIndicatorId" value="{!PubProdIndModel.KeyProdIndStr}" />
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</apex:pageBlock>
+			
+		<div style="float: right; margin-top: 25px;">			
+			<apex:commandButton action="{!PubProdIndModel.savePubProdInd}" value="Save" />
+			<input type="submit" value="Cancel" class="btn" onclick="document.getElementById('{!parentFrmId}').reset(); location.reload(); return false;" />
+		</div>
+	</apex:form>
+	<script type="text/javascript">
+		jQuery('.pubProdIndModal .pbTitle').next().hide()
+		var firstLoad = true;
+		jQuery('div#prodIndSelectContainer>select').attr('data-placeholder','Choose Product Indications...').css({'width':'350px'}).chosen().change(setupDependentSelect);
+		
+		function setupDependentSelect() {
+			var keyIndSelect = jQuery('#keyIndSelect');
+			var prevSelected = keyIndSelect.val();
+			keyIndSelect.html('<option value="">None</option>');
+			jQuery('div#prodIndSelectContainer>select option:selected').each(function(){
+				keyIndSelect.append(jQuery(this).clone());
+			});
+			
+			if (!firstLoad) {
+				keyIndSelect.val(prevSelected);
+				jQuery('#keyIndicationContainer>input[type=hidden]').val(keyIndSelect.val());
+			}
+			firstLoad = false;
+		}
+		
+		//load init
+		setupDependentSelect();		
+		jQuery('#keyIndSelect').val(jQuery('#keyIndicationContainer>input[type=hidden]').val());
+	</script>
+</apex:component>

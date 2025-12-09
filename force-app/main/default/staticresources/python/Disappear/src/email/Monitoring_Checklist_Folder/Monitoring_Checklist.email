@@ -1,0 +1,45 @@
+<messaging:emailTemplate subject="Publication {!relatedTo.Publication__r.Name} has been monitored. {!relatedTo.AttachmentType__c} has been attached." recipientType="Contact" relatedToType="PubAttachmentDetails__c">
+
+<messaging:htmlEmailBody >  
+    <html>
+         <style>
+        p {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+        }
+        
+        li {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+        }
+        
+        
+        </style>
+        
+        <script type="text/javascript"  src="{!$Resource.jquery}"></script>
+    
+        <p>Dear All, </p>        
+        <p>The {!relatedTo.AttachmentType__c} has been uploaded for publication<b> <c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Name}"/></b>.{!If(relatedTo.AttachmentType__c == 'Monitoring Checklist Part 3',' This now completes all functional monitoring and you may continue updating your publication record as required',' You may now continue working on the publication')}.</p>
+            <p><b>Title :</b> <c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Publication_Title__c}"/><br/>
+            <b>Target : </b> {!relatedTo.Publication__r.Current_Target__c} <br/>
+            <b>Type : </b> {!relatedTo.Publication__r.Publication_Type__c} <br/>
+            <b>Classification : </b> {!relatedTo.Publication__r.GPP_Type__c}</p>       
+        
+        <p>
+        Thank You</p>
+    </html>
+    </messaging:htmlEmailBody>
+
+<messaging:plainTextEmailBody >
+    Dear {!recipient.name},
+            
+    The {!relatedTo.AttachmentType__c} has been uploaded for publication <c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Name}"/>.{!If(relatedTo.AttachmentType__c == ' Monitoring Checklist Part 3',' This now completes all functional monitoring and you may continue updating your publication record as required.',' You may now continue working on the publication')}.
+    
+    Title          : <c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Publication_Title__c}"/>
+    Target         : {!relatedTo.Publication__r.Current_Target__c}
+    Type           : {!relatedTo.Publication__r.Publication_Type__c}
+    Classification : {!relatedTo.Publication__r.GPP_Type__c}
+            
+    Thank You
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Additional_Details_For_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Details (For Approval)</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Additional_Details_For_Draft_Share__c</fullName>
+        <description>Stores additional details sent with Draft-Share email</description>
+        <externalId>false</externalId>
+        <label>Additional Details (For Draft Share)</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Additional_Details__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Details (For Invite)</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Addl_Details_for_Reminder__c</fullName>
+        <externalId>false</externalId>
+        <label>Addl Details for Reminder</label>
+        <length>4000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ApprovalAcceptedDate__c</fullName>
+        <description>The date the Approval Notice has been accepted</description>
+        <externalId>false</externalId>
+        <label>Approval Accepted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ApprovalSentDate__c</fullName>
+        <description>The date the Approval notice has been sent out</description>
+        <externalId>false</externalId>
+        <label>Approval Sent Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Disclaimer_ID__c</fullName>
+        <description>Contains the ID of the approval disclaimer used</description>
+        <externalId>false</externalId>
+        <label>Approval Disclaimer ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Rejected_Date__c</fullName>
+        <description>Field holds the Approval Rejected Date by an Author or Core User</description>
+        <externalId>false</externalId>
+        <label>Approval Rejected Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>AuthorCountry__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Author__r.Country__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Author Country</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AuthorOrder__c</fullName>
+        <externalId>false</externalId>
+        <label>Author Order</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AuthorStatus__c</fullName>
+        <externalId>false</externalId>
+        <label>AuthorStatus</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending Invite Delivery</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Invite Acceptance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invite Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invitation Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Publication Review by Authors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Author Approval</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed Author Approval</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Author_Address__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Author Address</label>
+        <referenceTo>Contact_Address__c</referenceTo>
+        <relationshipLabel>Publication Authors</relationshipLabel>
+        <relationshipName>Publication_Authors</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Author__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Author</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Publication Authors</relationshipLabel>
+        <relationshipName>Publication_Authors</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>By_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Please respond by (For Invite)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>CommentReceivedDate__c</fullName>
+        <description>Stores the author comment received date</description>
+        <externalId>false</externalId>
+        <label>CommentReceivedDate</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Disclaimer_ID__c</fullName>
+        <description>Contains the ID of the invite disclaimer used</description>
+        <externalId>false</externalId>
+        <label>Invite Disclaimer ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DraftShareDate__c</fullName>
+        <description>The date on which Draft Share email was sent</description>
+        <externalId>false</externalId>
+        <label>Draft Share Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GrantDraftAccess__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>used to grant access to the latest draft document related to this publication</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Grant access to the latest draft document related to this publication</inlineHelpText>
+        <label>Grant Access</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>InviteAcceptedDate__c</fullName>
+        <description>The date when the Author  has accepted the Invitation</description>
+        <externalId>false</externalId>
+        <label>Invite Accepted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>InviteSentDate__c</fullName>
+        <description>The date the Invitation was sent out.</description>
+        <externalId>false</externalId>
+        <label>Invite Sent Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Invite_Rejected_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Invite Rejected Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>IsSelected__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>for UI Operation only - do not store or migrate data to this field</description>
+        <externalId>false</externalId>
+        <label>IsSelected</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Justification_for_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>Justification for Approval/Rejection</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Email Confirmation of Discussion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email from Author</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email Response from Author’s Delegate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Justification_for_invite__c</fullName>
+        <externalId>false</externalId>
+        <label>Justification for invite</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Email Confirmation of Discussion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email from Author</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>On_behalf_of_for_Approval__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>On behalf of (for Approval)</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Publication_Authors</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>On_behalf_of_for_Invite__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>On behalf of (for Invite)</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Publication_Authors1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Please_respond_by_For_Approval__c</fullName>
+        <externalId>false</externalId>
+        <label>Please respond by (For Approval)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Please_respond_by_For_Draft_Share__c</fullName>
+        <description>Stores Draft Share Due Date</description>
+        <externalId>false</externalId>
+        <label>Please respond by (For Draft Share)</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Publication__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Publication</label>
+        <referenceTo>Publication__c</referenceTo>
+        <relationshipLabel>Publication Authors</relationshipLabel>
+        <relationshipName>Publication_Authors</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Rationale__c</fullName>
+        <externalId>false</externalId>
+        <label>Rationale</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Conception and design of Study</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Patient data collection/Data acquisition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analysis and interpretation of data</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ReasonToDeclineApproval__c</fullName>
+        <description>Reason to decline approval</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Reason to decline approval</inlineHelpText>
+        <label>Reason to Decline Approval</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Site_Investigator_PI__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Site Investigator (PI)</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isLogicallyDeleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used for logical deletion or soft deletion of Pub Authors.</description>
+        <externalId>false</externalId>
+        <label>isLogicallyDeleted</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Publication Author</label>
+    <listViews>
+        <fullName>Approval_View</fullName>
+        <columns>Publication__c</columns>
+        <columns>Author__c</columns>
+        <columns>AuthorOrder__c</columns>
+        <columns>AuthorStatus__c</columns>
+        <columns>Please_respond_by_For_Approval__c</columns>
+        <columns>Additional_Details_For_Approval__c</columns>
+        <columns>ApprovalAcceptedDate__c</columns>
+        <columns>Approval_Disclaimer_ID__c</columns>
+        <columns>ApprovalSentDate__c</columns>
+        <columns>ReasonToDeclineApproval__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-068841</value>
+        </filters>
+        <label>Approval View</label>
+    </listViews>
+    <listViews>
+        <fullName>Invite_View</fullName>
+        <columns>Publication__c</columns>
+        <columns>Author__c</columns>
+        <columns>AuthorOrder__c</columns>
+        <columns>AuthorStatus__c</columns>
+        <columns>InviteAcceptedDate__c</columns>
+        <columns>InviteSentDate__c</columns>
+        <columns>Disclaimer_ID__c</columns>
+        <columns>Additional_Details__c</columns>
+        <columns>By_Date_Time__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-071833</value>
+        </filters>
+        <label>Invite View</label>
+    </listViews>
+    <nameField>
+        <displayFormat>PA-{0000000}</displayFormat>
+        <label>Publication Author Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Publication Authors</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

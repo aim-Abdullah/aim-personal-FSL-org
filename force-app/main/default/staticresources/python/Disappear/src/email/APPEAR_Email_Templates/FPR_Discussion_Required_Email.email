@@ -1,0 +1,15 @@
+<HTML>
+
+<BODY>
+<P>Do not reply to this email message.</P>
+
+<P> FPR <b>{!PubReviewTeam__c.PubIDLink__c}</b> requires additional discussion. To expedite the process contact {!PubReviewTeam__c.Reviewer__c}  to address their concerns. Contact the FPR coordinator,  {!PubReviewTeam__c.AssignedFPRCFF__c}, if you have questions or need support. <br>
+
+<br>{!PubReviewTeam__c.PubIDLink__c}<br>
+
+<br>Thank you,<br>
+<br>FPR System</br>
+</P>
+
+<BODY>
+<HTML>

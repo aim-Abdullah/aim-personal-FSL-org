@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Publication Status</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Publication Statuses</value>
+    </caseValues>
+    <fields>
+        <label><!-- ActualDate &gt; CurrentStatus --></label>
+        <name>ActualDate_CurrentStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actual Date --></label>
+        <name>ActualDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- hide Days Before Target --></label>
+        <name>Days_Before_Target__c</name>
+    </fields>
+    <fields>
+        <label><!-- hide Days Extension --></label>
+        <name>Days_Extension__c</name>
+    </fields>
+    <fields>
+        <label><!-- hide Days OrigTarget Completion --></label>
+        <name>Days_OrigTarget_Completion__c</name>
+    </fields>
+    <fields>
+        <label><!-- hide Days Overdue --></label>
+        <name>Days_Overdue__c</name>
+    </fields>
+    <fields>
+        <label><!-- hide Days RevTarget Completion --></label>
+        <name>Days_RevTarget_Completion__c</name>
+    </fields>
+    <fields>
+        <label><!-- FPR Cycle # --></label>
+        <name>FPR_Cycle_Num_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- FPR Cycle --></label>
+        <name>FPR_Cycle__c</name>
+        <relationshipLabel><!-- Publication Statuses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- FPR Cycle num for sorting --></label>
+        <name>FPR_Cycle_sort_num__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsActualDateEditable --></label>
+        <name>IsActualDateEditable__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsCurrentFPRCycleForPub --></label>
+        <name>IsCurrentFPRCycleForPub__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsCurrentSubmissionCycleForPub --></label>
+        <name>IsCurrentSubmissionCycleForPub__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expired --></label>
+        <name>IsLogicallyDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Journal --></label>
+        <name>Journal__c</name>
+        <relationshipLabel><!-- Publication Statuses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Meeting --></label>
+        <name>Meeting__c</name>
+        <relationshipLabel><!-- Publication Statuses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Pub Current Status Actual Date --></label>
+        <name>Pub_Current_Status_Actual_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publication_id --></label>
+        <name>Publication_id__c</name>
+        <relationshipLabel><!-- Publication Statuses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reason For Change --></label>
+        <name>Reason_For_Change__c</name>
+        <picklistValues>
+            <masterLabel>Delay in Data Availability</masterLabel>
+            <translation><!-- Delay in Data Availability --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Delay in publication of primary manuscript</masterLabel>
+            <translation><!-- Delay in publication of primary manuscript --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External Steering Committee delays</masterLabel>
+            <translation><!-- External Steering Committee delays --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External author requested timeline shift</masterLabel>
+            <translation><!-- External author requested timeline shift --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External author review delay</masterLabel>
+            <translation><!-- External author review delay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal contributor delay</masterLabel>
+            <translation><!-- Internal contributor delay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal reviewer delay</masterLabel>
+            <translation><!-- Internal reviewer delay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Program Change</masterLabel>
+            <translation><!-- Program Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requests for additional analyses</masterLabel>
+            <translation><!-- Requests for additional analyses --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Resourcing constraints</masterLabel>
+            <translation><!-- Resourcing constraints --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Latest Revised Date --></label>
+        <name>RevisedTargetDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Route Pattern --></label>
+        <name>Route_Pattern__c</name>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stage --></label>
+        <name>Stage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <relationshipLabel><!-- Publication Statuses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Submission Cycle # --></label>
+        <name>Submission_Cycle_Num_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Cycle --></label>
+        <name>Submission_Cycle__c</name>
+        <relationshipLabel><!-- Publication Statuses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Target Date --></label>
+        <name>TargetDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Target --></label>
+        <name>Target__c</name>
+    </fields>
+    <layouts>
+        <layout>PubStatus Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Legacy Pub Status --></label>
+        <name>Legacy_Pub_Status</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- default --></label>
+        <name>default</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Please DO NOT Enter an Actual Date in Future --></errorMessage>
+        <name>Actual_Date_is_NOT_in_future</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only a Business Administrator or GPPL can enter an actual date for Proposal Complete. --></errorMessage>
+        <name>Proposal_Complete_Update</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Once Target Date on Submitted/Completed status is set, please use Latest Target Submission Date for any updates. The target date will be editable the following year from Jan 1st to Feb 15th --></errorMessage>
+        <name>TargetDate_is_not_Editable</name>
+    </validationRules>
+</CustomObjectTranslation>

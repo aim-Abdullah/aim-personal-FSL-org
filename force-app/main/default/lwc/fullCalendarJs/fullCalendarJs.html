@@ -1,0 +1,47 @@
+<template>
+    
+    <lightning-card title="Current Available Slots" icon-name="standard:event">
+      <div class="slds-card__body_inner">
+
+          <template if:true={displayRefreshMessage}>
+               {refreshMessage}
+          </template>
+        
+            <!-- Slot Tiles :: Starts -->
+            <template if:true={wrapperList}>
+              <lightning-layout multiple-rows="true" pull-to-boundary="small">
+              
+              <template for:each={wrapperList} for:item="wrapList">
+                <lightning-layout-item key={wrapList.resourceId} size="3" class="slds-var-p-around_x-small">
+                  
+                  <!--Unit Slots :: Starts-->
+                  <div class="slds-box slds-box_x-small">
+                  <lightning-card variant="narrow" data-id={wrapList.resourceId} title={wrapList.resourceName} icon-name="standard:service_appointment">
+                    <div class="slds-var-p-horizontal_small">
+                      <p class="slds-var-m-bottom_xx-small"><b>Available Date : </b>{wrapList.res_StartTime}</p>
+                    </div>
+
+                  </lightning-card>  
+                  </div>
+                  <!--Unit Slots :: Ends-->
+
+                </lightning-layout-item>
+              </template>
+
+            </lightning-layout>
+            </template>
+            <!-- Slot Tiles :: Ends -->
+
+            <template if:true={errorValue}>
+            
+                No Value Found 
+                {errorValue}
+            
+            </template>
+        
+      </div> 
+    </lightning-card>
+  </template>
+
+
+  <!--lightning-button label="Get Available Appointments" onclick={getAppointments}></lightning-button-->

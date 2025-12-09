@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>User.Contacts__r$Name</field>
+    </columns>
+    <columns>
+        <field>User$Name</field>
+    </columns>
+    <columns>
+        <field>User$Email</field>
+    </columns>
+    <columns>
+        <field>User.Contacts__r$Email</field>
+    </columns>
+    <columns>
+        <field>User.Contacts__r$RecordType</field>
+    </columns>
+    <columns>
+        <field>User$IsActive</field>
+    </columns>
+    <columns>
+        <field>User.Contacts__r$Profile__c</field>
+    </columns>
+    <description>Contact Authors Email Mismatching with the User Email used during the Author Registration.</description>
+    <filter>
+        <criteriaItems>
+            <column>User.Contacts__r$RecordType</column>
+            <operator>equals</operator>
+            <value>Contact.Appear_Contact</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>User.Contacts__r$Profile__c</column>
+            <operator>equals</operator>
+            <value>Appear Portal Pub Author Login</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Contact Authors Email Mismatch</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>APPEAR_Contacts_with_Users__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>User.Contacts__r$Name</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>User$ChatterAdoptionStageModifiedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

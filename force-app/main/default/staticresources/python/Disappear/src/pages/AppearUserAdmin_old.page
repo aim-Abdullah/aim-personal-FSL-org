@@ -1,0 +1,32 @@
+<apex:page standardController="User" recordSetVar="users" tabStyle="User" sidebar="false">
+    <h1>Please use this form to edit the main fields for the User</h1>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!users}" var="user">
+                <apex:column value="{!user.firstname}"/>
+                <apex:column value="{!user.lastname}"/>
+                <apex:column value="{!user.email}"/>
+                 <apex:column value="{!user.alias}"/>
+                <apex:column headerValue="Federation Identifier">
+                    <apex:inputField value="{!user.federationidentifier}"/>
+                </apex:column>
+                <apex:column headerValue="Username">
+                    <apex:inputField value="{!User.username}"/>
+                </apex:column>
+                <apex:column headerValue="Active">
+                    <apex:inputField value="{!User.IsActive}"/>
+                </apex:column>
+                <apex:column headerValue="Role">
+                    <apex:inputField value="{!User.UserRoleID}"/>
+                </apex:column>
+                   <apex:column headerValue="Profile">
+                    <apex:inputField value="{!User.ProfileID}"/>
+                </apex:column>
+            </apex:pageBlockTable>      
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

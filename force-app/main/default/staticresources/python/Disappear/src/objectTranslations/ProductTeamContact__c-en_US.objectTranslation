@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Product Team Contact</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Product Team Contacts</value>
+    </caseValues>
+    <fields>
+        <label><!-- ProductTeamContactName --></label>
+        <name>ProductTeamContactName__c</name>
+        <relationshipLabel><!-- Product Team Contacts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

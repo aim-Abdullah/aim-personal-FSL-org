@@ -1,0 +1,12 @@
+<template>
+    <lightning-card  title="System Information" icon-name="custom:custom59">
+
+        <div class="slds-text-heading_medium slds-text-align-center">
+            SFDC Base URL : <p></p><lightning-formatted-url value={myDomainURL} ></lightning-formatted-url></p>
+        </div>
+
+            <div class="slds-m-around_medium">
+                <iframe width="400" height="400" src={fullUrl}></iframe>
+            </div>    
+    </lightning-card>
+    </template>

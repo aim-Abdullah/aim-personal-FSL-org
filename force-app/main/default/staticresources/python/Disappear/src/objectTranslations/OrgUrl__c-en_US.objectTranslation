@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>OrgUrl</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>OrgUrl</value>
+    </caseValues>
+    <fields>
+        <label><!-- ContentURL --></label>
+        <name>ContentURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Org URL --></label>
+        <name>OrgURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- VF URL --></label>
+        <name>VfURL__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

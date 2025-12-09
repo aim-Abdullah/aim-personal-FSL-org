@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Deadline</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Deadlines</value>
+    </caseValues>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- DeadLine Type --></label>
+        <name>DeadLine_Type__c</name>
+        <picklistValues>
+            <masterLabel>2nd yr fellow Abst. Deadline</masterLabel>
+            <translation><!-- 2nd yr fellow Abst. Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstract Deadline Late Breaker</masterLabel>
+            <translation><!-- Abstract Deadline Late Breaker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstract Deadline Notification</masterLabel>
+            <translation><!-- Abstract Deadline Notification --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstract Deadline Online Close</masterLabel>
+            <translation><!-- Abstract Deadline Online Close --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstract Notifications Mailed</masterLabel>
+            <translation><!-- Abstract Notifications Mailed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstract Withdrawal Date</masterLabel>
+            <translation><!-- Abstract Withdrawal Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstracts Available On-Line</masterLabel>
+            <translation><!-- Abstracts Available On-Line --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Abstracts and Programs Mailed</masterLabel>
+            <translation><!-- Abstracts and Programs Mailed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Advance Registration Deadline</masterLabel>
+            <translation><!-- Advance Registration Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Call For Abstracts Available</masterLabel>
+            <translation><!-- Call For Abstracts Available --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Corporate Symposia Deadline</masterLabel>
+            <translation><!-- Corporate Symposia Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Electronic Abstract Deadline</masterLabel>
+            <translation><!-- Electronic Abstract Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Final Program Available</masterLabel>
+            <translation><!-- Final Program Available --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Final Registration Deadline</masterLabel>
+            <translation><!-- Final Registration Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Housing Deadline</masterLabel>
+            <translation><!-- Housing Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Late Breaker Submission Opens</masterLabel>
+            <translation><!-- Late Breaker Submission Opens --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Paper Abstract Deadline</masterLabel>
+            <translation><!-- Paper Abstract Deadline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preliminary Program Available</masterLabel>
+            <translation><!-- Preliminary Program Available --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Meeting --></label>
+        <name>Meeting__c</name>
+        <relationshipLabel><!-- Deadlines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SiebelRowId --></label>
+        <name>SiebelRowId__c</name>
+    </fields>
+    <recordTypes>
+        <label><!-- Meeting Deadline --></label>
+        <name>MeetingDeadline</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

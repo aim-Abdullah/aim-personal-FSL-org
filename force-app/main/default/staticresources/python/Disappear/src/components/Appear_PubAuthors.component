@@ -1,0 +1,1614 @@
+<apex:component allowDml="true" controller="PubAuthorViewModel">
+<apex:includeScript value="{!URLFOR($Resource.jquery, '/js/jquery-1.4.2.min.js')}"  />
+    <style type="text/css">
+        body.wait, body.wait * { cursor: wait !important; }
+    </style>
+
+    <apex:attribute name="AuthorModel" description="" type="PubAuthorModel" required="true" />
+    <!-- Appear Enhancement R3 : Author Supporting Attachment functionality-->
+    <apex:attribute name="IsFprOnly" description="" type="Boolean" required="false" default="false" />
+    <apex:attribute name="IsFpr" description="" type="Boolean" required="false" default="false" />
+    <!-- Appear Enhancement R3 : Author Supporting Attachment functionality-->
+    <div class="authorsModalOverlay" onclick="location.reload(); return false;" style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />
+    <apex:form id="MainForm">
+    
+    
+     <apex:pageMessages />
+     <!--<apex:actionFunction name="SelectedAuthors" action="{!AuthorModel.AuthorsSelected}" rerender="Mainform,InviteSentFormIframe,approvalAcceptedForm,InviteAcceptedForm,ApprovalSentDateForm,PubListPanel,SendReminder,SendReminderFrm"/>-->
+     <apex:actionStatus id="busyCursor" onStart="busyCursorOn()" onStop="busyCursorOff()"/> 
+     <!-- Appear Enhancement R3 : uploadAuthorAttachmentFrm rerendered for SelectedAuthor actionFunction -->
+     <apex:actionFunction status="busyCursor" name="SelectedAuthors" action="{!AuthorModel.AuthorsSelected}" rerender="uploadAuthorAttachmentFrm,SendReminderFrm,pgbuttonsPanelTop, pgbuttonsPanelBottom,AddReason,InviteAcceptedForm,AddReasonApprovalreject,approvalAcceptedForm, SelectAUthorFrm"/> 
+     <apex:actionFunction name="InviteAddtlDetails" reRender="invitePreviewLinkId" status="refreshingTemplate" action="{!AuthorModel.InviteLetterDetailsUpdate}" >
+         <apex:param name="InviteDetails" value=""/>
+         <apex:param name="InviteDatevalue" value=""/>
+    </apex:actionFunction>
+    <!--Appear Enhancement R3 Draft-Share on button click Additional Details Method -->
+    <apex:actionFunction name="DraftShareAddtlDetails" reRender="draftPreviewLinkId" status="refreshingDraftShareTemplate" action="{!AuthorModel.DraftShareLetterDetailsUpdate}" >
+         <apex:param name="DraftDetails" value=""/>
+         <apex:param name="DraftDatevalue" value=""/>
+    </apex:actionFunction>
+    <!-- Appear Enhancement R3 Draft-Share on button click Additional Details Method-->
+        
+     <apex:actionFunction name="ApproveAddtlDetails" reRender="approvePreviewLinkId" status="refreshingApproveTemplate" action="{!AuthorModel.ApprovalLetterDetailsUpdate}" >
+         <apex:param name="ApproveDetails" value=""/>
+         <apex:param name="ApproveDatevalue" value=""/>
+    </apex:actionFunction>
+    <apex:actionFunction name="AddtlRemDetails" reRender="reminderPreviewLinkId" status="refreshingReminderTemplate" action="{!AuthorModel.UpdateAddtlDetailsForReminder}" >
+         <apex:param name="details" value=""/>
+    </apex:actionFunction>
+    <apex:actionFunction name="UpdateselectedAuthor" reRender="dummy" action="{!AuthorModel.UpdateAuthorRecord}" >
+         <apex:param name="Justification" value=""/>
+    </apex:actionFunction>
+    <apex:actionFunction name="UpdateAuthorId" action="{!AuthorModel.UpdateAuthorIdRecord}" rerender="InviteAcceptedForm" >
+         <apex:param name="RecId" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="UpdateAuthorIdApprovalDisclaimer" action="{!AuthorModel.UpdateAuthorIdRecord}" rerender="ApprovalSentDateForm" >
+         <apex:param name="RecId" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="UpdateAuthorIdViewApproval" action="{!AuthorModel.UpdateAuthorIdRecord}"  rerender="approvalAcceptedForm" >
+         <apex:param name="RecId" value="" />
+    </apex:actionFunction>
+    
+    <!--Appear Enhancment R2,Action Function which calls the viewSendEmails method of the class PubAuthorModel-->
+    <apex:actionFunction name="ViewAllSentEmails" reRender="ViewAllEmailsForm" action="{!AuthorModel.viewSendEmails}" >
+         <apex:param name="PublicationId" value="" />
+         <apex:param name="ContactId" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="UpdateInviteDisclaimerAuthorId" action="{!AuthorModel.UpdateAuthorIdRecord}" status="refreshingDisclaimer" rerender="InviteSentFormIframe" >
+         <apex:param name="RecId" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="UpdateAuthorContactAddressId" reRender="SelectMainFrmContactAddress" action="{!AuthorModel.DisplayAddresses}" rerender="SelectMainFrmContactAddress" >
+         <apex:param name="AuthorIdForContact" value="" />
+         <apex:param name="PubAuthorId" value="" />
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="ViewFeedItems" reRender="RelatedFeedItems" action="{!AuthorModel.FeedItems}" >
+    <apex:param name="PubAuthorId" value="" /> <!-- Appear Enhancement R3 - PubAuthorId parameter passed to FeedItems method for Comment on behlaf-->
+         <apex:param name="PublicationId" value="" />
+         <apex:param name="ContactId" value="" />
+         <apex:param name="CuserId" value="" />
+         <apex:param name="AuthorName" value=""/>
+         
+    </apex:actionFunction>
+    <!-- Appear Enhancement R3 : Author Supporting Attachment functionality Action function -->
+    <apex:actionFunction name="selectAuthorErrorMessage" action="{!AuthorModel.authorNotSelected}"/>
+        
+    <apex:pageBlock id="PubListPanel">
+    <!-- Appear Enhancement R6 : Discretionary Requirement DISCR0002581 : Add scroll bar in author tile : Start -->   
+    <div style="overflow-x:auto; overflow-y:hidden;">
+            <apex:pageblocktable value="{!AuthorModel.PubAuthorList}" var="pubAuthor"><!-- onrowclick="SelectedAuthors();"-->
+            <apex:column width="28" rendered="{!AuthorModel.canAddDelAuthors}" >
+                    <apex:inputField value="{!pubAuthor.IsSelected__c}" onclick="SelectedAuthors();"/>
+                </apex:column>
+                
+                <apex:column title="To reorder Authors, double click on the Author Order column for each Author" >
+                    <apex:facet name="header">Order</apex:facet>
+                    <apex:outputField value="{!pubAuthor.AuthorOrder__c}">
+                        <apex:inlineEditSupport event="ondblclick" />   
+                    </apex:outputField>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Author Name</apex:facet>
+                    <!--apex:outputLink onclick="viewRelatedFeedItems('{!pubAuthor.Publication__c}','{!pubAuthor.Author__c}','{!pubAuthor.author__r.UserId__c}','{!pubAuthor.author__r.name}'); return false;" id="NameToGetFeedItem"-- Appear Enhancment R3 - Comment on behalf date picker and pubauthor id added as argument-->
+                     <apex:outputLink onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.inviteFeedItemModal');viewRelatedFeedItems('{!pubAuthor.Id}','{!pubAuthor.Publication__c}','{!pubAuthor.Author__c}','{!pubAuthor.author__r.UserId__c}','{!pubAuthor.author__r.name}'); return false;" id="NameToGetFeedItem">    
+                    <apex:outputText value="{!pubAuthor.author__r.name} ({!AuthorModel.FeedItemCountByAuthor[pubAuthor.Author__c]}) " />
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                    <apex:facet name="header">File(s) shared?</apex:facet> <!-- Appear Enhancement R3 label changed from "Grant Access" to "File(s) shared?" -->
+                    <apex:outputField value="{!pubAuthor.GrantDraftAccess__c}">
+                        <apex:inlineEditSupport event="ondblclick" />
+                    </apex:outputField>
+                </apex:column>
+                <!--<apex:column >
+                    <apex:facet name="header">Status</apex:facet>
+                    <apex:outputText value="{!pubAuthor.AuthorStatus__c}"  id="pubStatus"/>
+                </apex:column> -->   
+                <!-- Appear Enhancement R2, Email History column is added -->
+                <apex:column >
+                    <apex:facet name="header">Email History</apex:facet>
+                    <apex:outputLink onclick="viewAllEmails('{!pubAuthor.Publication__c}','{!pubAuthor.Author__c}'); return false;" id="GetAllEmails">
+                    <apex:image url="{!$Resource.EmailHistoryVisualCue}" width="20" height="20" id="history1" />
+                    </apex:outputLink>
+                </apex:column>            
+                <apex:column >
+                    <apex:facet name="header">Author Email</apex:facet>
+                    <apex:outputText value="{!pubAuthor.author__r.email} " />
+                    <apex:image id="bounceEmailImage" rendered="{!IF(pubAuthor.author__r.EmailBouncedDate != null,true,false)}" value="{!IF(pubAuthor.author__r.EmailBouncedDate != null, '/img/msg_icons/warning16.gif','')}" width="12" height="12" title="Invalid Email. Please correct the email on the Contact" alt="Invalid Email. Please correct the email on the Contact"/>
+                </apex:column>
+                <apex:column >
+                <apex:facet name="header">Author Address</apex:facet>
+                    <apex:outputLink onclick="viewContactAddresses('{!pubAuthor.Author__c}','{!pubAuthor.id}'); return false;" id="theCommandLinkTesting">
+                    <apex:outputText value="{!pubAuthor.Author_Address__r.Street_Address__c}"/><span>,</span><apex:outputText value="{!pubAuthor.Author_Address__r.Address_Line_2__c}" /><span>,</span> <apex:outputText value="{!pubAuthor.Author_Address__r.City__c}" /><span>,</span> <apex:outputText value="{!pubAuthor.Author_Address__r.State_Province__c}" /><span>&nbsp;</span><apex:outputText value="{!pubAuthor.Author_Address__r.Zip_Postal_Code__c}" /><span>,</span> <apex:outputText value="{!pubAuthor.Author_Address__r.Country__c}" />
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                    <apex:facet name="header">Rationale</apex:facet>
+                    <apex:outputField value="{!pubAuthor.Rationale__c}">
+                        <apex:inlineEditSupport event="ondblclick" />
+                    </apex:outputField>
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                    <apex:facet name="header">Site Inv.</apex:facet>
+                    <apex:outputField value="{!pubAuthor.Site_Investigator_PI__c}">
+                        <apex:inlineEditSupport event="ondblclick" />
+                    </apex:outputField>
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                   <apex:facet name="header">Inv. Sent Dt.</apex:facet>
+                   <apex:outputLink onclick="viewInviteDisclaimer('{!pubAuthor.id}'); return false;" id="theCommandLink2">
+                        <apex:outputText rendered="{!(pubAuthor.InviteSentDate__c!=NUll)}" value="{0,date,MM'/'dd'/'yyyy}"  id="InviteSentDate2">
+                        <apex:param value="{!pubAuthor.InviteSentDate__c}" /> 
+                        </apex:outputText> 
+                    </apex:outputLink>
+                    <apex:outputText rendered="{!(pubAuthor.InviteSentDate__c==NUll)}" value="{0,date,MM'/'dd'/'yyyy}"  id="InviteSentDate">
+                        <apex:param value="{!pubAuthor.InviteSentDate__c}" /> 
+                    </apex:outputText>
+                 </apex:column>
+                 <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                    <apex:facet name="header">Inv. Acpt. Dt.</apex:facet>
+                    <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: starts --> 
+                    <!--<apex:commandLink onclick="jQuery('.datePicker').css({'z-index':9998}).appendTo('.inviteDisclaimerModalInviteAccept');viewInviteAcceptDisclaimer('{!pubAuthor.id}'); return false;" rendered="{!(pubAuthor.InviteAcceptedDate__c==NUll&&pubAuthor.InviteSentDate__c!=Null)}" value="{!if((pubAuthor.InviteAcceptedDate__c==NUll&&pubAuthor.InviteSentDate__c!=Null),'Pending',pubAuthor.InviteAcceptedDate__c)}" id="theCommandLink" /><!--Appear Enhancement 2017 Backlog R2 - Issue Id 9, Date Picker added in modal window  -->
+                    <apex:commandLink onclick="jQuery('.datePicker').css({'z-index':9998}).appendTo('.inviteDisclaimerModalInviteAccept');viewInviteAcceptDisclaimer('{!pubAuthor.id}'); return false;" rendered="{!(pubAuthor.InviteAcceptedDate__c==NUll&&pubAuthor.InviteSentDate__c!=Null&&(pubAuthor.publication__r.GPP_Type__c!='CSP'||pubAuthor.publication__r.GPP_Type__c==Null))}" value="{!if((pubAuthor.InviteAcceptedDate__c==NUll&&pubAuthor.InviteSentDate__c!=Null),'Pending',pubAuthor.InviteAcceptedDate__c)}" id="theCommandLink" />
+                    <apex:outputText rendered="{!(pubAuthor.InviteAcceptedDate__c==NUll&&pubAuthor.InviteSentDate__c!=Null&&pubAuthor.publication__r.GPP_Type__c=='CSP')}">Pending</apex:outputText>
+                    <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: ends -->
+                    <!--Appear Enhancement R2: Code Implement to Enable BA profile user for Inline Editing Invitation Accepted Date fields-->
+                    <apex:outputField value="{!pubAuthor.InviteAcceptedDate__c}">  
+                    <apex:inlineEditSupport event="ondblclick" rendered="{!AND(pubAuthor.InviteAcceptedDate__c!=NUll,pubAuthor.InviteSentDate__c!=Null,OR($Profile.Name=='APPEAR Business Admin',$Profile.Name=='System Administrator'))}"/>                      
+                    </apex:outputField>
+                    <!--<apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!!(pubAuthor.InviteAcceptedDate__c==NUll&&pubAuthor.InviteSentDate__c!=Null)}">
+                        <apex:param value="{!pubAuthor.InviteAcceptedDate__c}" /> 
+                    </apex:outputText> -->   
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                <apex:facet name="header">Appr. Sent Dt.</apex:facet>
+                 <apex:outputLink onclick="viewApprovalDisclaimer('{!pubAuthor.id}'); return false;" id="theCommandLinkn">
+                    <apex:outputText rendered="{!(pubAuthor.ApprovalSentDate__c!=Null)}" value="{0,date,MM'/'dd'/'yyyy}"  id="InviteSentxssxDate2">
+                    <apex:param value="{!pubAuthor.ApprovalSentDate__c}" /> 
+                    </apex:outputText> 
+                   </apex:outputLink>
+                      <!-- <apex:commandLink onclick="viewApprovalDisclaimer();return false;" rendered="{!(pubAuthor.ApprovalSentDate__c!=Null)}" value="{!pubAuthor.ApprovalSentDate__c}" id="theCommandLinkApproval" />-->
+                     <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!(pubAuthor.ApprovalSentDate__c==Null)}">
+                        <apex:param value="{!pubAuthor.ApprovalSentDate__c}" /> 
+                    </apex:outputText> 
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                    <apex:facet name="header">Auth. Aprvd Dt.</apex:facet>
+                    <!--apex:commandLink onclick="viewApproval('{!pubAuthor.id}'); return false;" rendered="{!(pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.ApprovalSentDate__c!=Null&&pubAuthor.Approval_Rejected_Date__c==NULL)}" value="{!if((pubAuthor.ApprovalSentDate__c!=NUll&&pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.Approval_Rejected_Date__c==NULL),'Approve',pubAuthor.ApprovalAcceptedDate__c)}" id="theCommandLinkApprove" /-->
+                    <!-- Appear Enhancement R3: Approve link label change to "Pending" ++ Appear Enhancement 2017 Backlog R2 - Date Picker added-->                    
+                     <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Starts -->
+                    <!--<apex:commandLink onclick="jQuery('.datePicker').css({'z-index':9998}).appendTo('.approvalModal');viewApproval('{!pubAuthor.id}'); return false;" rendered="{!(pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.ApprovalSentDate__c!=Null&&pubAuthor.Approval_Rejected_Date__c==NULL)}" value="{!if((pubAuthor.ApprovalSentDate__c!=NUll&&pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.Approval_Rejected_Date__c==NULL),'Pending',pubAuthor.ApprovalAcceptedDate__c)}" id="theCommandLinkApprove" />-->
+                    <apex:commandLink onclick="jQuery('.datePicker').css({'z-index':9998}).appendTo('.approvalModal');viewApproval('{!pubAuthor.id}'); return false;" rendered="{!(pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.ApprovalSentDate__c!=Null&&pubAuthor.Approval_Rejected_Date__c==NULL&&(pubAuthor.publication__r.GPP_Type__c!='CSP'||pubAuthor.publication__r.GPP_Type__c==Null))}" value="{!if((pubAuthor.ApprovalSentDate__c!=NUll&&pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.Approval_Rejected_Date__c==NULL),'Pending',pubAuthor.ApprovalAcceptedDate__c)}" id="theCommandLinkApprove" />
+                    <apex:outputText rendered="{!(pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.ApprovalSentDate__c!=Null&&pubAuthor.Approval_Rejected_Date__c==NULL&&pubAuthor.publication__r.GPP_Type__c=='CSP')}">Pending</apex:outputText>
+                    <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: ends -->
+                    
+                    <!--Appear Enhancement R2: Code Implement to Enable BA profile user for Inline Editing Author approval Date fields-->
+                    <apex:outputField value="{!pubAuthor.ApprovalAcceptedDate__c}">  
+                    <apex:inlineEditSupport event="ondblclick"  rendered="{!AND(pubAuthor.ApprovalAcceptedDate__c!=NUll,pubAuthor.ApprovalSentDate__c!=Null,OR($Profile.Name=='APPEAR Business Admin',$Profile.Name=='System Administrator'))}"/>                      
+                    </apex:outputField> 
+                    <!--<apex:outputText value="{0,date,MM'/'dd'/'yyyy}" rendered="{!!(pubAuthor.ApprovalAcceptedDate__c==NUll&&pubAuthor.ApprovalSentDate__c!=Null)}">
+                        <apex:param value="{!pubAuthor.ApprovalAcceptedDate__c}" /> 
+                    </apex:outputText> -->
+                </apex:column>
+                <apex:column rendered="{!(!AuthorModel.IsFPROnlyPublication)}">
+                    <apex:facet name="header">Appr. Rej. Dt.</apex:facet>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!pubAuthor.Approval_Rejected_Date__c}" />
+                    </apex:outputText>
+                    <apex:outputText value="{!IF((pubAuthor.ReasonToDeclineApproval__c !=NULL), '  /  Comments : '+ pubAuthor.ReasonToDeclineApproval__c, '')}" />  
+                 </apex:column>
+
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons rendered="{!AuthorModel.canAddDelAuthors}" id="pgbuttonsTop" location="top">
+                <apex:outputPanel id="pgbuttonsPanelTop">
+                <!--Appear Enhancement R2: Advance author search functionality. Existing Add Author button commented and New button added  -->
+                <!-- Appear Enhancement R1:2017 - Add Author Button Visibility depending on 10 Author Limit -->
+                <apex:commandButton disabled="{!AuthorModel.enableAddAuthorButton}" style="margin-left:-30%;" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorModalNew').delay(20).fadeToggle(); return false;" id="newButtonAdd" value="Add Author"/>
+                <!--<apex:commandButton onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Author Old"/> -->    
+                <apex:commandButton action="{!AuthorModel.saveAuthorList}" id="saveButton" value="Save"/>
+                <!--apex:commandButton action="{!AuthorModel.deleteSelected}" id="deleteButton" value="Delete"/-->
+                <!-- Appear Enhancment R3 : Remove Author Button added and Delete Button commented -->
+                <apex:commandButton action="{!AuthorModel.removeAuthor}"  id="removeAuthor" value="Remove Author"/>
+                <apex:commandButton style="margin-left: 20px;" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorNotFoundModal').delay(20).fadeToggle(); return false;" id="editNotFoundButton" value="Author Not Found / Legacy Authors"/>
+                <!--Appear Enhancement R3: Author tile attachment Button-->
+                <!--<apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.authorAttachmentOverlay').fadeToggle(); jQuery('.authorAttachmentModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Author Attachments"/>-->
+                <!--Appear Enhancement R5:onclick Javascript added to Author Attachment modal to accumulate datepicker-->
+                <apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.authorAttachmentModal'); jQuery('.authorAttachmentOverlay').fadeToggle(); jQuery('.authorAttachmentModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Author Attachments"/>    
+                <apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.SelectMainr'); jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectMainr').delay(20).fadeToggle(); return false;" id="SendInvite" value="Send Invite(s)"/> 
+                <!-- Appear Enhancement R3 Draft-Share button -->
+                <apex:commandButton disabled="{!(!AuthorModel.enableDraftShare)}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.SelectMainDraftShare'); jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectMainDraftShare').delay(20).fadeToggle(); return false;" id="DraftShare" value="Share Draft" rerender="Mainform,PubListPanel,DraftShare,SelectAuthorFrmDraftShare"/>
+                <!-- Appear R3 Enhancement Disabling Request for Approval Button -->    
+                <apex:commandButton disabled="{!(!AuthorModel.enableRequestApproval)}" rendered="{!(!AuthorModel.IsFPROnlyPublication && AuthorModel.VerifyFinalAuthorApprovalAttachmentType)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.SelectMainApproval'); jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectMainApproval').delay(20).fadeToggle(); return false;" id="RequestApproval" value="Request Approval(s)" rerender="Mainform,PubListPanel,RequestApproval,AuthorApprovalFrm"/>     
+                <!-- Appear R3 Enhancement Disabling Request for Approval Button -->
+               <apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectRemTemp').delay(20).fadeToggle(); return false;" id="SendReminder" value="Send Reminder(s)"  rerender="Mainform,PubListPanel,SendReminder,SendReminderFrm"/>   
+                </apex:outputPanel>
+            </apex:pageBlockButtons>
+            <apex:pageBlockButtons rendered="{!AuthorModel.canAddDelAuthors}" id="pgbuttonsBottom" location="bottom">
+                <apex:outputPanel id="pgbuttonsPanelBottom">
+                <!--Appear Enhancement R2: Advance author search functionality. Existing Add Author button commented and New button added  -->
+                <!-- Appear Enhancement R1:2017 - Add Author Button Visibility depending on 10 Author Limit -->
+                <apex:commandButton disabled="{!AuthorModel.enableAddAuthorButton}" style="margin-left:-30%;" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorModalNew').delay(20).fadeToggle(); return false;" id="newButtonAdd" value="Add Author"/>
+                <!--<apex:commandButton onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Author Old"/> -->     
+                <apex:commandButton action="{!AuthorModel.saveAuthorList}" id="saveButton" value="Save"/>
+                <!--apex:commandButton action="{!AuthorModel.deleteSelected}" id="deleteButton" value="Delete"/-->
+                <!-- Appear Enhancment R3 : Remove Author Button added and Delete Button commented -->
+                <apex:commandButton action="{!AuthorModel.removeAuthor}"  id="removeAuthor" value="Remove Author"/>       
+                <apex:commandButton style="margin-left: 20px;" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorNotFoundModal').delay(20).fadeToggle(); return false;" id="editNotFoundButton" value="Author Not Found / Legacy Authors"/>
+                <!--Appear Enhancement R3: Author tile attachment Button-->
+                <!--apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.authorAttachmentOverlay').fadeToggle(); jQuery('.authorAttachmentModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Author Attachments"/>-->
+                <!--Appear Enhancement R5:onclick Javascript added to Author Attachment modal to accumulate datepicker-->
+                <apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.authorAttachmentModal'); jQuery('.authorAttachmentOverlay').fadeToggle(); jQuery('.authorAttachmentModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Author Attachments"/>    
+                <apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.SelectMainr'); jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectMainr').delay(20).fadeToggle(); return false;" id="SendInvite" value="Send Invite(s)"/> 
+                <!-- Appear Enhancement R3 Draft-Share button -->
+                <apex:commandButton disabled="{!(!AuthorModel.enableDraftShare)}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.SelectMainDraftShare'); jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectMainDraftShare').delay(20).fadeToggle(); return false;" id="DraftShare" value="Share Draft" rerender="Mainform,PubListPanel,DraftShare,SelectAuthorFrmDraftShare"/>
+                <!-- Appear R3 Enhancement Disabling Request for Approval Button -->    
+                <apex:commandButton disabled="{!(!AuthorModel.enableRequestApproval)}" rendered="{!(!AuthorModel.IsFPROnlyPublication && AuthorModel.VerifyFinalAuthorApprovalAttachmentType)}" onclick="jQuery('.datePicker').css({'z-index':9999}).appendTo('.SelectMainApproval'); jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectMainApproval').delay(20).fadeToggle(); return false;" id="RequestApproval" value="Request Approval(s)" rerender="Mainform,PubListPanel,RequestApproval,AuthorApprovalFrm"/>     
+                <!-- Appear R3 Enhancement Disabling Request for Approval Button -->
+               <apex:commandButton disabled="{!AuthorModel.InviteDisabled}" rendered="{!(!AuthorModel.IsFPROnlyPublication)}" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.SelectRemTemp').delay(20).fadeToggle(); return false;" id="SendReminder" value="Send Reminder(s)"  rerender="Mainform,PubListPanel,SendReminder,SendReminderFrm"/>   
+                </apex:outputPanel>
+            </apex:pageBlockButtons>      
+        </div> <!-- Appear Enhancement R6 : Discretionary Requirement DISCR0002581 : Add scroll bar in author tile : End -->           
+        </apex:pageBlock>
+        <apex:pageBlock mode="detail" >     
+            <apex:pageBlockSection columns="1">
+                <apex:outputField label="Authors Not Found:" value="{!AuthorModel.ActivePub.Authors_Not_Found__c}" />
+                <apex:outputField label="Legacy Authors" value="{!AuthorModel.ActivePub.Legacy_Authors__c}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <!-- Appear Enhancement R3: Start - Author Tile attachment Modal -->
+    <div class="authorAttachmentOverlay" onclick="jQuery('.authorAttachmentModal').fadeToggle(); jQuery('.authorAttachmentOverlay').delay(20).fadeToggle(); return false;" style="display: none; position: fixed; _position: absolute;  left: 0px; top: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;"> </div>
+    <!--<div class="authorAttachmentModal" style="display: none; position: absolute; top: 30%; left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: hidden;">-->
+    <!--Appear Enhancement R5:authorAttachmentModal style changed to accommodate datepicker-->
+    <!--  Appear Enhancement 2017 Backlog R3 : Issue id 106 - div position adjusted-->
+    <!--<div class="authorAttachmentModal" style="display: none; position: absolute; top: 10%; left: 5%; width: 80%; bottom: 30%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;"-->
+    <div class="authorAttachmentModal" style="display: none; position: fixed;_position: absolute; top: 5%; left: 10%; bottom: 5%; width: 80%; min-width: 800px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;">
+    <apex:form id="uploadAuthorAttachmentFrm" >
+        <apex:pageBlock title="Upload Supporting Attachments for {!AuthorModel.attachmentAuthorName}" id="attachmentBlock"><!--Appear Enhancement 2017 Backlog R2 - Added pegeBlock Id-->
+                <apex:pageMessages />
+            <!--Appear Enhancement 2017 Backlog R2 - Added pegeBlockSection Id-->
+                <apex:pageBlockSection columns="3" id="attachmentBlockSection">
+                    <!--<apex:inputField id="attachmentType1" label="Attachment Type" value="{!AuthorModel.NewAuthorAttachment1.AttachmentType__c}" />-->
+                    <!--Appear Enhancement R5:onchange Javascript added to populate the comment date section-->
+                    <!-- Appear Enhancement 2017 Backlog R3 : Issue id 106 :: STARTS -->
+                    <!--apex:inputField id="attachmentName1" label="Attachment Name" value="{!AuthorModel.NewAuthorAttachment1.AttachmentName__c}" /-->
+                    <!--apex:inputField id="attachmentType1" label="Attachment Type" value="{!AuthorModel.NewAuthorAttachment1.AttachmentType__c}" onchange="javascript: togglePageBlock(this,'{!$Component.uploadAuthorAttachmentFrm.createdDatePageBlockId}');"/-->
+                    <!--<apex:inputField id="attachmentType1" label="Attachment Type" value="{!AuthorModel.NewAuthorAttachment1.AttachmentType__c}" onchange="javascript: togglePageBlock(this,'{!$Component.uploadAuthorAttachmentFrm.createdDatePageBlockId}');"/>-->
+                    <apex:inputField id="attachmentType1" label="Attachment Type" value="{!AuthorModel.NewAuthorAttachment1.AttachmentType__c}" onchange="javascript: populateAttachmentName(); togglePageBlock(this,'{!$Component.uploadAuthorAttachmentFrm.createdDatePageBlockId}','{!$Component.uploadAuthorAttachmentFrm.checkAuthInvSentDate}','{!$Component.uploadAuthorAttachmentFrm.checkAuthAppSentDate}');" />
+                    <apex:inputTextarea style="width:25em;height:3em;" id="attachmentName1" label="Attachment Name" value="{!AuthorModel.NewAuthorAttachment1.AttachmentName__c}" />
+                    <!-- Appear Enhancement 2017 Backlog R3 : Issue id 106 :: ENDS -->
+                    <!--Appear Enhancement R5:onchange Javascript added to populate the comment date section-->
+                    
+                    <apex:inputFile onchange="fileInput1Changed();" id="attachmentFile1" value="{!AuthorModel.NewAuthorSupportAttachment.ContentData}" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>           
+            <apex:inputHidden id="attachmentTypeHidden1" value="{!AuthorModel.NewAuthorAttachment1.AttachmentType__c}"  rendered="{!(IsFprOnly) || (IsFpr)}" />
+            <apex:inputHidden id="attachmentFilename1" value="{!AuthorModel.NewAuthorSupportAttachment.ContentFileName}" /> 
+	        <!-- Appear Enhancement 2017 Backlog R3 : Issue id 106 ::starts -->
+            <apex:inputHidden id="authorPubID" value="{!AuthorModel.authorPubID}" />
+            <apex:inputHidden id="authorFirstName" value="{!AuthorModel.authorFirstName}" />
+            <apex:inputHidden id="authorLastName" value="{!AuthorModel.authorLastName}" />
+            <apex:inputHidden id="checkAuthInvSentDate" value="{!AuthorModel.checkAuthInvSentDate}" />
+        	<apex:inputHidden id="checkAuthAppSentDate" value="{!AuthorModel.checkAuthAppSentDate}" />
+            <!-- Appear Enhancement 2017 Backlog R3 : Issue id 106 ::ends -->
+        	
+           <!-- <div style="float: right; margin-top: 25px;">       
+                <apex:commandButton Action="{!AuthorModel.InsertAuthorSupportingAttachment}" value="Upload"/>
+                <input type="submit" value="Cancel" class="btn" onclick="Window.reload(); return false;" />                
+            </div>  -->
+        <!--Appear Enhancement R5:New section added for Comment Date-->
+        <apex:outputPanel style="display: none;margin-left: 0px;float: left;" id="createdDatePageBlockId">
+            <apex:pageBlock mode="maindetail">
+                <apex:pageBlockSection columns="5">  
+                    <apex:pageBlockSectionItem >
+                        <!--Comment Sent Date-->
+                        Date of Author Comment <!-- Appear Enhancement R5: Field Label Changed-->
+                        <apex:outputPanel >
+                            <div class="requiredInput" style="margin-left: 0px;float: left;">
+                                <div class="requiredBlock"></div>  
+                                <apex:inputfield id="CommentDate"  value="{!AuthorModel.evt.startDateTime}"/>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+             <!-- </div> -->
+        <!--Appear Enhancement 2017 Backlog R3 : Issue id 106  : Consolidated sections for On-behalf Invite and Approval STARTS -->
+        	<br></br>
+            <div id="inviteActualDateDiv" style="display:none;" ><!--margin-left:-4.0em;-->
+            <apex:pageBlock >
+                <p align="left"><b>
+				Please note that by accepting the invitation on behalf of an author, you acknowledge that you are uploading the necessary documentation confirming that the author has seen the Author Agreement Provisions document and has accepted ALL of the terms of authorship per the Publications SOP.  Acceptable documentation includes:
+				<ol>
+				<li> An email confirmation of a discussion from you to the author including the Author Provisions Agreement </li> 
+				<li> An email from the author agreeing to the terms of the Author Provisions document </li> 
+				</ol></b>
+				</p>	
+                <p style="color:red;text-align:center;">Ensure that the justification document supports the justification type and the date of the author’s actual response </p>
+            </apex:pageBlock>    
+            <apex:pageBlock title="Justification *" id="PgBlkAccept2">
+            <apex:pageBlockTable value="{!AuthorModel.pubAuthordataforAtt}" var="newInv" id="newtableInv" columns="2" >
+              <apex:column >
+                    <apex:inputField id="Justification" value="{!AuthorModel.pubAuthordataforAtt.Justification_for_invite__c}"/>
+              </apex:column>
+              <apex:column >
+                   <apex:outputLabel style="font-weight:bold" value="Actual Author Response Date" for="invAcceptDate" /> &nbsp;&nbsp;
+                  <!-- <apex:inputField type="date" showDatePicker="true" id="invAcceptDate" value="{!AuthorModel.pubAuthordataforAtt.InviteAcceptedDate__c}" onchange="inviteActualDateDiv_dpChange(this,'{!$Component.uploadAuthorAttachmentFrm.authorPubID}','{!$Component.uploadAuthorAttachmentFrm.attachmentBlock.attachmentBlockSection.attachmentType1}','{!$Component.uploadAuthorAttachmentFrm.attachmentauthorname}')"/> -->
+              	  <apex:inputField type="auto" showDatePicker="true" id="invAcceptDate" value="{!AuthorModel.evt.RecurrenceEndDateOnly}" onchange="inviteActualDateDiv_dpChange(this,'{!$Component.uploadAuthorAttachmentFrm.authorPubID}','{!$Component.uploadAuthorAttachmentFrm.attachmentBlock.attachmentBlockSection.attachmentType1}','{!$Component.uploadAuthorAttachmentFrm.attachmentauthorname}')"/><!--Appear Enhancement 2017 Backlog R3 : Invitation Decline  -->
+              </apex:column>
+              </apex:pageBlockTable>
+        	</apex:pageBlock>
+        	<div align="left">
+        	<input type="checkbox" name="checkboxNewInv" id="checkboxNewInv" data-mini="true" onclick="javascript: toggleButton(this,'{!$Component.uploadAuthorAttachmentFrm.inviteAcceptButton}','{!$Component.uploadAuthorAttachmentFrm.inviteDeclineButton}')" ></input> <!--Appear Enhancement 2017 Backlog R3 : Invitation Decline  -->
+        	<label for="checkboxNewInv"><b>Yes, I affirm that I am uploading the supporting documentation confirming the author’s agreement to the terms of authorship, and have accurately captured the Actual Author Response Date above.</b></label>
+        	<br></br>
+        	</div>
+        	<div style="margin-top: 25px;" align="center">           
+            <apex:commandButton id="inviteAcceptButton" style="display: none" value="Upload & Accept" action="{!AuthorModel.InsertAuthorSupportingAttachment}"/>
+            <input type="submit" id="inviteCancelButton" value="Cancel" class="btn" onclick="Window.reload(); return false;" />
+            <apex:commandButton id="inviteDeclineButton" style="display: none" value="Upload & Decline to Accept" action="{!AuthorModel.newUploadAndDecline}"/><!--Appear Enhancement 2017 Backlog R3 : Invitation Decline  -->
+            </div>
+        	</div>
+    
+            <!--New Approval/Decline Section-->
+            <div id="approvalActualDateDiv" style="display:none;" >
+                <apex:pageBlock >
+                <p align="left">
+                Please use the following link to preview the final draft Publication:  
+            	<B><span class="AttachmentLink">
+             	<a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!AuthorModel.newAuthorAppDiscID}" target="_blank">{!AuthorModel.PubName} : "{!AuthorModel.PubTitle}"</a>
+            	</span></B> &nbsp; &larr; <i>(Please note that clicking the link will open the Publication in a separate browser window)</i>
+                    <br/><br/>
+				<b>Please note that by approving/declining to approve on behalf of an author, you acknowledge that you are uploading the necessary documentation confirming that the author has seen the Final Draft that was requested for approval and has confirmed that they have fulfilled the ICMJE criteria for authorship per the Publications SOP.  Acceptable documentation includes:
+				<ol>
+				<li>An email confirmation of a discussion from you to the author </li>
+				<li>An email from the author approving /declining to approve the final draft </li>
+				<li>An email from the author’s delegate approving /declining to approve the final draft </li>
+				</ol>
+                </b></p>
+                <p style="color:red;text-align:center;">Ensure that the justification document supports the justification type and the date of the author’s actual response </p>        
+                </apex:pageBlock>
+                <apex:pageBlock title="Justification for Approval/Rejection *" id="PgBlkApprove">
+                    <apex:pageBlockTable value="{!AuthorModel.pubAuthordataforAtt}" var="newApp" id="newtableApp" columns="2">
+              		<apex:column >
+                    <apex:inputField id="newJustifyAppr" value="{!AuthorModel.pubAuthordataforAtt.Justification_for_Approval__c}"/>
+              		</apex:column>
+              		<apex:column >
+                 	 <apex:outputLabel style="font-weight:bold" value="Actual Author Response Date" for="newappAcceptDate" /> &nbsp;&nbsp;
+                 	 <apex:inputField showDatePicker="true" type="auto" id="newappAcceptDate" value="{!AuthorModel.evt.ActivityDate}" onchange="inviteActualDateDiv_dpChange(this,'{!$Component.uploadAuthorAttachmentFrm.authorPubID}','{!$Component.uploadAuthorAttachmentFrm.attachmentBlock.attachmentBlockSection.attachmentType1}','{!$Component.uploadAuthorAttachmentFrm.attachmentauthorname}')"  />
+              		</apex:column>
+             	</apex:pageBlockTable>
+                </apex:pageBlock>
+                <div align="left">
+                <input type="checkbox" name="checkboxNewAppr" id="checkboxNewAppr" data-mini="true" onclick="javascript: toggleButton(this,'{!$Component.uploadAuthorAttachmentFrm.newApprvApproveButton}','{!$Component.uploadAuthorAttachmentFrm.newDeclineApproveButton}');"></input>
+                <label for="checkboxNewAppr"><b>Yes, I affirm that I am uploading the supporting documentation confirming the author’s response to final approval, and have accurately captured the Actual Author Response Date above.</b></label>
+                <br></br>
+        		</div>
+				<div style="margin-top: 25px;" align="center"> 
+             	<apex:commandButton id="newApprvApproveButton" style="display: none" value="Upload & Approve" action="{!AuthorModel.InsertAuthorSupportingAttachment}"/>&nbsp;
+             	<input id="newApprvCancel" type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />&nbsp;
+             	<apex:commandButton id="newDeclineApproveButton" value="Upload & Decline to Approve" style="display: none" action="{!authorModel.newUploadAndDecline}" />
+             	</div>
+				</div>
+			<!-- approvalActualDateDiv :: ends-->  
+            <!--Appear Enhancement 2017 Backlog R3 : Issue id 106  :Consolidated sections for On-behalf Invite and Approval ENDS  -->
+
+        
+        <div style="float: right; margin-top: 30px;"> 
+            <apex:commandButton id="uploadAttMain" Action="{!AuthorModel.InsertAuthorSupportingAttachment}" value="Upload"/> <!--Appear Enhancement 2017 Backlog R3 : Issue id 106  : id Added  -->
+            <input type="submit" id="uploadCancelBttn" value="Cancel" class="btn" onclick="Window.reload(); return false;" /> <!--Appear Enhancement 2017 Backlog R3 : Issue id 106  : id Added  -->
+        </div>
+            <!--Appear Enhancement R5:New section added for Comment Date-->
+            
+         <script type="text/javascript">
+             {!IF(IsFpr,'fprInit();','')}
+             {!IF(IsFprOnly,'fprOnlyInit();','')}
+             jQuery('#crossModalBlock').appendTo('body');
+             jQuery('.authorAttachmentOverlay').appendTo('body');
+             jQuery('.authorAttachmentModal').appendTo('body');  
+             
+             function fileInput1Changed() {
+                    var fullPath = jQuery('.authorAttachmentModal input[type="file"]').val();
+                    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                    var filename = fullPath.substring(startIndex);
+                    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                        filename = filename.substring(1);
+                    }
+                    document.getElementById('{!$Component.uploadAuthorAttachmentFrm.attachmentFilename1}').value = filename;
+              } 
+                    function fprInit() {
+                    document.getElementById('{!$Component.uploadAttachmentFrm.attachmentTypeHidden1}').value = 'Added by FPR Reviewer';
+                     }
+                
+                    function fprOnlyInit() {
+                    document.getElementById('{!$Component.uploadAttachmentFrm.attachmentTypeHidden1}').value = 'Draft Sent for FPR';
+                     }
+              function invokeAuthorAttachment(message){
+                 if(message=='true'){
+                     selectAuthorErrorMessage();
+                  }else{
+                      jQuery('.authorAttachmentOverlay').fadeToggle(); jQuery('.authorAttachmentModal').delay(20).fadeToggle(); 
+                  }
+             }
+              
+         </script>    
+        </apex:form>
+    </div>
+   <!-- Appear Enhancement R3: End - Author Tile attachment Modal -->
+    
+    <div class="authorModal" style="display: none; position:fixed; _position:absolute ; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;">
+        <apex:form id="authorFrm" >
+
+         <apex:actionFunction name="saveAuthor" reRender="PubListPanel, authorFrm" action="{!AuthorModel.remoteSaveAuthor}" status="savingAuthor" >
+             <apex:param name="authorId" assignTo="{!AuthorModel.NewAuthorId}"  value=""/>
+        </apex:actionFunction>        
+        
+            <apex:pageBlock title="Please Select an Author" >
+                <apex:pageMessages />
+                <table class="detailList">
+                    <tbody>
+                        <tr>
+                            <td class="labelCol">
+                                Author Name
+                            </td>
+                            <td class="dataCol">
+                                <div id="AuthorSearchContainer" style="position: relative;">
+                                    <input type="text" class="AuthorInput" 
+                                       id="AuthorSearch"/>
+                                    <div id="AuthorSearchDropdown" style="display: none; position: absolute; top: 19px; left: 2px; border: 1px solid gray; width: 400px; height: 150px; background: white; overflow-y: scroll;">
+                                        <table style="padding:  0px; margin: 5px 0 0 0;">
+                                            <tbody id="AuthorSearchList">
+                                            </tbody>                                            
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </apex:pageBlock>
+ 
+          <apex:actionStatus id="savingAuthor" 
+                startText="Adding Author to Publication ...      "
+                stopText=""/>
+           
+
+            <div style="float: right; margin-top: 25px;">           
+               <button type="button" onclick="invokeSaveAuthor();  return false;">Add</button>
+                <input type="submit" value="Done" class="btn" onclick="location.reload(); return false;" />
+            </div>
+            <apex:inputHidden id="newAuthorInput" value="{!AuthorModel.NewAuthorId}" />
+            
+        <script >
+        // Note: the script need to be inline so that when the form is reloaded, the event function get registered again 
+        var typingTimer;
+        var doneTypingInterval = 900;  // 0.9sec 
+        //on keyup, start the countdown
+        $('input.AuthorInput').keyup(function(){
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        });
+        
+        //on keydown, clear the countdown 
+        $('input.AuthorInput').keydown(function(){
+            clearTimeout(typingTimer);
+        });
+        
+        //user is "finished typing," 
+        function doneTyping () {
+            predictiveSearchKeyUp('Author'); 
+        }
+        </script>
+
+            
+        </apex:form>
+    </div>
+    
+    <!--Appear Enhancement R2: Advance author search Model  -->
+    <div class="authorModalNew" style="display: none; position:fixed; _position:absolute ; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 15%; width: 73%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;">
+        <apex:form id="authorFrmNew" >
+        
+        <apex:actionFunction name="saveAuthorNew" reRender="PubListPanel, authorFrmNew" action="{!AuthorModel.remoteSaveAuthorAdd}" status="savingAuthor" >
+        </apex:actionFunction>
+        <apex:actionFunction name="searchAuthor" reRender="PubListPanel, authorFrmNew" action="{!AuthorModel.SearchAuthorList}" status="searchingAuthor" >            
+        </apex:actionFunction>
+            <apex:pageblock title="Please Search an Author">
+            <apex:pageMessages />
+                First Name&nbsp;  <apex:inputText id="firstName" value="{!AuthorModel.firstName}" />
+                Middle Name&nbsp;  <apex:inputText id="middleName" value="{!AuthorModel.middleName}" />
+                Last Name &nbsp; <apex:inputText id="lastName" value="{!AuthorModel.lastName}" />               
+                Email &nbsp;<apex:inputText id="email" value="{!AuthorModel.email}"/> 
+                          
+           <div  style="float: right; margin-top: 10px;" > 
+               
+               <apex:actionStatus id="searchingAuthor" >
+                    <apex:facet name="stop">
+                    <button type="button" onclick="invokeSearchAuthor();  return false;" id="searchAuthorButton" >Search</button>
+                    </apex:facet>
+                    <apex:facet name="start">
+                    <button type="button" id="searchAuthorButton" disabled="true" style ="opacity: 0.3;">Searching Authors..</button>
+                    </apex:facet>
+               </apex:actionStatus>            
+           </div> 
+              <br/>
+              <br/>
+                 <div id="authorSearchBlock" style="overflow: scroll; width: 100%; height: 200px;"> 
+                    <apex:pageblocktable value="{!AuthorModel.addAuthorListNew}" var="authors" id="authorList" width="100%" >
+                       <apex:column headerValue="Select">
+                            <apex:inputcheckbox value="{!authors.selected}" />
+                       </apex:column>
+                       <apex:column headerValue="FirstName">
+                           <apex:outputField value="{!authors.con.firstName}" />
+                       </apex:column>
+                       <apex:column headerValue="MiddleName">
+                           <apex:outputField value="{!authors.con.middleName}" />
+                       </apex:column>
+                       <apex:column headerValue="LastName">
+                           <apex:outputField value="{!authors.con.lastName}" />
+                       </apex:column>
+                       <apex:column headerValue="Email">
+                           <apex:outputField value="{!authors.con.email}" />
+                       </apex:column>
+                       <apex:column headerValue="Country">
+                           <apex:outputField value="{!authors.con.Country__c}" />
+                      </apex:column> 
+                    </apex:pageblocktable>  
+                </div>       
+       </apex:pageblock> 
+            
+            <div style="float: right; margin-top: 10px;" id="authorButtonSection"> 
+               <apex:actionStatus id="savingAuthor">
+                   <apex:facet name="stop">
+                   <button type="button" onclick="invokeSaveAuthorNew();  return false;" id="addAuthorButton">Add</button>
+                   </apex:facet>
+                   <apex:facet name="start">
+                   <button type="button" id="addAuthorButton" disabled="true" style ="opacity: 0.3;">Adding Author(s)..</button>
+                   </apex:facet>
+               </apex:actionStatus>
+               
+               <button type="button" onclick="location.reload(); return false;" >Done</button> 
+             </div>
+                         
+        </apex:form>
+    </div>
+    
+    
+    <div class="SelectRemTemp" style="display: none; position: fixed; _position: absolute; top: 15%; _top:expression(eval(document.body.scrollTop)+20); bottom: 45%; left: 10%; width: 75%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SelectRemTempfrm">
+              <apex:pageBlock title="Reminder Email" id="pgblkSelectRemTemp">
+                 <apex:pageBlockSection id="pgBlockSectionSelectRemTemp" title="Supplemental Information" collapsible="false" columns="1" >
+                 <apex:pageBlockSectionItem id="suppRemindMsg">
+                    <font style="color:#000000; font-family: Verdana; font-weight: bold; font-size: 10px; background-color: #E6E6E6;" type="text">* Include specifics of the publication and activity for which you are sending a reminder</font>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem id="PISelectRemTemp">
+                 <apex:outputLabel >Additional Details<br/>(Character Limit: <input readonly="true" STYLE="color:#000000; font-family: Verdana; font-weight: normal; font-size: 10px; background-color: #EFFBFB;" type="text" name="remindcountdown" size="3" value="4000"/>)</apex:outputLabel>
+                    <apex:inputTextarea rows="5" style="display: block; width: 85%;" id="addtlDetailsSelectRem" onkeydown="checkLimit(this,this.form.remindcountdown,4000);"  onkeyup="checkLimit(this,this.form.remindcountdown,4000);" onchange="checkLimit(this,this.form.remindcountdown,4000);"  />  
+                 </apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+              </apex:pageBlock> 
+               
+       <div style="float: right; margin-top: 25px;">           
+               <apex:commandButton onclick="resetReminderPreviewOpen(); jQuery('.reminderPreviewLinks').hide(); AddtlDetailsReminderUpdate();jQuery('.SelectRemTemp').fadeToggle(); jQuery('.SendReminderTemplate').delay(20).fadeToggle(); return false;" id="SendRemindeaddl" value="Next: Select Reminder Template"/>     
+                <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />                
+            </div>
+       </apex:form>
+    </div>
+    
+    <div class="SelectMainr" style="display: none; position: fixed; _position: absolute; top: 15%; _top:expression(eval(document.body.scrollTop)+20); bottom: 40%; left: 10%; width: 75%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SelectMainFrm">
+              <apex:pageBlock title="Invitation Email" id="pgblk">
+               <apex:pageBlockSection id="pgBlockSection" title="Supplemental Information" collapsible="false" columns="1" >
+                 <apex:pageBlockSectionItem id="suppInvMessage">
+                    <font style="color:#000000; font-family: Verdana; font-weight: bold; font-size: 10px; background-color: #E6E6E6;" type="text">* Include descriptors of the publication content such as study number, study description, planned analyses, or other key characteristics of the publication</font>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem id="PI">
+                 <apex:outputLabel >Additional Details<br/>(Character Limit: <input readonly="true" STYLE="color:#000000; font-family: Verdana; font-weight: normal; font-size: 10px; background-color: #EFFBFB;" type="text" name="invcountdown" size="3" value="4000"/>)</apex:outputLabel>
+                  <apex:inputTextarea rows="5" style="display: block; width: 85%;" id="addtlDetailsSelect" value="{!AuthorModel.AddtlDetails}" onkeydown="checkLimit(this,this.form.invcountdown,4000);"  onkeyup="checkLimit(this,this.form.invcountdown,4000);" onchange="checkLimit(this,this.form.invcountdown,4000);"  />  
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="DateTime">
+                 <apex:outputLabel >Respond By Date</apex:outputLabel>
+                  <!-- <apex:inputtext id="DateTime" value="{!AuthorModel.ByDateTime}"/>   -->
+                  <!--  <apex:input value="{!AuthorModel.ByDateTime}" id="Date" type="auto"/>  -->
+                   <apex:inputfield id="inviteByDate" value="{!AuthorModel.tempPubAuthor.InviteSentDate__c}"/> 
+                 </apex:pageBlockSectionItem> 
+                 </apex:pageBlockSection>
+        </apex:pageBlock> 
+               
+       <div style="float: right; margin-top: 25px;">
+               <apex:commandButton onclick="resetInvitePreviewOpen(); jQuery('.invitePreviewLinks').hide();  AddtlDetailsUpdate();jQuery('.SelectMainr').fadeToggle(); jQuery('.SelectAuthor').delay(20).fadeToggle(); return false;" id="SendReminder123" value="Next: Select Email Template"/>     
+                <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />                
+            </div>
+       </apex:form>
+    </div>
+    <!-- Appear Enhancement R3 on Draft-Share button click popup for provoding Additional Details and Due Date -->
+    <div class="SelectMainDraftShare" style="display: none; position: fixed; _position: absolute; top: 15%; _top:expression(eval(document.body.scrollTop)+20); bottom: 40%; left: 10%; width: 75%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SelectMainFrmDraftShare">
+              <apex:pageBlock title="Draft-Share Email" id="pgblk">
+               <apex:pageBlockSection id="pgBlockSection" title="Supplemental Information" collapsible="false" columns="1" >
+                 <apex:pageBlockSectionItem id="suppInvMessage">
+                    <font style="color:#000000; font-family: Verdana; font-weight: bold; font-size: 10px; background-color: #E6E6E6;" type="text">* Include descriptors of the publication content such as study number, study description, planned analyses, or other key characteristics of the publication</font>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem id="PI">
+                 <apex:outputLabel >Additional Details<br/>(Character Limit: <input readonly="true" STYLE="color:#000000; font-family: Verdana; font-weight: normal; font-size: 10px; background-color: #EFFBFB;" type="text" name="invcountdown" size="3" value="4000"/>)</apex:outputLabel>
+                  <apex:inputTextarea rows="5" style="display: block; width: 85%;" id="addtlDetailsSelect" value="{!AuthorModel.AddtlDetails}" onkeydown="checkLimit(this,this.form.invcountdown,4000);"  onkeyup="checkLimit(this,this.form.invcountdown,4000);" onchange="checkLimit(this,this.form.invcountdown,4000);"  />  
+                 </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="DateTime">
+                 <apex:outputLabel >Respond By Date</apex:outputLabel>
+                   <apex:inputfield id="DraftShareCommentByDate" value="{!AuthorModel.tempPubAuthor.DraftShareDate__c}"/> 
+                 </apex:pageBlockSectionItem> 
+                 </apex:pageBlockSection>
+        </apex:pageBlock> 
+               
+       <div style="float: right; margin-top: 25px;">
+               <apex:commandButton onclick="resetDraftPreviewOpen(); jQuery('.draftsharePreviewLinks').hide();  AddtlDraftShareDetailsUpdate();jQuery('.SelectMainDraftShare').fadeToggle(); jQuery('.DraftShareSelectAuthor').delay(20).fadeToggle(); return false;" id="SendReminder123" value="Next: Select Email Template"/>     
+                <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />                
+            </div>
+       </apex:form>
+    </div>
+    
+    <!-- Appear Enhancement R3 on Draft-Share button click popup for providing Additional Details and Due Date -->
+    
+     <!-- Appear Enhancement R3 Draft-Share Popup for viewing Draft-Share Email Templates-->
+    <div class="DraftShareSelectAuthor" style="display: none; position: fixed; _position:absolute ; top: 33%; _top:expression(eval(document.body.scrollTop)+20); bottom: 20%; left: 20%; width: 70%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SelectAuthorFrmDraftShare">
+            <apex:pageBlock title="Select Author Draft-Share Template" >
+            
+          <apex:actionStatus id="refreshingDraftShareTemplate" 
+                startText="Refreshing Content ...      "
+                stopText=""/>
+            <apex:pageMessages />
+                <apex:pageBlockTable value="{!AuthorModel.DraftShareList}" var="DocumentWrapper">
+                <apex:column >
+               <apex:inputCheckbox value="{!DocumentWrapper.isSelected}"/>
+            </apex:column>
+            <apex:column value="{!DocumentWrapper.Disclaimers.Name}"/>
+            <apex:column headerValue="Preview Email Template">
+            <apex:outputLink onclick="setDraftPreviewOpen();" id="draftPreviewLinkId" styleclass="draftsharePreviewLinks"  target="_blank" value="{!AuthorModel.EmailPreviewSettingContentURL + '/email/templaterenderer?id=' + DocumentWrapper.Disclaimers.Id + '&base_href=' + AuthorModel.emailPreviewSettingOrgURL +  '&preview_frame=contentFrame&render_type=REPLACED_HTML_BODY&recipient_type_id=' + AuthorModel.emailPreviewSettingRecipientTypeId + '&related_to_id=' +  AuthorModel.emailPreviewSettingRelatedToId } ">{!DocumentWrapper.Disclaimers.Name}</apex:outputLink>            
+            </apex:column>
+            
+         </apex:pageBlockTable>
+            </apex:pageBlock>
+            
+            <div style="float: right; margin-top: 25px;">
+                <apex:commandButton onclick="jQuery('.DraftShareSelectAuthor').fadeToggle(); jQuery('.SelectMainDraftShare').delay(20).fadeToggle(); return false;" id="SendDraftShare" value="Back"/> 
+                <apex:commandButton id="btnSendDraft" onclick="return validateDraftPreview();" action="{!AuthorModel.displayDraftShareDoc}" value="Send Draft-Share(s)" />
+                <button style="display: none" class="btnDisabled" disabled="true" id="btn_disablesenddraft">Sending Draft-Share(s)...</button>
+               <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+            </div>
+            
+        </apex:form>
+    </div>
+    <!-- Appear Enhancement R3 Draft-Share Popup for viewing Draft-Share Email Templates-->
+   
+    <div class="SelectMainApproval" style="display: none; position: fixed; _position: absolute; top: 15%; _top:expression(eval(document.body.scrollTop)+20); bottom: 40%; left: 10%; width: 75%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SelectMainApproval">
+              <apex:pageBlock title="Approval Email" id="pgblockApp">
+               <apex:pageBlockSection id="pgBlockSectionApp" title="Supplemental Information" collapsible="false" columns="1" >
+               <apex:pageBlockSectionItem id="suppApproveMsg">
+                    <font style="color:#000000; font-family: Verdana; font-weight: bold; font-size: 10px; background-color: #E6E6E6;" type="text">* Include details about key changes in the publication since the authors last reviewed the document</font>
+                 </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem id="PIApp">
+                 <apex:outputLabel >Additional Details<br/>(Character Limit: <input readonly="true" STYLE="color:#000000; font-family: Verdana; font-weight: normal; font-size: 10px; background-color: #EFFBFB;" type="text" name="apprcountdown" size="3" value="4000"/>)</apex:outputLabel>
+                  <apex:inputTextarea rows="5" style="display: block; width: 85%;" id="addtlDetailsAPp" value="{!AuthorModel.AddtlDetails}" onkeydown="checkLimit(this,this.form.apprcountdown,4000);"  onkeyup="checkLimit(this,this.form.apprcountdown,4000);" onchange="checkLimit(this,this.form.apprcountdown,4000);" />  
+                 </apex:pageBlockSectionItem>    
+              <apex:pageBlockSectionItem id="Appdate">
+                 <apex:outputLabel >Respond By Date</apex:outputLabel>
+                  <!-- <apex:inputtext id="DateTime" value="{!AuthorModel.ByDateTime}"/>   -->
+                  <!--  <apex:input value="{!AuthorModel.ByDateTime}" id="theTextInput" type="auto"/>  -->
+                   <apex:inputfield id="approveByDate" value="{!AuthorModel.tempPubAuthor.ApprovalSentDate__c}" /> 
+                 </apex:pageBlockSectionItem> 
+                 </apex:pageBlockSection>
+        </apex:pageBlock> 
+               
+       <div style="float: right; margin-top: 25px;">           
+               <apex:commandButton onclick="resetApprovePreviewOpen(); jQuery('.approvePreviewLinks').hide(); AddtlDetailsApprovalUpdate(); jQuery('.SelectMainApproval').fadeToggle();  jQuery('.AuthorApproval').delay(20).fadeToggle(); return false;" id="SendRem" value="Next: Select Approval Email Template"/>     
+                <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />                                
+            </div>
+        </apex:form>
+    </div>
+    
+    <div class="SelectAuthor" style="display: none; position: fixed; _position:absolute ; top: 33%; _top:expression(eval(document.body.scrollTop)+20); bottom: 20%; left: 20%; width: 70%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SelectAUthorFrm">
+            <apex:pageBlock title="Select Author Invitation Template" >
+            
+          <apex:actionStatus id="refreshingTemplate" 
+                startText="Refreshing Content ...      "
+                stopText=""/>
+            
+            <apex:pageMessages />
+                <apex:pageBlockTable value="{!AuthorModel.DocList}" var="DocumentWrapper">
+                <apex:column >
+               <apex:inputCheckbox value="{!DocumentWrapper.isSelected}"/>
+            </apex:column>
+            <apex:column value="{!DocumentWrapper.Disclaimers.Name}"/>
+            <apex:column headerValue="Preview Email Template">
+            <apex:outputLink onclick="setInvitePreviewOpen();" id="invitePreviewLinkId" styleclass="invitePreviewLinks"  target="_blank" value="{!AuthorModel.EmailPreviewSettingContentURL + '/email/templaterenderer?id=' + DocumentWrapper.Disclaimers.Id + '&base_href=' + AuthorModel.emailPreviewSettingOrgURL +  '&preview_frame=contentFrame&render_type=REPLACED_HTML_BODY&recipient_type_id=' + AuthorModel.emailPreviewSettingRecipientTypeId + '&related_to_id=' +  AuthorModel.emailPreviewSettingRelatedToId } ">{!DocumentWrapper.Disclaimers.Name}</apex:outputLink>            
+            </apex:column>
+            
+         </apex:pageBlockTable>
+            </apex:pageBlock>
+            
+            <div style="float: right; margin-top: 25px;">
+                <apex:commandButton onclick="jQuery('.SelectAuthor').fadeToggle(); jQuery('.SelectMainr').delay(20).fadeToggle(); return false;" id="SendReminder" value="Back"/> 
+                <apex:commandButton id="btnSendInvitations" onclick="return validateInvitePreview();" action="{!AuthorModel.displaySelectedDoc}" value="Send Invitation(s)" />
+                <button style="display: none" class="btnDisabled" disabled="true" id="btn_disablesendinvite">Sending Invitation(s)...</button>
+               <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+            </div>
+            
+        </apex:form>
+    </div>
+
+    
+    
+    <div class="AuthorApproval" style="display: none; position: fixed; _position:absolute ; top: 30%; bottom: 20%; left: 20%; width: 70%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="AuthorApprovalFrm">
+            <apex:pageBlock title="Select Author Approval Template" >
+ 
+         <apex:actionStatus id="refreshingApproveTemplate" 
+                startText="Refreshing Content ...      "
+                stopText=""/>
+                
+            <apex:pageMessages />
+                <apex:pageBlockTable value="{!AuthorModel.ApprovalList}" var="DocumentWrapper">
+                <apex:column >
+               <apex:inputCheckbox value="{!DocumentWrapper.isSelected}"/>
+            </apex:column>
+            <apex:column value="{!DocumentWrapper.Disclaimers.Name}"/>
+            <apex:column headerValue="Preview Email Template">
+            <apex:outputLink id="approvePreviewLinkId" onClick="setApprovePreviewOpen();" styleclass="approvePreviewLinks" target="_blank" value="{!AuthorModel.emailPreviewSettingContentURL + '/email/templaterenderer?id=' + DocumentWrapper.Disclaimers.Id + '&base_href=' + AuthorModel.emailPreviewSettingOrgURL +  '&preview_frame=contentFrame&render_type=REPLACED_HTML_BODY&recipient_type_id=' + AuthorModel.emailPreviewSettingRecipientTypeId + '&related_to_id=' +  AuthorModel.emailPreviewSettingRelatedToId } ">{!DocumentWrapper.Disclaimers.Name}</apex:outputLink>
+            </apex:column>
+            
+         </apex:pageBlockTable>
+            </apex:pageBlock>
+            
+            <div style="float: right; margin-top: 25px;">           
+                <apex:commandButton onclick="jQuery('.SelectMainApproval').fadeToggle(); jQuery('.AuthorApproval').delay(20).fadeToggle(); return false;" id="SendReminder" value="Back"/>     
+                <apex:commandButton id="btnAuthorApprovalRequests" onclick="return validateApprovePreview();" action="{!AuthorModel.displaySelectedApprovalTemplate}" value="Send Approval Request(s)" />
+                <button style="display: none" class="btnDisabled" disabled="true" id="btn_disableauthorrequests">Sending Approval Requests...</button>
+                 <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+            </div>
+            
+        </apex:form>
+    </div>
+    
+    <div class="SendReminderTemplate" style="display: none; position: fixed; _position:absolute ; top: 25%; _top:expression(eval(document.body.scrollTop)+20);  bottom: 20%;  left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="SendReminderFrm">
+            <apex:pageBlock title="Select Reminder Template" >
+
+        <apex:actionStatus id="refreshingReminderTemplate" 
+                startText="Refreshing Content ...      "
+                stopText=""/>
+                
+            <apex:pageMessages />
+                <apex:pageBlockTable value="{!AuthorModel.ReminderList}" var="DocumentWrapper">
+                <apex:column >
+               <apex:inputCheckbox value="{!DocumentWrapper.isSelected}"/>
+            </apex:column>
+            <apex:column value="{!DocumentWrapper.Disclaimers.Name}"/>
+            <apex:column headerValue="Preview Email Template">
+
+            <apex:outputLink id="reminderPreviewLinkId" onClick="setReminderPreviewOpen();" styleclass="reminderPreviewLinks" target="_blank" value="{!AuthorModel.EmailPreviewSettingContentURL + '/email/templaterenderer?id=' + DocumentWrapper.Disclaimers.Id + '&base_href=' + AuthorModel.emailPreviewSettingOrgURL +  '&preview_frame=contentFrame&render_type=REPLACED_HTML_BODY&recipient_type_id=' + AuthorModel.emailPreviewSettingRecipientTypeId + '&related_to_id=' +  AuthorModel.emailPreviewSettingRelatedToId } ">{!DocumentWrapper.Disclaimers.Name}</apex:outputLink>
+
+           </apex:column>
+
+                        
+         </apex:pageBlockTable>
+            </apex:pageBlock>
+            
+            <div style="float: right; margin-top: 25px;"> 
+                <apex:commandButton onclick="jQuery('.SelectRemTemp').fadeToggle();; jQuery('.SendReminderTemplate').delay(20).fadeToggle(); return false;" id="BackReminderDetails" value="Back"/>          
+                <apex:commandButton id="btnSendReminder" onclick="return validateReminderPreview();" action="{!AuthorModel.displayReminderDoc}" value="Send Reminder" />
+                <button style="display: none" class="btnDisabled" disabled="true" id="btn_disablesendreminders">Sending Reminder(s)...</button>
+                <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+            </div>
+            
+        </apex:form>
+    </div>
+    
+   
+    <div class="authorNotFoundModal" style="display: none; position:fixed; _position: absolute; top: 5%;_top:expression(eval(document.body.scrollTop)+20); left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;">
+        <apex:form >
+            <apex:pageBlock title="Please Enter Authors Not Found" >
+                <apex:pageMessages />
+                <apex:pageBlockSection columns="1">
+                    <apex:inputField style="display: block; width: 80%;" value="{!AuthorModel.ActivePub.Authors_Not_Found__c}" />
+                    <apex:inputField style="display: block; width: 80%;" value="{!AuthorModel.ActivePub.Legacy_Authors__c}" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+            <div style="float: right; margin-top: 25px;">           
+                <apex:commandButton action="{!AuthorModel.save}" value="Save" />
+                <input type="submit" value="Cancel" class="btn" onclick="jQuery('.authorsModalOverlay').fadeToggle(); jQuery('.authorNotFoundModal').delay(20).fadeToggle(); return false;" />
+            </div>
+        </apex:form>
+    </div>
+    
+    <!--Appear Enhancement R2, This piece of code fades the background and displayes the modal widow which has links to all the emails send to the author -->
+   <div class="viewAllEmailOverlay" onclick="location.reload(); return false;" style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />
+   <div class="viewAllEmailModal" style="display: none; position: fixed; _position: absolute; top: 20%; _top:expression(eval(document.body.scrollTop)+20); left: 20%; bottom: 18%; width: 60%; min-width: 500px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+        <apex:form id="ViewAllEmailsForm">
+              <apex:pageBlock title="Invitation Email" id="invite1">
+            <apex:pageMessages />
+               <apex:pageBlockTable value="{!AuthorModel.invitationEmail}" var="mail">
+               
+                <apex:column >
+                        <apex:facet name="header">Subject</apex:facet>
+                        <apex:outputLink target="_blank" value="/{!mail.Id}">{!mail.Subject__c}</apex:outputLink>
+                    </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Sent By</apex:facet>
+                   <apex:outputText value="{!mail.CreatedBy.Name}" />
+                </apex:column>
+                   <apex:column >
+                    <apex:facet name="header">Sent Date</apex:facet>
+                 <apex:outputText value="{!mail.CreatedDate}" />
+                </apex:column>
+          </apex:pageBlockTable> 
+          </apex:pageBlock>
+          
+          <!-- Appear R3 Enhancement Display of Draft Share Email -->
+          <apex:pageBlock title="Draft Shared Email">
+            <apex:pageMessages />
+               <apex:pageBlockTable value="{!AuthorModel.draftShareEmail}" var="dsmail">
+               
+                <apex:column >
+                        <apex:facet name="header">Subject</apex:facet>
+                           <apex:outputLink target="_blank" value="/{!dsmail.Id}">{!dsmail.Subject__c}</apex:outputLink>
+                    </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Sent By</apex:facet>
+                   <apex:outputText value="{!dsmail.CreatedBy.Name}" />
+                </apex:column>
+                   <apex:column >
+                    <apex:facet name="header">Sent Date</apex:facet>
+                   <apex:outputText value="{!dsmail.CreatedDate}" />
+                </apex:column>
+          </apex:pageBlockTable> 
+          </apex:pageBlock>
+          <!-- Appear R3 Enhancement Display of Draft Share Email -->
+            
+          <apex:pageBlock title="Final Author Approval Email">
+            <apex:pageMessages />
+               <apex:pageBlockTable value="{!AuthorModel.finalAuthorApprovalEmail}" var="fmail">
+               
+                <apex:column >
+                        <apex:facet name="header">Subject</apex:facet>
+                      <apex:outputLink target="_blank" value="/{!fmail.Id}">{!fmail.Subject__c}</apex:outputLink>
+                    </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Sent By</apex:facet>
+                  <apex:outputText value="{!fmail.CreatedBy.Name}" />
+                </apex:column>
+                   <apex:column >
+                    <apex:facet name="header">Sent Date</apex:facet>
+                  <apex:outputText value="{!fmail.CreatedDate}" />
+                </apex:column>
+          </apex:pageBlockTable> 
+          </apex:pageBlock>
+          <!-- Appear Enhancment R3 - reminder block repostioned at the end -->
+          <apex:pageBlock title="Reminder Email">
+            <apex:pageMessages />
+               <apex:pageBlockTable value="{!AuthorModel.reminderEmail}" var="rmail">
+               
+                <apex:column >
+                        <apex:facet name="header">Subject</apex:facet>
+                           <apex:outputLink target="_blank" value="/{!rmail.Id}">{!rmail.Subject__c}</apex:outputLink>
+                    </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Sent By</apex:facet>
+                   <apex:outputText value="{!rmail.CreatedBy.Name}" />
+                </apex:column>
+                   <apex:column >
+                    <apex:facet name="header">Sent Date</apex:facet>
+                   <apex:outputText value="{!rmail.CreatedDate}" />
+                </apex:column>
+          </apex:pageBlockTable> 
+          </apex:pageBlock>
+             <div style="float: right; margin-top: 25px;">           
+                <input type="submit" value="Cancel" class="btn"  id="CancelButton" onclick="location.reload(); return false;"/> 
+                
+            </div>
+       </apex:form>  
+    </div>
+    
+    
+    <div class="topLevel">
+    <div class="inviteDisclaimerModalOverlay" onclick="jQuery(this).fadeToggle();jQuery('.inviteDisclaimerModal').fadeToggle();return false;" style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />     
+    <div class="inviteDisclaimerModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 5%; bottom: 5%; width: 85%; min-width: 600px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+        <apex:form id="InviteSentFormIframe">
+
+          <apex:actionStatus id="refreshingDisclaimer" 
+                startText="Refreshing Content ...      "
+                stopText=""/>
+                
+        <apex:outputText id="ProvisionDocumentContent" style="width:800px;height:400px;" value="{!AuthorModel.comp.ProvisionDocumentContent__c}" escape="false"/>
+            <!-- <iframe id="inviteDiscalimer" width="800" height="500" frameborder="1" scrolling="yes" marginheight="0" marginwidth="0" src="{!AuthorModel.Iframesource}"></iframe>-->
+        <br></br>
+        <input type="submit" value=" Close "  class="btn" onclick="jQuery('.inviteDisclaimerModalOverlay').fadeToggle(); jQuery('.inviteDisclaimerModal').delay(20).fadeToggle(); return false;" />    
+        </apex:form>  
+    </div> 
+    
+    <div class="inviteContactAddressOverlay" onclick="jQuery(this).fadeToggle();jQuery('.inviteContactAddressModal').fadeToggle();return false;" style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />     
+    <div class="inviteContactAddressModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 25%; bottom: 25%; width: 50%; min-width: 500px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+         <apex:form id="SelectMainFrmContactAddress">
+              <apex:pageBlock title="Select Contact Address" >
+            <apex:pageMessages />
+                <apex:pageBlockTable value="{!AuthorModel.ContactAddressList}" var="Contact">
+                <apex:column headerValue="">
+                        <apex:inputCheckbox styleClass="exclusiveCheckbox" value="{!Contact.isSelected}"/>
+            </apex:column>
+            
+            <apex:column >
+                <apex:facet name="header">Contact Address</apex:facet>
+                    <apex:outputText value="{!Contact.conAddress.Street_Address__c}"/><span> </span><apex:outputText value="{!Contact.conAddress.Address_Line_2__c}" /> ,<span> </span> <apex:outputText value="{!Contact.conAddress.City__c}" />, <span> </span> <apex:outputText value="{!Contact.conAddress.State_Province__c}" /><span> </span><apex:outputText value="{!Contact.conAddress.Zip_Postal_Code__c}" />,<span> </span> <apex:outputText value="{!Contact.conAddress.Country__c}" />
+            </apex:column>
+            <apex:column headerValue="Contact Primary Address" value="{!Contact.conAddress.Primary_Address__c}"/>
+          </apex:pageBlockTable>
+            </apex:pageBlock>
+               
+       <div style="float: right; margin-top: 25px;">           
+                <apex:commandButton action="{!AuthorModel.SavePrimaryContactAddress}" value="Save" />
+                <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+            </div>
+       <script type="text/javascript">
+                $('.inviteContactAddressModal .exclusiveCheckbox').click(function () { 
+                    checkedState = $(this).attr('checked');
+                    var clickedName = $(this).attr('name');
+                    $('.inviteContactAddressModal .exclusiveCheckbox:checked').each(function () {
+                          if ($(this).attr('name') != clickedName) {
+                            $(this).attr('checked', false);
+                          }
+                      });
+                });
+            </script>
+       </apex:form>  
+    </div>   
+    <!--Appear Enhancement R3- location.reload() added to refresh page-->
+     <div class="inviteFeedItemOverlay" onclick="jQuery(this).fadeToggle();jQuery('.inviteFeedItemModal').fadeToggle();location.reload();return false;" style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />     
+    <div class="inviteFeedItemModal" style="display: none; position: fixed; _position: absolute; top: 10%; _top:expression(eval(document.body.scrollTop)+20); left: 10%; bottom: 15%; width: 80%; min-width: 500px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+         <apex:form id="RelatedFeedItems">
+              <apex:pageBlock title="Comments By {!AuthorModel.createdByname}" >
+            <apex:pageMessages escape="false"/>
+               <apex:pageBlockTable value="{!AuthorModel.RelFeedItems}" var="Feeds">
+               <apex:column >
+                    <apex:facet name="header">Date</apex:facet>
+                    <apex:outputText value="{!Feeds.CreatedDate}" />
+                </apex:column>
+               <apex:column >
+                    <apex:facet name="header">Comments</apex:facet>
+                    <apex:outputText value="{!Feeds.Body}" />
+                </apex:column>
+                 <!--Appear Enhancemnent R3- comment on behalf addition-->
+                <apex:column >
+                    <apex:facet name="header">On-behalf Comment Added Date</apex:facet>
+                    <apex:outputField value="{!Feeds.SystemModstamp}" rendered="{! If(Feeds.insertedbyid!=Feeds.createdbyid ,true,false) }"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">On-behalf Comment Added By</apex:facet>
+                    <apex:outputField value="{!Feeds.InsertedBy.name}" rendered="{! If(Feeds.insertedbyid!=Feeds.createdbyid ,true,false) }"/>
+                </apex:column>
+                <!--Appear Enhancemnent R3- comment on behalf addition-->
+          </apex:pageBlockTable>  
+            </apex:pageBlock>
+            
+          <!-- Appear R3 Enhancement, Input Text Area in which the comment on behalf is Entered -->
+         <apex:pageblock rendered="{!AuthorModel.enableOnbehalfCommentSection}">
+                   Add new comment: <br></br>
+                   <apex:inputTextarea id="abc" value="{!AuthorModel.NewDraftComment.Body}"  rows="3" cols="80"  />
+                   <!--apex:commandButton action="{!AuthorModel.saveOnBehalfComment}" value="Save" id="saveCommentButton"/>     
+                   <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" /-->
+             <apex:pageblocksection >
+                <apex:pageBlockSectionItem id="DateTimeofComment">
+                     <apex:outputLabel >Comment Sent Date</apex:outputLabel>                     
+                        <apex:inputfield id="CommentDate"  value="{!AuthorModel.evt.startDateTime}"/>                
+                    </apex:pageBlockSectionItem>
+             </apex:pageblocksection>
+         </apex:pageblock>
+         <!-- Appear R3 Enhancement, Input Text Area in which the comment on behalf is Entered -->
+
+             <div style="float: right; margin-top: 25px;">           
+                 <apex:commandButton action="{!AuthorModel.saveOnBehalfComment}" value="Save" id="saveCommentButton" rendered="{!AuthorModel.enableOnbehalfCommentSection}"/>                      
+                 <input type="submit" value="Cancel" class="btn" onclick="location.reload(); return false;" />
+            </div>
+       </apex:form>  
+    </div>
+    
+    <div id="discalimerDivAccept" class="inviteDisclaimerModalInviteAcceptOverlay" onclick="jQuery(this).fadeToggle();jQuery('.inviteDisclaimerModalInviteAccept').fadeToggle();return false;" style="display: none; position:  fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />   
+    <div class="inviteDisclaimerModalInviteAccept" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 10%; bottom: 25%; width: 80%; min-width: 800px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" >
+        <apex:form id="InviteAcceptedForm">
+        <p align="left"><b>
+            <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Starts-->
+            <!--
+            Please note that by accepting the invitation on behalf of an author you are acknowledging that you have uploaded the necessary documentation on the Authors Tile confirming that the Author has seen the Author Agreement Provisions document and accepted ALL of the terms of Authorship per the Publications SOP.  Acceptable documentation include:
+                <ol> 
+                <li> An email confirmation of a discussion from you to the author including the Author Agreement Provisions or </li> 
+                <li> An email from the Author agreeing to the terms of the Author Agreement Provisions document </li>
+                </ol></b>
+			-->
+			Please note that by accepting the invitation on behalf of an author on this screen, you are indicating that you do not have documentation confirming that the author has seen the Author Agreement Provisions and has accepted ALL of the terms of authorship per the Publications SOP. While this is not a requirement for an SP publication, it is recommended.
+            <br/><br/>
+            If you have such documentation, please upload it first from the Authors tile. If you do not have or do not want to upload that documentation, please select a justification for accepting the invitation on behalf of the author. Acceptable justification reasons include:
+                <ol> 
+                <li> An email confirmation of a discussion from you to the author including the Author Provisions Agreement </li> 
+                <li> An email from the author agreeing to the terms of the Author Provisions document </li>
+                </ol></b>
+            </p>
+            <p style="color:red;text-align:center;">Ensure that the justification document supports the justification type and the date of the author’s actual response </p>    
+			<!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Ends-->
+            
+            <!--  <apex:outputField style="width:800px;height:400px;" value="{!AuthorModel.comp.ProvisionDocumentContent__c}" />-->
+           
+            <!-- <iframe id="inviteDiscalimerAccept" width="800" height="400" frameborder="1" scrolling="yes" marginheight="0" marginwidth="0" src="{!AuthorModel.InviteDisclaimerVersionPage}"></iframe>-->
+        
+        <!-- <p align="center">
+            <iframe id="inviteDiscalimerAcceptStatic" width="800" height="200" frameborder="1" scrolling="yes" marginheight="0" marginwidth="0" src="{!$Page.AuthorLandingPageStaticText}"></iframe>
+        </p> -->
+        
+        <apex:pageBlock title="Justification *" id="PgBlkAccept">
+         <apex:pageMessages />
+             <apex:pageBlockTable id="table" value="{!AuthorModel.InvSentAut}" var="DocRej" columns="2">
+              <apex:column >
+                    <apex:inputField id="Justification" value="{!DocRej.Justification_for_invite__c}"/>
+              </apex:column>
+              <!--Appear Enhancement 2017 Backlog R2 - Below column added for Author Actual Date Capture -->   
+              <apex:column >
+                    <apex:outputLabel style="font-weight:bold" value="Actual Author Response Date" for="invAcceptDate" /> &nbsp;&nbsp;
+                  <apex:inputField type="date" showDatePicker="true" id="invAcceptDate" value="{!DocRej.InviteAcceptedDate__c}"  />
+              </apex:column>
+             </apex:pageBlockTable>
+        </apex:pageBlock>
+        <div align="left">
+        <!--<input type="checkbox" name="checkbox-mini-1" id="checkbox-mini-1" data-mini="true" onclick="javascript: toggleButton(this,'j_id0:j_id1542:j_id1543:InviteAcceptedForm:inviteAcceptButton');"></input> -->
+        <input type="checkbox" name="checkbox-mini-1" id="checkbox-mini-1" data-mini="true" onclick="javascript: toggleButton(this,'{!$Component.InviteAcceptedForm.inviteAcceptButton}');"></input> <!-- Appear Enhancement R3: Javascript hardcoded ID fix -->
+        <!--<label for="checkbox-mini-1"><b>Yes, I have uploaded the supporting documentation confirming the author's agreement to the author provisions and terms of authorship in the "Attachments" tile under "Author Agreement Letter/Response"</b></label>-->
+        <label for="checkbox-mini-1"><b>
+            <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Starts-->
+            <!--Yes, I have uploaded the supporting documentation confirming the author’s agreement to the terms of authorship on the Authors Tile with an Attachment Type of “Response to Author Invitation” and have accurately captured the Actual Author Response Date above.-->
+            Yes, I have accurately captured the Actual Author Response Date above.
+            <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Ends-->
+            </b></label>    
+        <br></br>
+        </div>
+        <div style="margin-top: 25px;" align="center">           
+            <!--apex:commandButton id="inviteAcceptButton" style="display: none" value="Accept" action="{!authorModel.UpdateAuthorRecord}"  / Appear Enhancement R3--> 
+            <apex:commandButton id="inviteAcceptButton" style="display: none" value="Accept" action="{!authorModel.InvAcceptOnBehalf}"  /><!-- oncomplete="parent.location.reload();" -->
+             <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+         
+        </div>
+        </apex:form>
+        <!-- <div align="center">
+           <apex:form >
+              <apex:commandButton onclick="jQuery('.pubAuthDisplayfield').delay(20).fadeToggle();jQuery('.inviteDisclaimerModalInviteAccept').fadeToggle();return false;$('.inviteDisclaimerModalInviteAccept').hide()" id="SelectReason" value="Accept"/>  
+                 
+              <apex:commandButton value="Cancel" rendered="true"  onclick="jQuery(.inviteDisclaimerModalInviteAcceptOverlay).fadeToggle();jQuery('.approvalModal').fadeToggle();return false;"  /> 
+           </apex:form>
+        </div>-->
+           
+     </div>  
+        
+     <div class="approvalDisclaimerModalOverlay" onclick="jQuery(this).fadeToggle();jQuery('.DisclaimerModal').fadeToggle();return false;" 
+         style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" />
+     <div class="DisclaimerModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 10%; bottom: 20%; width: 80%; min-width: 800px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;"> 
+         <apex:form id="ApprovalSentDateForm">
+         <p align="left">
+              Please use the following link to preview the final draft Publication:  
+              <B><span class="AttachmentLink">
+              <a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!AuthorModel.ApproveAttachmentURL}" target="_blank">{!AuthorModel.PubName} : "{!AuthorModel.PubTitle}"</a>
+              </span></B> &nbsp; &larr; <i>(Please note that clicking the link will open the Publication in a separate browser window)</i>
+         </p></apex:form>
+    </div>    
+    <div class="approvalModalOverlay" onclick="jQuery(this).fadeToggle();jQuery('.approvalModal').fadeToggle();return false;" 
+          style="display: none; position: fixed; _position: absolute; top: 0; _top:expression(eval(document.body.scrollTop)); left: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> <!-- Appear Enhancement 2017 Backlog R2 : Modal Size changed-->
+    <div class="approvalModal" style="display: none; position: fixed; _position: absolute; top: 5%; _top:expression(eval(document.body.scrollTop)+20); left: 10%; bottom: 15%; width: 80%; min-width: 800px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: auto;" > 
+        <apex:form id="approvalAcceptedForm">
+            <p align="left">
+            Please use the following link to preview the final draft Publication:  
+            <B><span class="AttachmentLink">
+             <a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!AuthorModel.ApproveAttachmentURL}" target="_blank">{!AuthorModel.PubName} : "{!AuthorModel.PubTitle}"</a>
+            </span></B> &nbsp; &larr; <i>(Please note that clicking the link will open the Publication in a separate browser window)</i>
+            <br></br>
+            <br></br>  
+            <b>
+                <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Starts-->
+                <!--Please note that by approving/declining to approve on behalf of an Author you are acknowledging that you have uploaded the necessary documentation on the Authors Tile confirming that the Author has seen the Final Draft that was requested for Approval and confirmed they have fulfilled the ICMJE criteria for authorship per the Publications SOP. Acceptable documentation include:
+                    <ol> 
+                    <li> An email confirmation of a discussion from you to the author or </li> 
+                    <li> An email from the author approving/declining to approve the final draft or </li>
+                    <li> An email from the author’s delegate approving/declining to approve the final draft </li>
+                    </ol> -->
+                Please note that by approving/declining to approve on behalf of an author on this screen, you are indicating that you do not have documentation confirming that the author has seen the Final Draft that was requested for approval and has confirmed that they have fulfilled the ICMJE criteria for authorship per the Publications SOP. While this is not a requirement for an SP publication, it is recommended.
+                <br/><br/>
+                If you have  such documentation, please upload it first from the Authors tile.  If you do not have or do not want to upload that documentation, please select a justification for approving or declining to approve on behalf of the author. Acceptable justification reasons include:
+                <ol> 
+                    <li> An email confirmation of a discussion from you to the author </li> 
+                    <li> An email from the author approving /declining to approve the final draft </li>
+                    <li> An email from the author’s delegate approving /declining to approve the final draft </li>
+                    </ol>
+				<!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Ends-->
+			</b>
+        </p>
+		<!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: WalkMe Text: below line added-->
+		<p style="color:red;text-align:center;">Ensure that the justification document supports the justification type and the date of the author’s actual response </p>           
+
+        <apex:pageBlock title="Justification for Approval/Rejection *" id="PgBlkAccept1">
+         <apex:pageMessages />
+             <apex:pageBlockTable id="table" value="{!AuthorModel.InvSentAut}" var="DocRej" columns="2">
+              <apex:column >
+                    <apex:inputField id="Justification" value="{!DocRej.Justification_for_Approval__c}"/>
+              </apex:column>
+               <!--Appear Enhancement 2017 Backlog R2 - Author Approval Actual Transaction date capture -->  
+              <apex:column >
+                  <apex:outputLabel style="font-weight:bold" value="Actual Author Response Date" for="appAcceptDate" /> &nbsp;&nbsp;
+                  <apex:inputField showDatePicker="true" type="auto" id="appAcceptDate" value="{!AuthorModel.evt.ActivityDate}"  />
+              </apex:column>
+             </apex:pageBlockTable>
+        </apex:pageBlock>
+        <div align="left">
+                <!--<input type="checkbox" name="checkbox-mini-2" id="checkbox-mini-1" data-mini="true" onclick="javascript: toggleButton(this,'j_id0:j_id1542:j_id1543:approvalAcceptedForm:apprvApproveButton', 'j_id0:j_id1542:j_id1543:approvalAcceptedForm:declineApproveButton');"></input> -->
+                <input type="checkbox" name="checkbox-mini-2" id="checkbox-mini-1" data-mini="true" onclick="javascript: toggleButton(this,'{!$Component.approvalAcceptedForm.apprvApproveButton}', '{!$Component.approvalAcceptedForm.declineApproveButton}');"></input><!-- Appear Enhancement R3: Javascript hardcoded ID fix -->
+                <!---<label for="checkbox-mini-2"><b>Yes, I have uploaded the supporting documentation confirming the author's approval/approval to decline in the "Attachments" tile under "Author Approval(s)"</b></label>-->
+                <label for="checkbox-mini-2"><b>
+                    <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Starts-->
+                    <!--Yes, I have uploaded the supporting documentation confirming the author’s response to final approval on the Authors Tile with an Attachment Type of “Response to Final Author Approval” and have accurately captured the Actual Author Response Date above. <!-- // Appear Enhamcement backlog R2 - Verbiage Changes -->
+                	Yes, I have accurately captured the Actual Author Response Date above.
+                    <!--Appear Enhancement 2017 Backlog R3 : Issue id 106 :: Verbiage Change :: Ends-->
+                </b></label>    
+                <br></br>
+        </div>
+        <div style="margin-top: 25px;" align="center"> 
+             <!--apex:commandButton id="apprvApproveButton" style="display: none" value="Approve" action="{!authorModel.UpdateAuthorRecord}"/ Commented and updated below : Appear Enhancment R3-->
+             <apex:commandButton id="apprvApproveButton" style="display: none" value="Approve" action="{!authorModel.ApproveOnBehalf}"/>&nbsp;<!--  oncomplete="parent.location.reload(); -->
+             <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />&nbsp;
+             <apex:commandButton id="declineApproveButton" value="Decline to Approve" style="display: none" action="{!authorModel.declineOnBehalf}" /><!-- oncomplete="parent.location.reload();" -->
+             <!--apex:commandButton id="declineApproveButton" value="Decline to Approve" style="display: none" action="{!authorModel.UpdateAuthorRecordReject}"  / Commented and updated below : Appear Enhancment R3-->
+             
+        </div>
+        </apex:form>
+    </div>
+        
+    <div class="pubAuthDisplayfield" style="display: none;  position:fixed; _position:absolute ;  top: 25%; _top:expression(eval(document.body.scrollTop)+20); left: 20%; width: 50%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:pageMessages />
+        <apex:form id="AddReason">
+         <apex:pageBlock title="Justification for Approval/Rejection *" id="PgBlkAccept">
+             <apex:pageBlockTable id="table" value="{!AuthorModel.InvSentAut}" var="DocRej">
+              <apex:column >
+                    <apex:inputField id="Justification" value="{!DocRej.Justification_for_invite__c}"/>
+              </apex:column>
+             </apex:pageBlockTable>
+        </apex:pageBlock>
+        <div style="margin-top: 25px;">           
+             <!--<input type="submit" value="Accept" class="btn" action="{!authorModel.UpdateAuthorRecord}"  oncomplete="$('.pubAuthDisplayfield, .approvalModal, .inviteDisclaimerModalInviteAccept, .inviteDisclaimerModalInviteAcceptOverlay').hide();"/>-->
+           
+             <apex:commandButton value="Accept" action="{!authorModel.InvAcceptOnBehalf}"  oncomplete="parent.location.reload();"/>
+            <!--apex:commandButton value="Accept" action="{!authorModel.UpdateAuthorRecord}"  oncomplete="parent.location.reload();"/ Commented and updated : Appear Enhancement R3-->
+             <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+         
+        </div>
+        </apex:form>
+    </div>
+    
+    <div class="pubAuthDisplayApprovalfield" style="display: none; position:fixed; _position:absolute ;  top: 25%; _top:expression(eval(document.body.scrollTop)+20); left: 20%; width: 50%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:pageMessages />
+        <apex:form id="AddReasonApprovalreject">
+         <apex:pageBlock title="Justification for Approval/Rejection *" id="PgBlkAccept1">
+             <apex:pageBlockTable id="table" value="{!AuthorModel.InvSentAut}" var="DocRej">
+              <apex:column >
+                    <apex:inputField id="Justification" value="{!DocRej.Justification_for_Approval__c}"/>
+              </apex:column>
+             </apex:pageBlockTable>
+        </apex:pageBlock>
+        <div style="margin-top: 25px;">           
+             <apex:commandButton value="Approve" action="{!authorModel.UpdateAuthorRecord}"  /><!-- oncomplete="parent.location.reload();"-->
+             <input type="submit" value="Cancel" class="btn" onclick="window.reload(); return false;" />
+             <apex:commandButton value="Decline to Approve" action="{!authorModel.UpdateAuthorRecordReject}"  oncomplete="parent.location.reload();"/>
+             
+        </div>
+        </apex:form>
+    </div>
+    
+     </div>   
+
+    <script type="text/javascript">
+        //This function will make content links relative to the author Portal's authorization URLs if page is within the FPR Portal
+        if ( location.toString().indexOf('PubAuthor') != -1 ) { //is author portal
+            $('.AttachmentLink a').each(function(index) {
+                  $(this).attr('href','{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}'+ $(this).attr('href').substring($(this).attr('href').length-18));
+               });
+           }
+    </script>
+    
+    <script type="text/javascript">
+        jQuery('.authorsModalOverlay').appendTo('body');
+        jQuery('.authorModal').appendTo('body'); 
+        jQuery('.authorNotFoundModal').appendTo('body'); 
+        jQuery('.authorModalNew').appendTo('body');//Appear Enhancement R2           
+        
+        jQuery('input.AuthorInput').attr('autocomplete','off'); 
+        jQuery('.SelectAuthor').appendTo('body'); 
+        jQuery('.AuthorApproval').appendTo('body'); 
+        jQuery('.topLevel').appendTo('body');
+        
+        //Appear Enhancement R2
+        function invokeSaveAuthorNew(){
+            authorId =  document.getElementById('{!$Component.authorFrm.newAuthorInput}').value;
+            saveAuthorNew(authorId);
+        }
+        function invokeSearchAuthor(){
+            authorId =  document.getElementById('{!$Component.authorFrm.newAuthorInput}').value;
+            searchAuthor(authorId);
+        }
+        
+        
+        function authorClicked(authorId, authorName) {
+            $('input.AuthorInput')[0].value = authorName;
+            document.getElementById('{!$Component.authorFrm.newAuthorInput}').value = authorId;
+            $('#AuthorSearchDropdown').hide(250);           
+        }
+        
+        function invokeSaveAuthor(){
+            authorId =  document.getElementById('{!$Component.authorFrm.newAuthorInput}').value; 
+            saveAuthor(authorId);
+        }
+        
+        var busyCursorOn = function() {
+            var ctrCheckForSelection = 0;
+            var inputs = document.getElementsByTagName("input"); 
+            for (var i = 0; i < inputs.length; i++) {
+                var node = inputs[i]; 
+                if(node.getAttribute('type') == 'checkbox' && node.checked) {
+                    ctrCheckForSelection++;
+                }
+            }
+            
+            if(ctrCheckForSelection == 1) {
+                $('.submit').attr("disabled", "disabled");
+                for (var i = 0; i < inputs.length; i++) { 
+                    inputs[i].disabled = true;
+                }
+                $('body').addClass('wait');
+            }
+          };
+         
+          var busyCursorOff = function() {
+            $('.submit').removeAttr("disabled");
+            var inputs = document.getElementsByTagName("input"); 
+            for (var i = 0; i < inputs.length; i++) { 
+                inputs[i].disabled = false;
+            }
+            $('body').removeClass('wait');
+          };
+        
+        
+        function predictiveSearchKeyUp(searchType){ 
+            var inputElement = $('input.'+searchType+'Input')[0];
+            var inputText = inputElement.value;
+            var searchDropdown = $('#'+searchType+'SearchDropdown');
+            var searchList = searchDropdown.find('#'+searchType+'SearchList');
+            var minChars = searchType == 'Author' ? 2 : 1;
+            
+            if (inputText.length < minChars) {
+                    searchDropdown.hide(250);
+                return;
+            }
+            
+            if (searchType == 'Author') {
+                PubAuthorViewModel.findAuthorsByName(inputText, function(result, event){
+                    if (event.status && document.activeElement.className == 'AuthorInput') {
+                        searchList.html('');
+                        $.each(result, function(key, author){
+                            searchList.append('<tr><td style="padding: 2px;"><a onClick="authorClicked(\'' + author.id + '\', \'' + author.name + '\')" style="cursor: pointer;">'+author.name+'</td>  <td style="padding: 2px;"><a onClick="authorClicked(\'' + author.id + '\', \'' + author.name + '\')" style="cursor: pointer;">'+author.email+'</td>  <td style="padding: 2px;"><a onClick="authorClicked(\'' + author.id + '\', \'' + author.name + '\')" style="cursor: pointer;">'+author.address+'</td></tr>');
+                        });
+                        searchDropdown.show(250);
+                    }
+                }, {escape:true})
+            }
+        }
+        
+        function checkLimit(limitField, limitCount, limitNum)
+        {
+            if (limitField.value.length > limitNum) {
+                limitField.value = limitField.value.substring(0, limitNum);
+            } else {
+                limitCount.value = limitNum - limitField.value.length;
+            }
+        }
+        
+        function toggleButton(box, id) {
+            for(var i = 1; i <= arguments.length; i++) {
+                var elm = document.getElementById(arguments[i]);
+                if(box.checked){
+                    elm.style.display = "";
+                } else {
+                    elm.style.display = "none";
+                }
+            }
+        }  
+
+//Appear Enhancement 2017 Backlog R3 : Issue id 106 :: STARTS :: 
+		function toggleTwoUploadBttn(param){
+            //var uploadInv = document.getElementById('{!$Component.uploadAuthorAttachmentFrm.inviteAcceptButton}');
+            //var canInv= document.getElementById('inviteCancelButton');
+            var upload = document.getElementById('{!$Component.uploadAuthorAttachmentFrm.uploadAttMain}');
+            var canUpload = document.getElementById('uploadCancelBttn');
+           if(param == true){
+               upload.style.display = "none";
+               canUpload.style.display = "none";
+           }     
+           if(param == false){
+               upload.style.display = "";
+               canUpload.style.display = "";
+           }    
+		}
+            
+		function togglePageBlock(box, id, id2, id3) {
+            var authorInvCheck = jQuery(document.getElementById(id2)).val();
+            var authorApprCheck = jQuery(document.getElementById(id3)).val();//approvalActualDateDiv
+            for(var i = 1; i <= arguments.length; i++) {
+                var elm = document.getElementById(arguments[i]);
+                
+                if(box.value == "Substantial Comments"){
+                    elm.style.display = "";
+                    document.getElementById('inviteActualDateDiv').style.display = "none";
+                    document.getElementById('approvalActualDateDiv').style.display = "none";
+                    toggleTwoUploadBttn(false);
+                } 
+                else if(box.value == "Response to Author Invitation" && authorInvCheck == 'true'){
+                    elm.style.display = "none";
+                    document.getElementById('inviteActualDateDiv').style.display = "";
+                    document.getElementById('approvalActualDateDiv').style.display = "none";
+                    toggleTwoUploadBttn(true);
+                }
+                   else if(box.value == "Response to Final Author Approval" && authorApprCheck == 'true'){
+                    elm.style.display = "none";
+                    document.getElementById('inviteActualDateDiv').style.display = "none";
+                    document.getElementById('approvalActualDateDiv').style.display = "";
+                    toggleTwoUploadBttn(true);
+                }
+                else {
+                    elm.style.display = "none";
+                    document.getElementById('inviteActualDateDiv').style.display = "none";
+                    document.getElementById('approvalActualDateDiv').style.display = "none";
+                    toggleTwoUploadBttn(false);
+                }
+                
+            }
+        }
+	
+	//Appear Enhancement 2017 Backlog R3 : Issue id 106 :: ENDS
+
+//Commented below code to update for Appear Enhancement 2017 Backlog R3 : Issue id 106
+     //Appear Enhancement R5:Pageblock toggle function
+/*function togglePageBlock(box, id) {
+            for(var i = 1; i <= arguments.length; i++) {
+                var elm = document.getElementById(arguments[i]);
+                if(box.value == "Substantial Comments"){
+                    elm.style.display = "";
+                } else {
+                    elm.style.display = "none";
+                }
+            }
+        }*/
+    //Appear Enhancement R5:Pageblock toggle function
+    </script>
+     <script>
+       function AddtlDetailsUpdate()
+        {
+            var details = document.getElementById('{!$Component.SelectMainFrm:pgblk:pgBlockSection:PI:addtlDetailsSelect}').value ;
+            var date = document.getElementById('{!$Component.SelectMainFrm:pgblk:pgBlockSection:DateTime:inviteByDate}').value ;
+            InviteAddtlDetails(details,date);
+            
+        }
+       //Appear Enhancement R3 Javascript method which calls Action Function - Draft Share button logic
+        function AddtlDraftShareDetailsUpdate()
+        {
+            var details = document.getElementById('{!$Component.SelectMainFrmDraftShare:pgblk:pgBlockSection:PI:addtlDetailsSelect}').value ;
+            var date = document.getElementById('{!$Component.SelectMainFrmDraftShare:pgblk:pgBlockSection:DateTime:DraftShareCommentByDate}').value ;
+            console.log(details);
+            DraftShareAddtlDetails(details,date);
+            
+        }
+       //Appear Enhancement R3 Javascript method which calls Action Function - Draft Share button logic
+      function AddtlDetailsReminderUpdate()
+        {   
+            var details = document.getElementById('{!$Component.SelectRemTempfrm:pgblkSelectRemTemp:pgBlockSectionSelectRemTemp:PISelectRemTemp:addtlDetailsSelectRem}').value ;
+            AddtlRemDetails(details);
+        }
+        
+        </script>
+         <script>
+        function AddtlDetailsApprovalUpdate()
+        {
+            
+            var AppDetails = document.getElementById('{!$Component.SelectMainApproval:pgblockApp:pgBlockSectionApp:PIApp:addtlDetailsAPp}').value ;
+            var appDate = document.getElementById('{!$Component.SelectMainApproval:pgblockApp:pgBlockSectionApp:AppDate:approveByDate}').value;
+            ApproveAddtlDetails(AppDetails,appDate);
+           
+            
+        }
+   </script>
+     <script>
+
+
+        var isApprovePreviewOpen = false;               
+        function setApprovePreviewOpen(){
+             isApprovePreviewOpen = true;
+        }
+        function resetApprovePreviewOpen(){
+             isApprovePreviewOpen = false;
+        }
+        function validateApprovePreview(){
+            if (!isApprovePreviewOpen){
+                alert ("Please ensure that the email body is correct by previewing the email before sending the approval request."); 
+            } else { 
+                //toggleButtonToDisabled('j_id0:j_id1542:j_id1543:AuthorApprovalFrm:btnAuthorApprovalRequests', 'btn_disableauthorrequests', true);  //Appear Enhancement R3: Javascript hardcoded ID fix
+                toggleButtonToDisabled('{!$Component.AuthorApprovalFrm.btnAuthorApprovalRequests}', 'btn_disableauthorrequests', true);
+            }
+            return isApprovePreviewOpen; 
+        }
+        var isInvitePreviewOpen = false;                
+        function setInvitePreviewOpen(){
+             isInvitePreviewOpen = true;
+        }
+        function resetInvitePreviewOpen(){
+             isInvitePreviewOpen = false;
+        }
+        function validateInvitePreview(idBtn){
+            if (!isInvitePreviewOpen){
+                alert ("Please ensure that the email body is correct by previewing the email before sending the invitation."); 
+            } else {
+                 //toggleButtonToDisabled('j_id0:j_id1542:j_id1543:SelectAUthorFrm:btnSendInvitations', 'btn_disablesendinvite', true);
+                 toggleButtonToDisabled('{!$Component.SelectAUthorFrm.btnSendInvitations}', 'btn_disablesendinvite', true); //Appear Enhancement R3: Javascript hardcoded ID fix
+            }
+            return isInvitePreviewOpen; 
+        }
+
+       //Start - Appear Enhancement R3 Javascript method for calling Action function - Draft share button logic
+        var isDraftPreviewOpen = false;                
+        function setDraftPreviewOpen(){
+             isDraftPreviewOpen = true;
+        }
+        function resetDraftPreviewOpen(){
+             isDraftPreviewOpen = false;
+        }
+        function validateDraftPreview(idBtn){
+            if (!isDraftPreviewOpen){
+                alert ("Please ensure that the email body is correct by previewing the email before sending the draft."); 
+            } else {
+                 toggleButtonToDisabled('{!$Component.SelectAuthorFrmDraftShare.btnSendDraft}', 'btn_disablesenddraft', true); //Appear Enhancement R3: Javascript hardcoded ID fix
+            }
+            return isDraftPreviewOpen; 
+        }
+        //End - Appear Enhancement R3 Javascript method for calling Action function - Draft share button logic
+
+        var isReminderPreviewOpen = false;              
+        function setReminderPreviewOpen(){
+             isReminderPreviewOpen = true;
+        }
+        function resetReminderPreviewOpen(){
+             isReminderPreviewOpen = false;
+        }
+        function validateReminderPreview(){
+            if (!isReminderPreviewOpen){
+                alert ("Please ensure that the email body is correct by previewing the email before sending the Reminder."); 
+            } else {
+                //toggleButtonToDisabled('j_id0:j_id1542:j_id1543:SendReminderFrm:btnSendReminder', 'btn_disablesendreminders', true);
+                toggleButtonToDisabled('{!$Component.SendReminderFrm.btnSendReminder}', 'btn_disablesendreminders', true);//Appear Enhancement R3: Javascript hardcoded ID fix
+            }
+            return isReminderPreviewOpen; 
+        }
+        
+        function toggleButtonToDisabled(idFromBtn, idToBtn, checkFlag) {
+            var elm1 = document.getElementById(idFromBtn);
+            var elm2 = document.getElementById(idToBtn);
+            if(checkFlag){
+                elm1.style.display = "none";
+                elm2.style.display = "";
+            } else {
+                elm1.style.display = "";
+                elm2.style.display = "none";
+            }
+        }        
+        
+        function viewContactAddresses(ContactId,PubAuthorId){
+            UpdateAuthorContactAddressId(ContactId,PubAuthorId);
+            jQuery('.inviteContactAddressOverlay').fadeToggle();
+            jQuery('.inviteContactAddressModal').delay(20).fadeToggle();  
+        }
+        
+        
+        function viewInviteDisclaimer(PubID){
+            // reset the provison content. 
+           var provisionTextId = '{!$Component.viewProvisionForm.ProvisionDocumentContent}';
+           jQuery(document.getElementById(provisionTextId)).val(''); // reset the value       
+
+            UpdateInviteDisclaimerAuthorId(PubID);
+            jQuery('.inviteDisclaimerModalOverlay').fadeToggle();
+            jQuery('.inviteDisclaimerModal').delay(20).fadeToggle();
+        }
+        function viewInviteAcceptDisclaimer(PubID){
+            UpdateAuthorId(PubID);
+            jQuery('.inviteDisclaimerModalInviteAcceptOverlay').fadeToggle();
+            jQuery('.inviteDisclaimerModalInviteAccept').delay(20).fadeToggle();
+        }
+        function viewApprovalDisclaimer(PubID){
+            UpdateAuthorIdApprovalDisclaimer(PubID);
+            jQuery('.approvalDisclaimerModalOverlay').fadeToggle();
+            jQuery('.DisclaimerModal').delay(20).fadeToggle();
+        }
+        function viewApproval(PubID){
+            UpdateAuthorIdViewApproval(PubID);
+            jQuery('.approvalModalOverlay').fadeToggle();
+            jQuery('.approvalModal').delay(20).fadeToggle();
+        }
+        
+//Appear R3 Enhancement, another parameter PubAuthorId added to the ViewFeedItem action function for comment on behalf
+        function viewRelatedFeedItems(PubAuthorId,PubId,ContactId,CuserId,AuthorName){
+        console.log(PubAuthorId);
+            ViewFeedItems(PubAuthorId,PubId,ContactId,CuserId,AuthorName);        
+            jQuery('.inviteFeedItemOverlay').fadeToggle();
+            jQuery('.inviteFeedItemModal').delay(20).fadeToggle(); 
+        } 
+        //Appear Enhancement R2, Email history requirement
+        function viewAllEmails(PubId,ContactId){
+            ViewAllSentEmails(PubId,ContactId);
+            jQuery('.viewAllEmailOverlay').fadeToggle();
+            jQuery('.viewAllEmailModal').delay(20).fadeToggle(); 
+        }    
+//Appear Enhancement 2017 Backlog R3 : Issue id 106 :: STARTS	
+// Attachment Name change on data selection
+var getMonthName = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+		function inviteActualDateDiv_dpChange(box,pbbId,attT,atName){
+        	var dateVal = new Date(box.value);
+            var authorName =jQuery(document.getElementById(atName)).val();
+            var authorFname = jQuery("[id$='{!$Component.uploadAuthorAttachmentFrm.authorFirstName}']").val();
+            var authorLname = jQuery("[id$='{!$Component.uploadAuthorAttachmentFrm.authorLastName}']").val();
+            var attachType = jQuery(document.getElementById(attT)).val();
+            var pbbId = jQuery(document.getElementById(pbbId)).val();
+            var dd = dateVal.getDate();
+            var yyyy = dateVal.getFullYear();
+            var mmtext = getMonthName[dateVal.getMonth()];
+            dateVal = yyyy+' '+mmtext+' '+dd;
+            authorFname = authorFname.charAt(0);
+            if(!isNaN(dd)){
+              jQuery(document.getElementById('{!$Component.uploadAuthorAttachmentFrm.attachmentBlock.attachmentBlockSection.attachmentName1}')).val(pbbId+' '+authorLname+' '+authorFname+' '+attachType+' '+dateVal);
+         }
+        }
+// Method used for Attachment Name auto population
+		function populateAttachmentName() {  
+            var j$ = jQuery.noConflict();
+            var pickListValue1 = j$("[id$='{!$Component.uploadAuthorAttachmentFrm.attachmentBlock.attachmentBlockSection.attachmentType1}']").val();
+            var authorname = j$("[id$='{!$Component.uploadAuthorAttachmentFrm.attachmentAuthorName}']").val();
+            var authorFname = j$("[id$='{!$Component.uploadAuthorAttachmentFrm.authorFirstName}']").val();
+            authorFname = authorFname.charAt(0);
+            var authorLname = j$("[id$='{!$Component.uploadAuthorAttachmentFrm.authorLastName}']").val();
+            var publicationId = j$("[id$='{!$Component.uploadAuthorAttachmentFrm.authorPubID}']").val();
+            var today = new Date();
+            var locale = 'en-us';
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            var mmtext = getMonthName[today.getMonth()];
+            today = yyyy+' '+mmtext+' '+dd;
+            var inputTextAreaName = j$("[id$='{!$Component.uploadAuthorAttachmentFrm.attachmentBlock.attachmentBlockSection.attachmentName1}']");
+            
+            if(pickListValue1 == "Response to Author Invitation" || pickListValue1 == "Response to Final Author Approval"){
+                inputTextAreaName.val(publicationId+' '+authorLname+' '+authorFname+' '+pickListValue1);
+            }
+            else if(pickListValue1!='' && (pickListValue1 != 'Response to Author Invitation' || pickListValue1 != 'Response to Final Author Approval') ){
+               	inputTextAreaName.val(publicationId+' '+authorLname+' '+authorFname+' '+pickListValue1+' '+today.toString());
+                
+            } 
+            else{
+                inputTextAreaName.val('');
+               }      
+        }
+
+		//Appear Enhancement 2017 Backlog R3 : Issue id 106 :: ENDS
+
+    </script>
+</apex:component>

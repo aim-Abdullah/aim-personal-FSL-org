@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Answer_Field_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Answer Field Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Error_Message_2__c</fullName>
+        <description>Extra error message text needs to be added to this field to compensate for more than 255 characters limit.</description>
+        <externalId>false</externalId>
+        <label>Error Message 2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Error_Message__c</fullName>
+        <externalId>false</externalId>
+        <label>Error Message</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Is_inActive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This field will be set &quot;true&quot; for questions/error message records which will not be required in the existing questionnaire flow.</description>
+        <externalId>false</externalId>
+        <label>Is inActive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Question_Response__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent Question Response</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent Question</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_Content_2__c</fullName>
+        <description>Extra question text needs to be added to this field to compensate for more than 255 characters limit.</description>
+        <externalId>false</externalId>
+        <label>Question Content 2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Question_Content__c</fullName>
+        <externalId>false</externalId>
+        <label>Question Content</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>FPR Only Questions</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Allow Formula field to read URL for Org instead of hard coding - must use Hierarchy Custom Settings</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ContentURL__c</fullName>
+        <description>ContentURL</description>
+        <externalId>false</externalId>
+        <label>ContentURL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>OrgURL__c</fullName>
+        <externalId>false</externalId>
+        <label>Org URL</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>VfURL__c</fullName>
+        <externalId>false</externalId>
+        <label>VF URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <label>OrgUrl</label>
+    <visibility>Public</visibility>
+</CustomObject>

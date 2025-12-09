@@ -1,0 +1,65 @@
+<apex:component id="PubHeader" >
+    <apex:attribute name="PubHeaderDTO" description="" type="PubHeaderDTO" required="true" />
+
+        <apex:pageblock mode="maindetail" >  
+            <apex:pageblocksection columns="2">  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Pub Id" />
+                    <apex:outputText value="{!PubHeaderDTO.PubId}" />
+                </apex:pageBlockSectionItem>             
+  
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Publication Title" />
+                    <apex:outputText value="{!PubHeaderDTO.PubTitle}" />
+                </apex:pageBlockSectionItem>             
+  
+                <apex:pageBlockSectionItem >  
+                    <apex:outputLabel value="Publication Type" />
+                    <apex:outputText value="{!PubHeaderDTO.PubType}" />
+                </apex:pageBlockSectionItem>  
+        
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Current Status" />
+                    <apex:outputText value="{!PubHeaderDTO.CurrentStatus}" />
+                </apex:pageBlockSectionItem>  
+                
+                  <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Current Target" />
+                    <apex:outputText value="{!PubHeaderDTO.CurrentTarget}" />
+                </apex:pageBlockSectionItem>  
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Current Submission Cycle" />
+                    <apex:outputText value="{!PubHeaderDTO.CurrentSubmissionCycle}" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Authors" />
+                    <apex:outputText value="{!PubHeaderDTO.Authors}" />
+                </apex:pageBlockSectionItem>              
+  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Current FPR Cycle" />
+                    <apex:outputText value="{!PubHeaderDTO.CurrentFPRCycle}" />
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="FPR Submitter" />
+                    <apex:outputText value="{!PubHeaderDTO.FPRSubmitter}" />
+                </apex:pageBlockSectionItem>              
+  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Assigned to FPR Coordinator" />
+                    <apex:outputText value="{!PubHeaderDTO.AssignedFPRC}" />
+                </apex:pageBlockSectionItem>  
+
+                <!--  2013-12-10 add Has US Author to header as directed by Anil/Mike/Sesha -->
+                <!-- Appear Enhancement R2: stop the rendering of the fields-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Has US Based Author?" rendered="false"/>
+                    <apex:outputText value="{!PubHeaderDTO.HasUSAuthorsMsg}" rendered="false" />
+                </apex:pageBlockSectionItem>  
+                
+            </apex:pageblocksection> 
+        </apex:pageblock>
+</apex:component>

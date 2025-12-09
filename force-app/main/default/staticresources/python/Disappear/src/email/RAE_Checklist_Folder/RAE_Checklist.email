@@ -1,0 +1,48 @@
+<messaging:emailTemplate subject="Publication {!relatedTo.Publication__r.Name} ready for Monitoring. {!relatedTo.AttachmentType__c} has been attached." recipientType="Contact" relatedToType="PubAttachmentDetails__c">
+<messaging:htmlEmailBody >  
+    <html>
+         <style>
+        p {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+        }
+        
+        li {
+            font-family: "Arial", Times, serif;
+            font-size: 12px;
+        }
+                
+        
+        </style>
+        
+        <script type="text/javascript"  src="{!$Resource.jquery}"></script>
+        <p>Dear Monitoring Team, </p>
+        
+        <p>The {!relatedTo.AttachmentType__c} has been uploaded for publication <b><c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Name}"/></b>, and is ready for monitoring.</p>
+        <p><b>Title : </b> <c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Publication_Title__c}"/><br/>
+        <b>Target : </b> {!relatedTo.Publication__r.Current_Target__c} <br/>
+        <b>Type : </b> {!relatedTo.Publication__r.Publication_Type__c} <br/>
+        <b>Classification : </b> {!relatedTo.Publication__r.GPP_Type__c}</p>  
+        <p>
+        The {!relatedTo.AttachmentType__c} can be found at this <c:Appear_AuthorEmailURLComponent URLTargetType="Attachment" AttachmentLink="{!relatedTo.Attachment_URL__c}" URLTargetName="link"/>. Please monitor the publication and upload the Monitoring Checklist {!If(relatedTo.AttachmentType__c == 'RAE Attestation Sec A','Part 1',IF(relatedTo.AttachmentType__c == 'RAE Attestation Sec B','Part 2','Part 3'))} when complete.
+        </p>
+    <p>    
+    Thank You</p>
+    </html>
+</messaging:htmlEmailBody>
+    
+
+<messaging:plainTextEmailBody >
+    Dear Monitoring Team,
+    
+    The {!relatedTo.AttachmentType__c} has been uploaded for publication <b><c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Name}"/></b>, and is ready for monitoring.
+    Title : <c:Appear_AuthorEmailURLComponent URLTargetType="Publication" PubId="{!relatedTo.Publication__c}" URLTargetName="{!relatedTo.Publication__r.Publication_Title__c}"/>
+    Target : {!relatedTo.Publication__r.Current_Target__c}
+    Type : {!relatedTo.Publication__r.Publication_Type__c}
+    Classification : {!relatedTo.Publication__r.GPP_Type__c}
+    
+    The {!relatedTo.AttachmentType__c} can be found at this <c:Appear_AuthorEmailURLComponent URLTargetType="Attachment" AttachmentLink="{!relatedTo.Attachment_URL__c}" URLTargetName="link"/>. Please monitor the publication and upload the Monitoring Checklist {!If(relatedTo.AttachmentType__c == 'RAE Attestation Sec A','Part 1',IF(relatedTo.AttachmentType__c == 'RAE Attestation Sec B','Part 2','Part 3'))} when complete.
+    
+Thank You    
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

@@ -1,0 +1,223 @@
+<apex:component allowDml="true" >
+    <apex:attribute name="AttachmentModel" description="" type="PubAttachmentModel" required="true" />
+    <apex:attribute name="IsFprOnly" description="" type="Boolean" required="false" default="false" />
+    <apex:attribute name="IsFpr" description="" type="Boolean" required="false" default="false" />
+    
+    <apex:attribute name="ActivePub" description="" type="AppearPubModel" required="false" />
+
+
+
+			        
+	<div  id="crossModalBlock">
+	
+        <div class="crossCommentModalOverlay" 
+          onclick="jQuery(this).fadeToggle();jQuery('.crossCommentModal').fadeToggle();return false;" 
+          style="display: none; position: fixed; _position: absolute;  left: 0px; top: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;" /> 
+        <div class="crossCommentModal" style="display: none; position: absolute; top: 20%; left: 20%; width: 60%; min-width: 450px; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: hidden;"> 
+
+                <div>
+                 <apex:form id="crossNewCommentForm" >
+
+			        <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.RemoteSetPubAttachmentIdForComment}" status="crossLoadingCommentStatus" immediate="true" name="SetCrossExtCommentId" rerender="crossNewCommentForm" >                   
+						 <apex:param name="CrossExtCommentId" assignTo="{!ActivePub.PubAuthorNoSharing.pubAttachmentIdForComment}" value="" />
+				    </apex:actionFunction>
+					
+					<apex:actionFunction name="DeleteComment" reRender="DeletedCom" immediate="true" status="loadingUpdateBlock" action="{!ActivePub.PubAuthorNoSharing.deletecommentCoreApp}">
+                        <apex:param name="CommentId" assignTo="{!ActivePub.PubAuthorNoSharing.CommentIdForDeleteCoreApp}" value="" />
+                    </apex:actionFunction>
+                    
+ 					<apex:actionStatus id="crossLoadingCommentStatus" 
+		            startText="Refreshing Comments...      "
+		            stopText=""/>	
+					<apex:pageBlock title="Comments" mode="detail" >
+	            		<apex:pageMessages />	
+						<apex:pageblocktable value="{!ActivePub.PubAuthorNoSharing.AuthorCommentbyAttachment}" var="crossPubAttachmentComment">
+		                    <apex:column >
+		                        <apex:facet name="header">Date</apex:facet>
+		                        <apex:outputText value="{!crossPubAttachmentComment.CommentDateText}" />
+		                    </apex:column>
+		                    <apex:column >
+		                        <apex:facet name="header">Contact  Name</apex:facet>
+		                        <apex:outputText value="{!crossPubAttachmentComment.CommentAuthor}" />
+		                    </apex:column>
+		                    <apex:column >
+		                        <apex:facet name="header">Comment</apex:facet>
+		                        <apex:outputText value="{!crossPubAttachmentComment.Comment}" />
+		                    </apex:column>
+		                    <apex:column >
+                                <apex:facet name="header">Delete Comment</apex:facet>
+                                    <apex:outputLink onclick="DeleteComment('{!crossPubAttachmentComment.CommentId}'); return false;" id="DeleteComment">Delete</apex:outputLink>
+                            </apex:column>
+		                </apex:pageblocktable>
+                   	</apex:pageBlock>
+                   Add new comment: <br></br>
+				   <apex:inputTextarea value="{!ActivePub.PubAuthorNoSharing.NewDraftComment.Body}"  rows="3" cols="80"  />
+					<apex:inputHidden id="CrossCommentContextId" value="{!ActivePub.PubAuthorNoSharing.NewDraftComment.ParentId}"  />
+					 <script type="text/javascript">
+					     var CrossCommentContextId = '{!$Component.crossNewCommentForm.CrossCommentContextId}';
+					 </script>
+					 <br></br>
+				   <apex:commandButton action="{!ActivePub.PubAuthorNoSharing.AddDraftComment2}" value="Save" id="saveCommentButton"/>
+                    <apex:commandButton value="Cancel" rendered="true"  onclick="jQuery('.crossCommentModalOverlay').fadeToggle();jQuery('.crossCommentModal').fadeToggle();return false;"  /> 
+
+                </apex:form>
+
+ 
+                </div>
+        </div>              
+   </div>
+ 
+    <div class="crossAttachmentOverlay" onclick="jQuery('.crossAttachmentModal').fadeToggle(); jQuery('.crossAttachmentOverlay').delay(20).fadeToggle(); return false;" style="display: none; position: fixed; _position: absolute;  left: 0px; top: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;"> </div>
+	<!--Appear Enhancement 2017 Backlog R3 : Issue id 102 : div width & position left changed 	-->
+    <!--div class="crossAttachmentModal" style="display: none; position: absolute; top: 30%; left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: hidden;"-->
+    <div class="crossAttachmentModal" style="display: none; position: absolute; top: 30%; left: 15%; width: 70%; padding: 2em; z-index: 9998; background: white; border-radius: .5em; overflow: hidden;">
+        <apex:form id="uploadAttachmentFrm" >
+            <apex:pageBlock mode="mainDetail" title="Upload Attachments" id="pageblockId" ><!--Appear Enhancement 2017 backlog R3:Id given-->
+                <apex:pageMessages />
+                <apex:pageBlockSection columns="3" id="pageblocksectionId"><!--Appear Enhancement 2017 backlog R3:Id given-->
+                    <!--Appear Enhancement 2017 backlog R3: Updated position of attachment type and Attachment Name,onchange Javascript populateAttachmentName()method added for autopopulate Publication attachment type name-->
+                    <apex:inputField id="attachmentType1" label="Attachment Type" value="{!AttachmentModel.NewAttachment1.AttachmentType__c}" onchange="javascript: populateAttachmentName('{!$Component.uploadAttachmentFrm.pageblockId.pageblocksectionId.attachmentName1}',this,'{!$Component.uploadAttachmentFrm.attachmentPubId}');" rendered="{!(!IsFprOnly) && (!IsFpr)}" />
+                    <apex:inputTextarea style="width:22em;height:3em;" id="attachmentName1" label="Attachment Name" value="{!AttachmentModel.NewAttachment1.AttachmentName__c}" />                    
+                    <!--apex:inputField id="attachmentName1" label="Attachment Name" value="{!AttachmentModel.NewAttachment1.AttachmentName__c}" /-->
+                    <!--apex:inputField id="attachmentType1" label="Attachment Type" value="{!AttachmentModel.NewAttachment1.AttachmentType__c}" rendered="{!(!IsFprOnly) && (!IsFpr)}" /-->
+                    <apex:inputFile onchange="fileInput1Changed();" id="attachmentFile1" value="{!AttachmentModel.NewFeedItem1.ContentData}" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>           
+            <apex:inputHidden id="attachmentTypeHidden1" value="{!AttachmentModel.NewAttachment1.AttachmentType__c}" rendered="{!(IsFprOnly) || (IsFpr)}" />
+            <apex:inputHidden id="attachmentFilename1" value="{!AttachmentModel.NewFeedItem1.ContentFileName}" /> 
+            <apex:inputHidden id="attachmentPubId" value="{!AttachmentModel.attachmentPubId}" /><!--Appear Enhancement 2017 backlog R3:Added-->
+            <div style="float: right; margin-top: 25px;">       
+                <apex:commandButton action="{!AttachmentModel.InsertFeedItem1}" value="Upload" />
+                <input type="submit" value="Cancel" class="btn" onclick="document.getElementById('{!$Component.uploadAttachmentFrm}').reset();  jQuery('.crossAttachmentModal').fadeToggle(); jQuery('.crossAttachmentOverlay').delay(20).fadeToggle(); return false;" />                
+            </div>  
+            <script type="text/javascript">
+                {!IF(IsFpr,'fprInit();','')}
+                {!IF(IsFprOnly,'fprOnlyInit();','')}
+            
+               jQuery('#crossModalBlock').appendTo('body');
+            
+                jQuery('.crossAttachmentOverlay').appendTo('body');
+                jQuery('.crossAttachmentModal').appendTo('body');
+
+			      function viewCrossCommentForm(){
+			          jQuery('.crossCommentModalOverlay').fadeToggle();
+			          jQuery('.crossCommentModal').delay(20).fadeToggle();
+			      }   
+                
+                function fileInput1Changed() {
+                    var fullPath = jQuery('.crossAttachmentModal input[type="file"]').val();
+                    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                    var filename = fullPath.substring(startIndex);
+                    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                        filename = filename.substring(1);
+                    }
+                    document.getElementById('{!$Component.uploadAttachmentFrm.attachmentFilename1}').value = filename;
+                }
+                
+                function fprInit() {
+                    document.getElementById('{!$Component.uploadAttachmentFrm.attachmentTypeHidden1}').value = 'Added by FPR Reviewer';
+                }
+                
+                function fprOnlyInit() {
+                    document.getElementById('{!$Component.uploadAttachmentFrm.attachmentTypeHidden1}').value = 'Draft Sent for FPR';
+                }
+            </script>
+        </apex:form>    
+    </div>  
+    <apex:form id="crossAttachmentDetailFrm" rendered="{!AttachmentModel.canViewAttachments}" >
+        <apex:pageBlock title="Attachments" mode="detail" >
+            <apex:pageMessages />
+            <apex:pageblocktable value="{!AttachmentModel.PubAttachmentList}" var="attachment">
+                <apex:column rendered="{!AttachmentModel.AllowAnyDelete}" width="28px">
+                    <apex:inputField value="{!attachment.IsSelected__c}" rendered="{!AttachmentModel.AllowAllDelete || (attachment.OwnerId = $User.Id && !(AttachmentModel.HasVotedForCurrentCycle))}" />                   
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Attached File Name</apex:facet>
+                        <span class="AttachmentLink">
+                            <apex:outputLink target="_blank" value="{!attachment.Attachment_URL__c}">{!attachment.AttachmentName__c}</apex:outputLink>
+                        </span>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Attachment Type</apex:facet>
+                    <apex:outputText value="{!attachment.AttachmentType__c}" />
+                </apex:column>
+                <apex:column >
+		       		<apex:facet name="header">FPR Cycle</apex:facet>
+		       		<apex:outputText value="{!attachment.FPR_Cycle__r.FPR_Cycle_Num__c}" />
+		       	</apex:column>		       	
+		       	<apex:column >
+                    <apex:facet name="header">Created By</apex:facet>
+                    <apex:outputText value="{!attachment.CreatedBy.Name}" />
+                </apex:column>              
+                <apex:column >
+                    <apex:facet name="header">Created Date</apex:facet>
+                    <apex:outputText value="{!attachment.CreatedDate}" />
+                </apex:column>    
+                <!-- Appear Enhancement R3: Pub Author Field Added in the Display -->
+                    <apex:column >
+                        <apex:facet name="header">Author Name</apex:facet>
+                        <apex:outputText value="{!attachment.Author_Name__c}"/>
+                    </apex:column>
+
+                    <apex:column >
+	                   <div style="display: {!IF((attachment.AttachmentType__c=='Draft - Share with Authors' || attachment.AttachmentType__c=='Final Attachment for Author Approval'|| attachment.AttachmentType__c=='Kick Off Meeting Minutes/Memo'), 'block', 'none' )};">
+                           <!-- Appear Enhancement R3: Populating the comment column header -->
+                           <apex:facet name="header">Author Comments</apex:facet>
+                    <apex:outputLink onclick="jQuery(document.getElementById(CrossCommentContextId)).val('{!attachment.Id}');SetCrossExtCommentId('{!attachment.Id}');viewCrossCommentForm();return false;" id="AuthorComments">Comments({!ActivePub.PubAuthorNoSharing.PubAuthorCommentCountMap[attachment.Id]})</apex:outputLink>
+						</div>
+                   </apex:column>   			       
+                   
+            </apex:pageblocktable>
+            <apex:pageblockbuttons >
+                <apex:commandButton onclick="jQuery('.crossAttachmentOverlay').fadeToggle(); jQuery('.crossAttachmentModal').delay(20).fadeToggle(); return false;" id="newButton" value="Add Pub Attachments" rendered="{!AttachmentModel.AllowAddAttachments}"/> <!--Appear Enhancement R3 button label change-->           
+                <apex:commandButton action="{!AttachmentModel.deleteSelected}" rendered="{!AttachmentModel.AllowAnyDelete}" value="Delete Selected" />
+            </apex:pageblockbuttons>
+        </apex:pageBlock>
+        <script type="text/javascript">
+            //This function will make content links relative to the FPR Portal's authorization URLs if page is within the FPR Portal
+            if ( location.toString().indexOf('FprSubmitter') != -1 ) { //is fpr portal
+                $('.AttachmentLink a').each(function(index) {
+                   $(this).attr('href','{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}'+ $(this).attr('href').substring($(this).attr('href').length-18));
+                });
+            }
+        </script>
+    </apex:form>
+    <apex:outputPanel rendered="{!!AttachmentModel.canViewAttachments}">
+        <br/>
+        <H2 style="text-align: center; display: block;">You must be a member of the Pub Team to view attachments.</H2>
+        <br/>
+    </apex:outputPanel>
+ <script>
+//Appear Enhancement 2017 backlog R3: populateAttachmentName()function for autopopulate attachment name Starts
+/*function populateAttachmentName(Id,Box,Id1){ 
+          
+        	   var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+               var today = new Date();
+               var dd = today.getDate();
+               var mm = monthNames[today.getMonth()];
+               var yyyy = today.getFullYear();
+               today = yyyy+' '+mm+' '+dd+' '+'GMT'
+      if(Box.value!=''){
+          document.getElementById(Id).value=document.getElementById(Id1).value+' '+Box.value+' '+today.toString();
+          }else{document.getElementById(Id).value='';
+               }
+     
+     }*/
+	function populateAttachmentName(Id,Box,Id1){  
+    	var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var today = new Date();
+        var hour=today.getUTCHours();
+        var minute= today.getUTCMinutes();
+        console.log('hour+++++minute+++'+hour+' '+minute);
+        var dd = today.getUTCDate();
+        var mm = monthNames[today.getUTCMonth()];
+        var yyyy = today.getUTCFullYear();
+        today = yyyy+' '+mm+' '+dd+' '+'GMT'
+      if(Box.value!=''){
+          document.getElementById(Id).value=document.getElementById(Id1).value+' '+Box.value+' '+today.toString();
+      }else{document.getElementById(Id).value='';}
+     
+     }
+   //Appear Enhancement 2017 backlog R3: populateAttachmentName()function for autopopulate attachment name Ends 
+   </script>
+</apex:component>

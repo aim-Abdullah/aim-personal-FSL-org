@@ -1,0 +1,24 @@
+<apex:page controller="AppearPickListController" >
+
+	<apex:form >
+		<apex:commandButton action="{!PubTypePickList}" value="PubType PickList" id="PubType"/>
+		<apex:commandButton action="{!TherapeuticAreaPickList}" value="Therapeutic Area PickList" id="TherapeuticArea"/>
+		<apex:commandButton action="{!DataSourcePickList}" value="Data Source PickList" id="DataSource"/>
+		<apex:commandButton action="{!SubGroupPickList}" value="SubGroup PickList" id="SubGroup"/>
+		
+		<apex:commandButton action="{!RegionPickList}" value="Region PickList" id="Region"/>
+		<apex:commandButton action="{!CountryPickList}" value="Country PickList" id="Country"/>
+		
+		
+		<apex:commandButton action="{!AppearRolePickList}" value="Appear Role PickList" id="AppearRole"/>
+		<apex:commandButton action="{!ProdIndPickList}" value="Product Indication PickList" id="ProdInd"/>
+		
+		<apex:commandButton action="{!SponsoringDeptPickList}" value="Sponsoring Department PickList" id="SponsorDept"/>
+		<apex:commandButton action="{!SponsoringOrgPickList}" value="Sponsoring Org PickList" id="SponsorOrg"/>
+	</apex:form>
+	
+	<br/>
+	<br/>
+	<apex:outputText value="{!pickListValues}" escape="False" />
+
+</apex:page>

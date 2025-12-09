@@ -1,0 +1,156 @@
+<template>
+
+    <!--
+    LWC Component Name        : cgt_BookAppointments.
+    Version                   : v1
+    Description               : LWC Component to book available appointments for SDLs as based on the study assigned.
+    Production Deployed Date  : 6-Mar-2021
+    Author                    : Cognizant Dev Team
+
+-- >
+
+
+<template>
+    <lightning-card >
+    <div class="slds-align_absolute-center slds-p-around_x-small slds-text-heading_medium"> Appointment Booking Section</div>
+    
+    <lightning-layout class="slds-theme_shade slds-p-bottom_medium slds-m-left_small slds-m-right_small">
+    < !-- SDL Study & Get Appointment Section :: Starts-- > 
+      <div class="slds-grid slds-grid_align-center slds-align_absolute-center">
+        
+        <template if:true={isStudyAvailable}>  
+        <div class="slds-col slds-grow-none slds-size_6-of-12">    
+        <lightning-layout-item flexibility="auto" >   
+        <lightning-combobox disabled={disablePicklist} name="Assigned Studies" placeholder="Select Your Study" value={selectedValue} options={studyAssignedList} onchange={handleSelectedStudy}>
+        </lightning-combobox>
+        </lightning-layout-item>
+        </div>
+
+        <div class="slds-col slds-size_7-of-12 slds-m-top_medium">
+        <lightning-layout-item flexibility="auto" >
+            <lightning-button disabled={disablePicklist} icon-name="action:new_event" variant="brand" label="Get Appointments"  onclick={handleGetAppointments} class="slds-m-left_x-small"></lightning-button>
+        </lightning-layout-item>
+
+        <template if:true={isRefreshEnable}>
+            <lightning-button class="slds-m-left_xx-small" icon-name="utility:refresh" onclick={refreshList}></lightning-button>
+        </template>
+        </div>
+        
+        </template>  
+
+        
+
+        
+        <template if:false={isStudyAvailable}>  
+            <div class={errorMessageCSS} role="alert">
+                <span class="slds-assistive-text">{errorType}</span>
+                <p class="slds-text-body_medium"><lightning-formatted-text value={error}></lightning-formatted-text></p>
+            </div>
+        </template>
+
+      </div> 
+    </lightning-layout> <br/>
+    < !-- SDL Study & Get Appointment Section :: Stops-- > 
+
+
+
+
+    < !-- Appointment Slot Rendering Section :: Starts-- >
+    <div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+    
+    
+    <template if:true={wrapperList}>
+
+    < !--Patients/Subject Picklist/Combobox :: starts >
+    <div class="slds-align_absolute-center">
+        <lightning-layout-item >   
+            <lightning-combobox  name="Available Patients for Study : {selectedValue}" placeholder="Select Your Patient" value={selectedPatientValue} options={studyPatientList} onchange={handleSelectedPatient} >
+            </lightning-combobox>
+        </lightning-layout-item>
+    </div>  <br/> 
+    <Patients/Subject Picklist/Combobox :: ends -->
+
+    <!--Patients/Subject Search :: starts -- >
+    <div class="slds-align_absolute-center">
+        <lightning-layout-item >   
+            <lightning-input type="search" onchange={handleKeyChange} value={subjectSearchKey} class="slds-m-bottom_small" aria-controls="listbox-id-div" placeholder="Search Your Subject" label="Search Your Subject"  field-level-help="Subjects displayed here are based on the selected study"></lightning-input>
+            <template if:true={allSubjectsforStudy.data}>
+
+                <div id="listbox-id-div" style="width: inherit;" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid subject_list slds-hide" role="listbox">
+                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                <template if:false={isSubjectSelected} for:each={allSubjectsforStudy.data} for:item="subjects">
+                    <li key={subjects.Id} onclick={handleSelectedPatient} data-id={subjects.PersonContactId} data-item={subjects.Name} role="presentation" class="slds-listbox__item">
+                        <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                            <lightning-icon class="slds-icon slds-icon--small slds-icon-text-default" icon-name="standard:client" size="small"></lightning-icon>
+                            <span class="slds-truncate">{subjects.Name}</span>
+                        </span>
+                    </li>
+                </template>
+                </ul>
+                </div>
+                
+        </template> </br>
+        </lightning-layout-item>
+    </div> 
+    < !--Patients/Subject Search :: ends -->
+
+    <!-- Appointment Navigation Child Component :: STARTS-- >
+    <div style="max-width: 80%;">
+    <c-cgt-appointment-navigation childpagevalue={currentPageNumber} onprevious={previousHandler} onnext={nextHandler} ></c-cgt-appointment-navigation>
+    </div>
+    < !-- Appointment Navigation Child Component :: ENDS-- >
+
+    <lightning-layout multiple-rows="true" style="padding: 1.5rem;" pull-to-boundary="small" horizontal-align="space">
+    <template for:each={wrapperList} for:item="wrapList" >
+    <lightning-layout-item key={wrapList.cmo_resourceId} size="3.5" flexibility="auto" padding="around-small" class="slds-var-p-around_x-small">
+            
+            < !--Unit Slots :: Starts-- >
+            <div class="slds-box slds-box_x-small">
+            <lightning-card variant="narrow" data-id={wrapList.cmo_resourceId} icon-name="standard:timeslot">
+                <h4 style="font-size: x-small;" class="slds-text-body_small" slot="title"><lightning-formatted-date-time value={wrapList.qtc_StartTime} weekday="short" year="numeric" month="short" day="2-digit"></lightning-formatted-date-time></h4> 
+                <div class="slds-var-p-horizontal_small">
+                    <p class="slds-var-m-bottom_xx-small" style="font-size: smaller;"><b> Cryopreservation Center : </b><br/>{wrapList.cmo_resourceName} </p>
+                    < !--p class="slds-var-m-bottom_xx-small" style="font-size: smaller; background-color : #ffb75d"><b> No Work Period : </b>{wrapList.noWorkPeriod} </p-- >
+                </div>
+                <p slot="footer">
+                <lightning-button style="font-size: smaller;" class="slds-text-body_small" label="Confirm Slot" data-key={wrapList.wrapperKey} slot="actions" onclick={handleConfirmSlotAction}></lightning-button>
+                < !-- data-id1={wrapList.cmo_resourceId} data-id2={wrapList.cmo_StartTime} data-id3={wrapList.cmo_DueDate} data-id5={wrapList.qtc_StartTime} data-id6={wrapList.qtc_DueDate} data-id7={wrapList.cmo_resourceName} -- >
+                </p>
+            </lightning-card>  
+            </div>
+            < !--Unit Slots :: Ends-- >
+
+    </lightning-layout-item>
+    </template>
+    </lightning-layout>
+
+
+    </template>
+    <template if:true={noAppointmentSlot}>  
+        <div class="slds-align_absolute-center slds-p-around_x-small">
+        <div class={errorMessageCSS} role="alert">
+            <span class="slds-assistive-text">{errorType}</span>
+            <h2>{error}</h2>
+        </div>
+        </div>
+    </template>
+    < !-- Appointment Slot Rendering Section :: Ends-- > 
+
+
+
+
+
+    
+</lightning-card>
+</template>
+
+
+-->
+
+
+</template>

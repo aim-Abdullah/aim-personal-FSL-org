@@ -1,0 +1,259 @@
+<apex:component id="Appear_PubMEComponent" allowDML="true" >
+    <apex:attribute name="PubMeModel" description="" type="PubMeModel" required="true" />
+    <div class="pubMeOverlay" onclick="jQuery('.NewTeammateModal').fadeOut();jQuery('.pubMeOverlay').delay(20).fadeOut();document.getElementById('{!$Component.newTeammateFrm}').reset();" style="display: none; position: fixed; _position: absolute;  left: 0px; top: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;"> </div>
+    <!-- Appear Enhancement 2017 Backlog R4 : help Text display issue -->
+    <style>
+        .HelpText a{position:relative;color:#4a4a56;}
+        .HelpText a span{display: none;pointer-events : none;}
+        .HelpText .helpOrb{margin-right:0.6em;}
+        .HelpText a:hover span{
+        display: block;
+        position:absolute;
+        padding:2px 5px;
+        z-index:9999;
+        border:1px solid orange;
+        background-color:#FEFDB9;
+        color:#4a4a56;
+        pointer-events : none;
+        width:20em;
+        left: -20em;
+        text-align:left;
+        }
+    </style>
+	<!-- Appear Enhancement 2017 Backlog R4 : help Text display issue -->
+    <apex:form id="PubMeForm">
+        <!-- 2 Fields to show Submission Cycle Level information -->
+        
+        <apex:pageblock >
+            <apex:pageblockSection columns="1" title="Current Publication & Submission Cycle Details" >
+                <apex:pageBlockSection columns="1" >
+                    <apex:inputField value="{!PubMeModel.pubRecord.ScopeOfWork__c}" rendered="{!IF($Profile.Name =='APPEAR Read-Only' || $Profile.Name =='APPEAR Pub Team' || $Profile.Name =='APPEAR Functional Pub Team' ,false,true)}"/>
+                    <apex:outputText label="Scope Of Work" value="{!PubMeModel.pubRecord.ScopeOfWork__r.Name}" rendered="{!IF($Profile.Name =='APPEAR Read-Only' || $Profile.Name =='APPEAR Pub Team' || $Profile.Name =='APPEAR Functional Pub Team',true,false)}"/>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="2">
+                    <apex:outputField value="{!PubMeModel.pubRecord.PlannedME__c}"/> 
+                    <apex:outputField value="{!PubMeModel.pubRecord.CumulativeME__c}" rendered="{!(PubMeModel.PubMeList.size > 0) && PubMeModel.PubMeList[0].isSubmissionCycleSubmitted__c}"/>
+                    <apex:outputText label="CumulativeME" value="Not in Submitted Stage." rendered="{!(PubMeModel.PubMeList.size == 0) || (!PubMeModel.PubMeList[0].isSubmissionCycleSubmitted__c)}"/>
+                </apex:pageBlockSection>
+            </apex:pageblockSection>
+            <apex:pageblockSection columns="1" title="Writing Roles" >
+                <apex:pageMessages />
+                <apex:actionStatus id="refreshingGridStatus" 
+                    startText=" refreshing grid..."
+                    stopText=""/>
+                <apex:pageblocktable value="{!PubMeModel.PubMeList}" var="pubMe">
+       
+                    <apex:column width="28px" rendered="{!IF($Profile.Name =='APPEAR Read-Only' || $Profile.Name =='APPEAR Pub Team' || $Profile.Name =='APPEAR Functional Pub Team',false,true)}" >
+                        <apex:inputField value="{!pubMe.isSelected__c}" rendered="{!(pubMe.ActualME__c == 0.00) || (!pubMe.isSubmissionCycleSubmitted__c)}" />                 
+                    </apex:column>
+                    
+                    <!--  
+                    <apex:column rendered="{!PubMeModel.DebugFlag}" >
+                        <apex:facet name="header">PubME Id</apex:facet>
+                        <div align="center">
+                            <apex:outputText value="{!pubMe.Id}" />
+                        </div>
+                    </apex:column>
+                    -->
+                    
+                    <apex:column >
+                        <apex:facet name="header">Sub Cycle</apex:facet>
+                        <div align="center">
+                            <apex:outputText value="{!pubMe.Submission_Cycle__r.Submission_Cycle_Num__c}" />
+                        </div>
+                    </apex:column>
+                    <apex:column rendered="{!PubMeModel.DebugFlag}" >
+                        <apex:facet name="header">FPR Cycle</apex:facet>
+                        <div align="center">
+                            <apex:outputText value="{!pubMe.FPR_Cycle__r.FPR_Cycle_Num__c}" />
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!PubMeModel.DebugFlag}" >
+                        <apex:facet name="header">ME Cycle</apex:facet>
+                        <div align="center">
+                            <apex:outputText value="{!pubMe.MeCycleNum__c}" />
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Team Member</apex:facet>
+                        <div align="left">                
+                            <apex:outputField value="{!pubMe.WritingRoleMember__c}">
+                                <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                                hideOnEdit="editButton" event="ondblclick" />
+                            </apex:outputField>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Company</apex:facet>
+                        <div align="left">                
+                            <apex:outputField value="{!pubMe.Organization__c}">
+                                <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                                hideOnEdit="editButton" event="ondblclick" />
+                            </apex:outputField>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Department</apex:facet>
+                        <div align="left">                
+                            <apex:outputField value="{!pubMe.Department__c}">
+                                <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                                hideOnEdit="editButton" event="ondblclick" />
+                            </apex:outputField>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Emp Type</apex:facet>
+                        <div align="left">                
+                            <apex:outputField value="{!pubMe.Emp_Type__c}">
+                                <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                                hideOnEdit="editButton" event="ondblclick" />
+                            </apex:outputField>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Pub Status</apex:facet>
+                        <apex:outputText value="{!pubMe.ME_Status__c}" />
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Role</apex:facet>                                     
+                        <apex:outputField value="{!pubMe.AppearRole__r.name}">
+                            <!-- cannot change role without dynamic recalculation - Release 1.3
+                            <apex:outputField value="{!pubMe.AppearRole__c}">
+                            <apex:inlineEditSupport rendered="{!PubMeModel.ShowOverrideColumn}" showOnEdit="saveButton, cancelButton" 
+                            hideOnEdit="editButton" event="ondblclick" />
+                             -->
+                        </apex:outputField>
+                    </apex:column>          
+                            
+                    <apex:column rendered="{!PubMeModel.ShowOverrideColumn}" >
+                        <apex:facet name="header">Calculated ME</apex:facet>
+                        <div align="right">
+                            <apex:outputText value="{!pubMe.CalculatedME__c}" />
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!PubMeModel.ShowOverrideColumn}" >
+                        <apex:facet name="header">Adjusted ME</apex:facet>  
+                        <div align="right">                
+                            <apex:outputField value="{!pubMe.OverrideME__c}">
+                                <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                                hideOnEdit="editButton" event="ondblclick" />
+                            </apex:outputField>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column > 
+                        <apex:facet name="header">Actual ME</apex:facet>
+                        <div align="right">
+                            <apex:outputText rendered="{!pubMe.isSubmissionCycleSubmitted__c || !pubMe.IsCurrentSubmissionCycleForPub__c}">
+                                <span class="{!IF(pubMe.ActualME__c == 0,'actualMEHilight','')}">      <!-- trigger jQuery to paint black mask -->
+                                    <apex:outputText value="{!pubMe.ActualME__c}" />
+                                </span>
+                            </apex:outputText>
+                            <apex:outputText rendered="{!!pubMe.isSubmissionCycleSubmitted__c && pubMe.IsCurrentSubmissionCycleForPub__c}">
+                                <apex:outputText value="Not in Submitted Stage." />
+                            </apex:outputText>
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!PubMeModel.ShowGUIvsDB}" >
+                        <apex:facet name="header">Actual ME GUI</apex:facet>
+                        <div align="right">
+                            <apex:outputField value="{!pubMe.Actual_ME_GUI__c}" />
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!PubMeModel.ShowOverrideColumn}" >
+                        <apex:facet name="header">Reason for Adjusted ME Change</apex:facet>            
+                        <apex:outputField value="{!pubMe.ReasonForMEChange__c}">
+                            <apex:inlineEditSupport rendered="{!IF($Profile.Name =='APPEAR Read-Only' || $Profile.Name =='APPEAR Pub Team' || $Profile.Name =='APPEAR Functional Pub Team',false,true)}" showOnEdit="saveButton, cancelButton" 
+                            hideOnEdit="editButton" event="ondblclick" />
+                        </apex:outputField>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!PubMeModel.DebugFlag}" >
+                        <apex:facet name="header">Created</apex:facet>
+                        <div align="right">
+                            <apex:outputText value="{!pubMe.CreatedBy.Name}  {!pubMe.CreatedDate}" />
+                        </div>
+                    </apex:column>
+                    
+                    <apex:column rendered="{!PubMeModel.DebugFlag}" >
+                        <apex:facet name="header">Last Modified</apex:facet>
+                        <div align="right">
+                            <apex:outputText value="{!pubMe.LastModifiedBy.Name}  {!pubMe.LastModifiedDate}" />
+                        </div>
+                    </apex:column>
+                     
+                </apex:pageblocktable>
+            </apex:pageblockSection>
+            <!-- Appear Functional Pub Team profile is added as part of Appear Enhancement Release 1 to restrict New and Delete Writing Roles-->
+            <apex:pageblockbuttons rendered="{!IF($Profile.Name =='APPEAR Read-Only' || $Profile.Name =='APPEAR Pub Team' || $Profile.Name =='APPEAR Functional Pub Team',false,true)}" >
+                <apex:commandButton onclick="jQuery('.pubMeOverlay').fadeToggle(); jQuery('.NewTeammateModal').delay(20).fadeToggle(); return false;" id="newButton" value="New"/>
+                <apex:commandButton action="{!PubMeModel.deleteSelected}" value="Delete Selected" />  
+                <!--  Commented out as Business is getting confused about the Recalculate button.           
+                <apex:commandButton action="{!PubMeModel.calculateActualMeGUI}" value="Recalculate" title="{!PubMeModel.RecalculateHelpText}"/>
+                 -->
+                <apex:commandButton action="{!PubMeModel.save}" value="Save" />       
+            </apex:pageblockbuttons>
+        </apex:pageblock> 
+        
+        <script type="text/javascript">
+            jQuery('.actualMEHilight').parent().css({'background': '#333'});  
+            jQuery('.pubMeOverlay').appendTo('body');
+            jQuery('.NewTeammateModal').appendTo('body');
+        </script>
+    </apex:form>
+    <div class="NewTeammateModal" style="display: none; position: absolute; top: 30%; left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="newTeammateFrm" >
+            <apex:pageblock title="New Writing Role Member" mode="edit">
+                <apex:pageMessages />
+                <apex:pageblockSection columns="2">
+                    <apex:pageblocksectionItem >
+                        <apex:outputLabel value="Assign To" for="assignedTo" />
+                        <apex:actionRegion >
+                            <apex:selectList id="assignedTo" value="{!PubMeModel.assignedTo}" size="1" label="Assign To">
+                                <apex:selectOptions value="{!PubMeModel.assignToOpt}" />
+                                    <apex:actionSupport event="onchange" rerender="newTeammateFrm"/>  
+                            </apex:selectList>
+                        </apex:actionRegion>
+                    </apex:pageblocksectionItem>
+                    <apex:inputField id="wrContact" rendered="{!(PubMeModel.assignedTo == 'contact')}" value="{!PubMeModel.NewPubWritingRoleMembers.WritingRoleMember__c}"/>
+                    <apex:inputField id="wrDepart" rendered="{!(PubMeModel.assignedTo == 'department')}" value="{!PubMeModel.NewPubWritingRoleMembers.Department__c}" />
+                    <apex:inputField id="wrOrg" rendered="{!(PubMeModel.assignedTo == 'organization')}" value="{!PubMeModel.NewPubWritingRoleMembers.Organization__c}" />   
+
+                    <!--Appear Enhancement 2017 Backlog R4 : help Text display issue -->
+                    <!--<apex:inputField value="{!PubMeModel.NewPubWritingRoleMembers.AppearRole__c}"/> -->
+                    <apex:pageblocksectionItem >
+                    <div class="HelpText"> Appear Role &nbsp;
+                    <a value="javascript:return false;"> 
+                    <img src="/s.gif" alt="" class="helpOrb" />    
+                        <span>{!$ObjectType.PubME__c.fields.AppearRole__c.inlineHelpText}</span></a>
+                	</div>    
+                    <apex:inputField label="Appear Role" value="{!PubMeModel.NewPubWritingRoleMembers.AppearRole__c}"  />
+                    </apex:pageblocksectionItem>
+                    <!--Appear Enhancement 2017 Backlog R4 : help Text display issue -->
+                </apex:pageblockSection>
+                
+                <apex:pageblockSection columns="1">
+                 </apex:pageblockSection>
+            </apex:pageblock>
+            <div style="float: right; margin-top: 25px;">           
+                <apex:commandButton action="{!PubMeModel.saveNewWritingRoleMember}" value="Save" />
+                <apex:commandButton onclick="jQuery('.NewTeammateModal').fadeOut();jQuery('.pubMeOverlay').delay(20).fadeOut();document.getElementById('{!$Component.newTeammateFrm}').reset(); return false;" value="Cancel" />
+            </div>
+            <script type="text/javascript">
+                function onAssignToChanged() {
+                    
+                }
+            </script>
+        </apex:form>
+    </div>
+</apex:component>

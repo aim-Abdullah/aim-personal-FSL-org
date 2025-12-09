@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$Publication__c.SubGroup_pick__c</field>
+    </columns>
+    <columns>
+        <field>FK_$Publication__c.Product_Indication__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>FK_$Publication__c.SubGroup_pick__c</column>
+            <operator>contains</operator>
+            <value>Protein Sciences</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>FK_$Publication__c.Product_Indication__c</column>
+            <operator>contains</operator>
+            <value>501</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Pubs with Subgroup</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$PubReviewTeam__c@PubReviewTeam__c.Publication__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>PubReviewTeam__c.Delivered__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,18 @@
+<template>
+    <template if:true={mapAllFields}>
+        <template for:each={mapAllFields} for:item="eachKey">
+            <div key={eachKey.key} draggable="true" id={eachKey.key} data-id={eachKey.key} ondragstart={taskDragStart} ondragend={taskDragEnd} class="slds-p-around_small">
+                <lightning-card  variant="Narrow" title={eachKey.value} icon-name="standard:today">
+                    <div class="slds-p-horizontal_small">
+                        <!--template if:true={data.AccountName}>
+                            Account Name - <lightning-formatted-url value={data.WhatId} label={data.AccountName} target="_blank" ></lightning-formatted-url><br/>
+                        </template-->
+                    </div>
+                </lightning-card>
+            </div>
+
+
+        </template>
+    </template>
+    
+</template>

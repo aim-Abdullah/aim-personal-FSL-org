@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Routed to Notified Users Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Routed to Notified Users Email</name>
+    <style>none</style>
+    <subject>FPR Notification: FPR {!PubReviewTeam__c.Publication__c} Has Been Routed</subject>
+    <textOnly>Do not reply to this email message.
+
+FPR {!PubReviewTeam__c.PubIDLink__c} has been emailed to you for notification purposes only. No action required from you.
+
+{!PubReviewTeam__c.PubIDLink__c}
+
+Thank you,
+FPR System</textOnly>
+    <type>custom</type>
+</EmailTemplate>

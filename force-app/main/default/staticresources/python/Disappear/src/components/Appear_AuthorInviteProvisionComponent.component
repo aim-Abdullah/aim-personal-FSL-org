@@ -1,0 +1,66 @@
+<apex:component controller="AppearPubAuthorController">
+<apex:outputText style="width:800px;height:450px;" value="{!comp.ProvisionDocumentContent__c}" escape="false"/>
+<!--<style>
+p {
+    font-family: "Arial", Times, serif;
+     font-size: 12px;
+}
+
+li {
+    font-family: "Arial", Times, serif;
+     font-size: 12px;
+}
+</style><center><h2>Author Agreement Provisions</h2></center>
+<center><h2>Author Agreement Provisions</h2></center>
+
+ <p>
+Amgens Policy and Standard Operating Procedure on Publications (SOP-014321, Version 7.0) conforms to the guidelines for authorship developed by the International Committee of Medical Journal Editors (ICMJE: <a href="http://www.icmje.org/" top="_blank">http://www.icmje.org/</a>). Per ICMJE guidelines, all authors must fulfill all four authorship criteria as follows:
+<ol>
+<li>Substantial contribution to the conception or design of the work; or the acquisition, analysis, or interpretation of data for the work; AND </li>
+<li>Drafting the work or revising it critically for important intellectual content; AND </li>
+<li>Final approval of the version to be published; AND </li>
+<li>Agreement to be accountable for all aspects of the work in ensuring that questions related to the accuracy or integrity of any part of the work are appropriately investigated and resolved. </li>
+</ol></p>
+
+<p>
+Amgen requires that all authors participate in the development of the document from inception to publication and commit to project timelines. All authors should provide substantive comments at the outline and draft stages. In addition to being accountable for the parts of the work he or she has done, an author should be able to identify which other coauthors are responsible for specific other parts of the work and should have confidence in the integrity of the contributions of their coauthors.
+</p>
+<p>
+Please be aware that if you do not provide timely comments on drafts or final approval, you will not meet the ICMJE authorship criteria and may not be included as an author.
+</p>
+<p>
+In accordance with ICMJE and relevant journal or meeting guidelines, authors must provide: (1) their written approval of the final version, (2) attest that they fulfill ICMJE authorship criteria, and (3) disclose all relationships that could be viewed as presenting a potential conflict of interest before the publication is submitted. Prior to the submission or presentation of the applicable publication, you will receive a separate communication requesting that you confirm that you have satisfied these criteria and approve the final draft of the publication.
+</p>
+<p>
+Authors must also comply with disclosure requirements relating to their affiliation with any healthcare institutions, medical committees, and other medical or scientific organizations or entities, and identify in their manuscripts, journal submissions, and elsewhere as appropriate or required any potential conflicts of interest that might bias their work. These disclosures include, but are not limited to, financial or personal relationship with Amgen, the funding sources for their research, and any financial or other potential conflicts of interest. This includes providing any necessary updates to those disclosures as new information regarding potential conflicts of interest becomes available.
+</p>
+<p>
+The lead and/or senior authors are expected to arbitrate any differences of opinion. If the lead author does not wish to submit the publication him/herself, written permission to submit on his/her behalf will be required.
+</p>
+<p>
+Data relevant to this publication will be shared upon authorship agreement or when data are available. Additional requests for data or other information will be evaluated and provided accordingly.
+</p>
+<p>
+To facilitate manuscript development, a medical writer will be managing this project with the extent of medical writing involvement to be determined by the authors. A brief description of any medical writing/editing contributions and/or support including the names of any individuals who provided this support must appear in the acknowledgment section of the manuscript per Amgen publication policy.
+</p>
+<p>
+For purposes of administration and management of medical publications, Amgen (Amgen Inc. and its global affiliates) collects and processes the name, contact information and limited additional non-sensitive personal information about authors and publication contributors. This information may be transferred to Amgen entities and trusted third parties in countries outside of that in which it is collected, including, for example, the United States. Regardless of the country in which it is collected and processed, Amgen maintains administrative, technical and physical safeguards to protect information about you. You may request to access, correct or delete personal information about you, subject to certain legal restrictions, by contacting the Amgen Privacy Office at privacyoffice@amgen.com.
+</p>
+<p>
+Consistent with applicable federal and state laws and related requirements, including the Sunshine Act provisions of the Affordable Care Act of 2010 and the terms of Amgens Corporate Integrity Agreement, Amgen may be required to report as a transfer of value any amounts paid to non-Amgen personnel for the provision of medical writing services related to this publication. Such transfers of value will be reported by dividing the total amounts paid for medical writing services amongst all the authors on this publication, and then reporting the apportioned amount for all US licensed physicians. Medical writing transfers of value that meet the definition of Research under the Sunshine Act will be included on Amgens Research Report.
+</p>
+<p>
+Amgens Statement on Publications can be found on the Amgen Website located at (<a href="http://www.amgen.com/about/amgen_guidelines_for_publications.html">http://www.amgen.com/about/amgen_guidelines_for_publications.html</a>). We appreciate your contributions to this study and your commitment to an open, collaborative publication process.
+</p>
+<!--
+<p>
+Please respond in writing to the cover email to confirm that you agree to participate as an author and understand and agree to the ICMJE criteria and to the above provisions.
+</p>
+
+<br></br>
+<p>
+<div align="left"><font size="1.2em" face="Arial Bold">Author Agreement Provisions</font></div> <div align="right"><font size="1.2em" face="Arial Bold">Revised 2-26-14</font></div>
+</p>
+--->
+
+</apex:component>

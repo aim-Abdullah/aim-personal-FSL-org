@@ -1,0 +1,353 @@
+<apex:page name="Pub Author"  controller="AppearPubAuthorController"  id="AppearPubAuthorSF1Page"
+    showHeader="false" tabStyle="Pub_Author__tab" sidebar="false" action="{!saveActivePub}">
+
+    <apex:stylesheet value="{!URLFOR($Resource.JQueryMobile142a, 'jquery.mobile-1.4.2.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.JQueryMobile142a, 'jquery-1.9.1.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.JQueryMobile142a, 'jquery.mobile-1.4.2.min.js')}"/>
+
+
+<div data-role="tabs" id="tabs">
+
+	<apex:form id="tabForm">
+		        <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.RemoteSetActiveOpr}" immediate="true" name="SetActiveOpr" rerender="tabForm" >                   
+					 <apex:param name="activeOpr" assignTo="{!ActivePub.PubAuthorNoSharing.activeOpr}" value="" />
+			    </apex:actionFunction>
+	</apex:form>		    
+  <div data-role="navbar">
+    <ul  id="tabOptions" >
+      <li  ><a  id="refInvite"  href="#invite" class="ui-btn-active" data-ajax="false">Invite [{!ActivePub.PubAuthorNoSharing.MyAuthorPubInviteListCount}]</a></li>
+      <li  ><a id="refUpdate" href="#update" data-ajax="false">Review [{!ActivePub.PubAuthorNoSharing.MyAuthorPubReviewListCount}]</a></li>
+      <li  ><a  id="refApprove"  href="#approve" data-ajax="false">Approve [{!ActivePub.PubAuthorNoSharing.MyAuthorPubApproveListCount}]</a></li>
+    </ul>
+  </div>
+
+	<apex:pageMessages />
+
+  <div id="invite">
+    <div data-role="collapsible-set">
+    <apex:repeat var="myPubAuthor" value="{!ActivePub.PubAuthorNoSharing.MyAuthorPubInviteList}">
+    <div data-role="collapsible"  data-theme="b"  data-mini="true"  > 
+    <h4>{!myPubAuthor.Publication__r.Publication_Title__c}</h4>
+      <ul style="list-style: none; margin-left:0px;padding-left:0px"  >
+      <li>
+        ID: {!myPubAuthor.Publication__r.Name}
+      </li>
+      <li>Current Target: {!IF(myPubAuthor.Publication__r.Current_Target__C==null, 'TBD', myPubAuthor.Publication__r.Current_Target__C)}</li>
+      <li>Invite Date: 
+             <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" >
+                <apex:param value="{!myPubAuthor.InviteSentDate__c}" /> 
+            </apex:outputText>
+      </li>
+       <li>
+          <a href="#popupInvite" data-role="button" onclick="jQuery(document.getElementById(PubAuthorIdForInviteAccept)).val('{!myPubAuthor.Id}');" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a ui-mini" data-transition="turn">Accept Invite</a>
+       </li>
+    </ul>
+    </div>
+    </apex:repeat> 
+    </div> 
+  </div>
+
+  <!-- pop up for invite -->
+  <div data-role="popup" id="popupInvite" data-theme="a" class="ui-corner-all" data-dismissible="false">
+      <apex:form id="acceptInviteForm" >
+       
+          <div style="padding:20px 20px;">
+          
+          <c:Appear_AuthorInviteProvisionComponent />
+          
+          1) Do you agree to participate as an author in accordance with the attached provisions? <br></br><br></br>
+          2) If so, do you understand and agree to fulfill the ICMJE criteria? <br></br><br></br>
+          3) Do agree to comply with any disclosure requirements relating to your affiliation with any 
+          health care institutions, medical committees, and other medical or scientific organizations?
+          These disclosures include your relationship with Amgen and all financial and other potential
+          conflicts of interest that might bias your work.<br></br><br></br>
+          
+            <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="jQuery('#inviteApproveButton').fadeToggle();"></input>
+            <label for="checkbox-mini-0"><b>Yes, I have read the provision document and agree with the conditions</b></label>
+          
+          <br></br>
+           <apex:actionFunction name="acceptInviteSF1"  action="{!ActivePub.PubAuthorNoSharing.acceptInviteSF1}"/>
+            
+           <button id="inviteApproveButton" style="display: none" data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="acceptInviteSF1(); return false;">Accept</button>
+           <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>     
+          </div>
+          <apex:inputHidden id="PubAuthorIdForInviteAccept" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForInviteAccept}"  />
+           <script type="text/javascript">
+                var PubAuthorIdForInviteAccept = '{!$Component.acceptInviteForm.PubAuthorIdForInviteAccept}';
+            </script>
+      </apex:form>
+  </div>
+
+  
+<div id="update">
+ <!--  collapsible list view -->  
+ <div data-role="collapsible-set">
+
+  <apex:form id="updateForm">   
+      <apex:actionFunction name="DeleteComment" reRender="commentTable" immediate="true" status="loadingUpdateBlock" action="{!ActivePub.PubAuthorNoSharing.DeleteComment}">
+          <apex:param name="CommentId" assignTo="{!ActivePub.PubAuthorNoSharing.CommentIdForDelete}" value="" />
+          <apex:param name="AuthorName" assignTo="{!ActivePub.PubAuthorNoSharing.CommentAuthorNameForDelete}" value="" />
+          <apex:param name="AuthorStatus" assignTo="{!ActivePub.PubAuthorNoSharing.CommentAuthorStatusForDelete}" value="" />
+       </apex:actionFunction>
+
+	<apex:actionStatus id="loadingUpdateBlock" 
+          startText="Refreshing Content...      "
+          stopText=""/>
+
+   <apex:pageBlock mode="maindetail" id="commentBlock" >	
+   	
+  <apex:repeat id="repeatPubDTO" var="myPubDTO" value="{!ActivePub.PubAuthorNoSharing.PubAuthorPubsDraftsAttachments}">
+    <div data-role="collapsible"  data-theme="b"  data-mini="true"       data-collapsed="{! IF(ActivePub.PubAuthorNoSharing.ActivePubAuthorMapSF1[myPubDTO.pubAuthorId], false, true) }" >
+    <h4 style="white-space:normal">{!myPubDTO.pubTitle}</h4>
+    <ul data-role="listview" data-theme="c" data-inset="false">
+      <apex:repeat id="repeatPubDraftDTO" var="myPubDraftDTO" value="{!myPubDTO.PubAuthorPubDrafts}">
+       <apex:repeat id="repeatAttachmentDTO" var="myPubAttachmentDTO" value="{!myPubDraftDTO.PubAuthorPubDraftAttachments}">
+        <li style="white-space:normal">           
+         <a href="javascript:sforce.one.navigateToSObject('{!myPubAttachmentDTO.ContentId}','detail');" style="white-space:normal"  > {!myPubAttachmentDTO.AttachmentName} (click to download)</a>
+        </li>
+        <ul style="list-style: none; margin-left:0px;padding-left:0px"  >
+          <li style="white-space:normal">
+               	<apex:pageBlockTable style="font-size: 70%;" id="commentTable" value="{!myPubAttachmentDTO.CommentList}" var="myPubAttachmentComment" rendered="{!IF(myPubAttachmentDTO.CommentListSize==0, false, true)}">
+                	<apex:column width="10%" headerValue="Date" value="{!myPubAttachmentComment.CommentDateText}"/>
+                	<apex:column width="15%" headerValue="Contact Name" value="{!myPubAttachmentComment.CommentAuthor}"/>
+                	<apex:column width="75%" headerValue="Comment" value="{!myPubAttachmentComment.Comment}"/>
+                	<apex:column >
+
+                     <button data-mini="true"  class="ui-btn ui-icon-minus ui-btn-icon-notext ui-corner-all ui-btn-inline ui-mini" type="button" onclick="DeleteComment('{!myPubAttachmentComment.commentid}','{!myPubAttachmentComment.CommentAuthor}', '{!myPubDTO.authorStatus}'); return false;">Delete</button>
+                    </apex:column>
+        		</apex:pageBlockTable>
+		</li>
+         <li>
+          <a href="#popupUpdate" onclick=" jQuery(document.getElementById(PubAuthorIdForComment)).val('{!myPubDTO.pubAuthorId}');  jQuery(document.getElementById(CommentContextId)).val('{!myPubAttachmentDTO.AttachmentDetailId}');" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a ui-mini" data-transition="turn">New Comment</a>
+         </li>
+         </ul>
+
+<!--  
+        <ul style="list-style: none; margin-left:0px;padding-left:0px"  >
+         <apex:repeat id="repeatAttachComment" var="myPubAttachmentComment" value="{!myPubAttachmentDTO.CommentList}">
+          <li style="white-space:normal">
+          {!myPubAttachmentComment.CommentDateText} /
+           {!myPubAttachmentComment.CommentAuthor} /
+           {!myPubAttachmentComment.Comment}
+            <button data-mini="true"  class="ui-btn ui-icon-minus ui-btn-icon-notext ui-corner-all ui-btn-inline ui-mini" type="button" onclick="DeleteComment('{!myPubAttachmentComment.commentid}','{!myPubAttachmentComment.CommentAuthor}', '{!myPubDTO.authorStatus}'); return false;">Delete</button>
+           </li>
+         </apex:repeat>
+         <li>
+          <a href="#popupUpdate" onclick=" jQuery(document.getElementById(PubAuthorIdForComment)).val('{!myPubDTO.pubAuthorId}');  jQuery(document.getElementById(CommentContextId)).val('{!myPubAttachmentDTO.AttachmentDetailId}');" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-comment ui-btn-icon-left ui-btn-a ui-mini" data-transition="turn">New Comment</a>
+         </li>
+         </ul>
+-->
+
+       </apex:repeat>
+      </apex:repeat>
+    </ul>
+    
+   </div>
+  </apex:repeat> 
+  
+	</apex:pageBlock>
+   </apex:form>
+ </div>
+</div>
+
+  
+  <!-- pop up for update -->
+  <div data-role="popup" id="popupUpdate" data-theme="a" class="ui-corner-all" data-dismissible="false">
+      <apex:form id="newCommentForm" >
+      
+          <div style="padding:20px 20px;">
+              <h3>Please enter new comment</h3>
+              <apex:inputTextarea value="{!ActivePub.PubAuthorNoSharing.NewDraftComment.Body}"  rows="7" cols="30"  />
+              <apex:actionFunction name="saveComment"  action="{!ActivePub.PubAuthorNoSharing.AddDraftComment}"/>
+            
+              <button data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="saveComment(); return false;">Save</button>
+              <a href="#" data-rel="back" data-mini="true" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>     
+          </div>
+          <apex:inputHidden id="CommentContextId" value="{!ActivePub.PubAuthorNoSharing.NewDraftComment.ParentId}"  />
+            <apex:inputHidden id="PubAuthorIdForComment" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForComment}"  />
+           <script type="text/javascript">
+                var CommentContextId = '{!$Component.newCommentForm.CommentContextId}';
+                var PubAuthorIdForComment = '{!$Component.newCommentForm.PubAuthorIdForComment}';
+            </script>
+      </apex:form>
+  </div>
+  
+
+
+  
+  
+    <div id="approve">
+    <div data-role="collapsible-set">
+       <apex:repeat var="myPubAuthor" value="{!ActivePub.PubAuthorNoSharing.MyAuthorPubApproveList}">
+       <div data-role="collapsible"  data-theme="b"  data-mini="true"> 
+        <h4>{!myPubAuthor.Publication__r.Publication_Title__c}</h4>
+        <ul style="list-style: none; margin-left:0px;padding-left:0px"  >
+          <li> 
+             ID: {!myPubAuthor.Publication__r.Name}
+          </li>
+          <li>
+               Current Target:{!IF(myPubAuthor.Publication__r.Current_Target__c==null, 'TBD', myPubAuthor.Publication__r.Current_Target__c)}
+          </li>
+          <li>
+                Reminder for authors: {!myPubAuthor.Publication__r.CommentsForAllAuthors__c}
+          </li>
+          <li>
+                 Approval Sent Date: 
+                 <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" >
+                   <apex:param value="{!myPubAuthor.ApprovalAcceptedDate__c}" />
+               </apex:outputText>
+          </li>
+           <li>
+
+
+              <a href="#popupApprove" data-role="button" onclick="SetApprovePubForAttachmentId('{!myPubAuthor.Publication__c}');  jQuery(document.getElementById(pubAuthorIdForApprove)).val('{!myPubAuthor.Id}');   jQuery('#approvePubName').text('{!myPubAuthor.Publication__r.name}');  jQuery('#approvePubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');   jQuery('#approvePubCurentTarget').text('{!myPubAuthor.Publication__r.Current_Target__c}');" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-star ui-btn-icon-left ui-btn-a ui-mini" data-transition="turn">Approve Final Draft</a>               
+             <a href="#popupReject" data-role="button" onclick="SetRejectPubForAttachmentId('{!myPubAuthor.Publication__c}'); jQuery(document.getElementById(pubAuthorIdForReject)).val('{!myPubAuthor.Id}');  jQuery('#rejectPubName').text('{!myPubAuthor.Publication__r.name}'); jQuery('#rejectPubType').text('{!myPubAuthor.Publication__r.Publication_Type__c}');  jQuery('#rejectPubCurentTarget').text('{!myPubAuthor.Publication__r.Current_Target__c}'); " data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-forbidden ui-btn-icon-left ui-btn-a ui-mini" data-transition="turn">Decline to Approve</a>
+			                             
+           </li>
+        </ul>
+      </div>
+      </apex:repeat> 
+    </div>
+  </div>
+         
+
+
+ 
+
+  <!-- pop up for approve -->
+  <div data-role="popup" id="popupApprove" data-theme="a" class="ui-corner-all" data-dismissible="false">
+      <apex:form id="approvePubForm" >
+
+        <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.remoteSetPubIdForAttachment}" status="loadingApproveStatus" immediate="true" name="SetApprovePubForAttachmentId" rerender="approveURL" >                   
+             <apex:param name="pubAttachmentId" assignTo="{!ActivePub.PubAuthorNoSharing.pubIdForAttachment}" value="" />
+        </apex:actionFunction>
+
+        <br></br>
+        <apex:actionStatus id="loadingApproveStatus" 
+           startText="Refreshing Content...      "
+           stopText=""/>    
+         
+          <apex:actionFunction name="approvePubSF1"  action="{!ActivePub.PubAuthorNoSharing.approvePubSF1}"/>
+           
+          <div style="padding:20px 20px;">
+
+        <q id="approvePubName"></q> 
+        <apex:outputPanel id="approveURL">        
+        <a href="javascript:sforce.one.navigateToSObject('{!ActivePub.PubAuthorNoSharing.currentPubAuthorAttachmentId}','detail');" target="_blank">(click to download Final Draft)</a>
+        </apex:outputPanel>        
+        <br></br>
+        
+        <br></br>
+      	<ol>
+         <li>Do you fulfill ICMJE authorship criteria for this publication?</li>                
+         <li>To the best of your knowledge, have you complied with disclosure requirements relating to your affiliation with any
+         healthcare intuitions, medical committees, and other medical or scientific organizations These disclosures include your relationship with 
+         Amgen and all financial and other potential conflicts off interests that might bias your work.          
+         </li>
+        </ol>
+        <br></br>         
+        <input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="jQuery('#draftApproveButton').fadeToggle();"></input>
+		<label for="checkbox-mini-0">Yes. I have downloaded and reviewed the Final Draft document. I hereby <b>Approve</b>
+		the final draft of, <i id="approvePubType">TBD</i>, for submission to <q id="approvePubCurentTarget">TBD</q>
+		</label>      
+        
+        <br></br>
+            
+		<button id="draftApproveButton" style="display: none" data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="approvePubSF1(); return false;">Approve</button>
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>     
+		</div>
+		<apex:inputHidden id="pubAuthorIdForApprove" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForApprove}"  />
+		 <script type="text/javascript">
+		   var pubAuthorIdForApprove = '{!$Component.approvePubForm.pubAuthorIdForApprove}';
+		</script>
+		
+      </apex:form>
+  </div>
+
+
+  <!-- pop up for reject -->
+  <div data-role="popup" id="popupReject" data-theme="a" class="ui-corner-all" data-dismissible="false">
+      <apex:form id="rejectForm" >
+
+          <div style="padding:20px 20px;">
+		        <apex:actionFunction action="{!ActivePub.PubAuthorNoSharing.remoteSetPubIdForAttachment}" status="loadingRejectStatus" immediate="true" name="SetRejectPubForAttachmentId" rerender="rejectURL" >                   
+					 <apex:param name="pubAttachmentId" assignTo="{!ActivePub.PubAuthorNoSharing.pubIdForAttachment}" value="" />
+			    </apex:actionFunction>
+
+           		<apex:actionStatus id="loadingRejectStatus" 
+	            startText="Refreshing Content...      "
+	            stopText=""/>		
+	            <br></br>
+
+				<q id="rejectPubName"></q> 
+				<apex:outputPanel id="rejectURL"> 
+				<span class="AttachmentLink">       
+				<a href="{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}{!ActivePub.PubAuthorNoSharing.currentPubAuthorAttachmentId}" target="_blank">(click to download Final Draft)</a>
+		        </span>
+		        </apex:outputPanel>        
+				<br></br> <br></br>
+				
+				<input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" onclick="jQuery('#draftRejectButton').fadeToggle();"></input>
+				<label for="checkbox-mini-0">Yes. I have downloaded and reviewed the Final Draft document. I hereby <b>Decline to Approve</b>
+				the final draft of, <i id="rejectPubType">TBD</i>, for submission to <q id="rejectPubCurentTarget">TBD</q>
+				</label>
+		
+
+
+              <br></br>
+              <h3>Please enter reason for decline to approve</h3><br></br>
+              <apex:inputTextarea value="{!ActivePub.PubAuthorNoSharing.newRejectApprovalReason}" id="newRejectApprovalReason" rows="7" cols="30"  />
+			  <p id="reasonWarning" style="display: none;color:red;">Reason to decline is a required field</p> 	
+              <apex:actionFunction name="authorRejectPubSF1"  action="{!ActivePub.PubAuthorNoSharing.authorRejectPubSF1}"/>
+              <button  id="draftRejectButton"  style="display: none"  data-icon="check" data-mini="true" data-enhanced="true" data-shadow="false" type="submit" onclick="validateRejectApprovalForm(); return false; ">Confirm</button>
+              <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>     
+          </div>
+          <apex:inputHidden id="pubAuthorIdForReject" value="{!ActivePub.PubAuthorNoSharing.pubAuthorIdForReject}"  />
+           <script type="text/javascript">
+                var pubAuthorIdForReject = '{!$Component.rejectForm.pubAuthorIdForReject}';
+            </script>
+      </apex:form>
+  </div>
+
+
+</div>
+
+    <script>
+
+		function validateRejectApprovalForm() {
+			var reasonId = '{!$Component.rejectForm.newRejectApprovalReason}';
+			var reason = jQuery(document.getElementById(reasonId)).val();
+						
+		    if (reason == null || reason == "") {
+		        jQuery("#reasonWarning").slideToggle(); 
+		        return false;
+		    } else {
+			    authorRejectPubSF1(); 
+			    return false;
+		    }
+		}
+
+
+	    jQuery('#tabOptions a').on('click', function(e)  {
+	        var currentAttrValue = jQuery(this).attr('href').substring(1);
+	        SetActiveOpr(currentAttrValue); 
+	    });
+
+
+        jQuery( "#tabs" ).tabs({ collapsible: false });
+        jQuery( "#tabs" ).tabs( "option", "active", {!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} );
+
+        jQuery( "#refApprove" ).removeClass( "ui-btn-active");      
+        jQuery( "#refInvite" ).removeClass( "ui-btn-active");       
+        jQuery( "#refUpdate" ).removeClass( "ui-btn-active");       
+        if ({!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} == 0 ) {
+            jQuery( "#refInvite" ).addClass( "ui-btn-active");      
+        } else if ({!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} == 1) {
+            jQuery( "#refUpdate" ).addClass( "ui-btn-active");      
+        } else if ({!ActivePub.PubAuthorNoSharing.activePubAuthorOprTabSF1} == 2) {
+            jQuery( "#refApprove" ).addClass( "ui-btn-active");         
+        }
+        
+    </script>
+
+</apex:page>

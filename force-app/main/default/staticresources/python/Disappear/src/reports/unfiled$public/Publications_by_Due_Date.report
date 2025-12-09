@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Type__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Title__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Target_Submission_Date__c</field>
+    </columns>
+    <format>Summary</format>
+    <name>Publications by Due Date</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.FPR_Due_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

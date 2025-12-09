@@ -1,0 +1,108 @@
+<template>
+    <lightning-card>
+        <!--div>check :: {workOrderId} :: {woliType}</div-->
+
+        <!--div class="slds-hide">
+            <img src={offlineGif} alt="How to Submit Offline" />
+        </div>
+        Changed isOffline :: {isOffline}
+
+    <template lwc:if={isOffline}>
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error">
+            <p>You are Offline from {loggedDevice}. Some features may not be available.</p>
+            <p>See below animation on how to submit offline.</p>
+        </div>
+
+        <div class="slds-align_absolute-center slds-m-top_large">
+            <img src={offlineGif} alt="How to Submit Offline" />
+        </div>
+         
+    </template-->
+
+    <template lwc:if={isOffline}>
+        <lightning-record-edit-form  data-id="childFormOffline" object-api-name="Study__c" onsuccess={handleSuccess} onsubmit={handleSubmit}>
+            Offline form with Grand Child
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-3">
+                    <div><abbr data-div="Study_Description__c" class={sldsHideClass}>* </abbr>Study Description</div> 
+                    <lightning-input-field field-name="Study_Description__c" variant="label-hidden" > </lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <div><abbr data-div="Study_Type__c" class={sldsHideClass}>* </abbr>Study Type</div>
+                    <lightning-input-field field-name="Study_Type__c" variant="label-hidden" > </lightning-input-field> <!--Change with New Field-->
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <div><abbr data-div="Work_Order__c" class={sldsHideClass}>* </abbr>Parent WO : {workOrderId}</div>
+                    <lightning-input-field field-name="Work_Order__c" variant="label-hidden" value={workOrderId} > </lightning-input-field> 
+                </div>
+            </div>
+            <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+        </lightning-record-edit-form>
+
+
+
+        
+            <lightning-record-edit-form data-id="grandChildForm" object-api-name="Associated_Study__c" onsubmit={handleGCSubmit}>
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-3">
+                        <div><abbr data-div="Study__c" class={sldsHideClass}>* </abbr>Study : {studyId}</div> 
+                        <lightning-input-field field-name="Study__c" variant="label-hidden" value={studyId} > </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <div><abbr data-div="Associated_Study_Description__c" class={sldsHideClass}>* </abbr>Asso Description</div>
+                        <lightning-input-field field-name="Associated_Study_Description__c"  variant="label-hidden" > </lightning-input-field> <!--Change with New Field-->
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <div><abbr data-div="Work_Order__c" class={sldsHideClass}>* </abbr>Parent WO : {workOrderId}</div>
+                        <lightning-input-field field-name="Work_Order__c" variant="label-hidden" value={workOrderId} > </lightning-input-field> 
+                    </div>
+                </div>
+                <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+            </lightning-record-edit-form>
+        
+
+    </template>
+
+
+
+
+    <template lwc:else>
+        <lightning-record-edit-form  data-id="childForm" object-api-name="WorkOrderLineItem">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_3-of-12">
+                    <div><abbr data-div="Type__c" class={sldsHideClass}>* </abbr>Type</div> 
+                    <lightning-input-field field-name="Type__c" variant="label-hidden" > </lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_3-of-12">
+                    <div><abbr data-div="FSL__IsFillInCandidate__c" class={sldsHideClass}>* </abbr>Is Filling Candidate</div>
+                    <lightning-input-field field-name="FSL__IsFillInCandidate__c" variant="label-hidden" > </lightning-input-field> <!--Change with New Field-->
+                </div>
+                <div class="slds-col slds-size_3-of-12">
+                    <div><abbr data-div="StartDate" class={sldsHideClass}>* </abbr>Start Date</div>
+                    <lightning-input-field field-name="StartDate" variant="label-hidden" > </lightning-input-field> 
+                </div>
+                <div class="slds-col slds-size_3-of-12">
+                    <div><abbr data-div="EndDate" class={sldsHideClass}>* </abbr>End Date</div>
+                    <lightning-input-field field-name="EndDate" variant="label-hidden" > </lightning-input-field> 
+                </div>
+                <div class="slds-col slds-1-of-1">
+                    <div class="slds-float_right">
+                        Additional Form <lightning-helptext icon-name="action:info" content="Data Must be transmitted"></lightning-helptext>
+                    </div>
+                </div>
+            </div>
+        </lightning-record-edit-form>
+
+
+        <!--lightning-flow
+            flow-api-name='Offline_FSL_Flow'
+            flow-input-variables={inputVariables}
+            flow-finish-behavior="NONE"
+        >
+        </lightning-flow-->
+
+    </template>
+    
+
+    </lightning-card>
+</template>

@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>List of Status for a Publication - Target Date / Revised Date / Actual Date
+Will be used for planning</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ActualDate_CurrentStatus__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF (ActualDate__c &gt; Pub_Current_Status_Actual_Date__c, true, false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ActualDate &gt; CurrentStatus</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ActualDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Days_Before_Target__c</fullName>
+        <description>Hidden field that calculates the days up until the target date (including the full day of the target date) in the review of the deadline.</description>
+        <externalId>false</externalId>
+        <label>hide Days Before Target</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Extension__c</fullName>
+        <description>Hidden field that identifies the number of days that the publication status was extended from the original target date.</description>
+        <externalId>false</externalId>
+        <label>hide Days Extension</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_OrigTarget_Completion__c</fullName>
+        <description>Hidden field that identifies how far off the original revised date was from the actual date of status change for the publication</description>
+        <externalId>false</externalId>
+        <label>hide Days OrigTarget Completion</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Overdue__c</fullName>
+        <description>Hidden field that identifies the number of days that the status is overdue for changing based on the latest of the revised target date or the target date.</description>
+        <externalId>false</externalId>
+        <label>hide Days Overdue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_RevTarget_Completion__c</fullName>
+        <description>Hidden field that calculates the difference between how long it took for the actual status change date and the revised target date</description>
+        <externalId>false</externalId>
+        <label>hide Days RevTarget Completion</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FPR_Cycle_Num_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(FPR_Cycle__r.FPR_Cycle_Num__c &gt; 0.0, text(FPR_Cycle__r.FPR_Cycle_Num__c), &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FPR Cycle #</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FPR_Cycle__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>FPR Cycle</label>
+        <referenceTo>FPR_Cycle__c</referenceTo>
+        <relationshipName>Pub_Statuses</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>FPR_Cycle_sort_num__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(FPR_Cycle__c = null, 0, FPR_Cycle__r.FPR_Cycle_Num__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FPR Cycle num for sorting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsActualDateEditable__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Release 1.1 column - for business logic to control if the actual date of a pub status is editable.
+Please note that this field will be populated by business logic after PubStatusModel Load the list of publication status for a Pub.
+
+We will not use values persisted in the Database.</description>
+        <externalId>false</externalId>
+        <label>IsActualDateEditable</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsCurrentFPRCycleForPub__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication_id__r.Current_FPRCycle_Id_Formula__c  =  FPR_Cycle__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsCurrentFPRCycleForPub</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsCurrentSubmissionCycleForPub__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication_id__r.Current_SubmissionCycle_Id_Formula__c = Submission_Cycle__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsCurrentSubmissionCycleForPub</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsLogicallyDeleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag to logically delete the record.
+
+Release 1.1 Renamed isLogicallyDeleted to Expired</description>
+        <externalId>false</externalId>
+        <label>Expired</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Journal__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Target to which Journal</description>
+        <externalId>false</externalId>
+        <label>Journal</label>
+        <referenceTo>Journal__c</referenceTo>
+        <relationshipName>PubStatuses</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Meeting__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Target a Meeting</description>
+        <externalId>false</externalId>
+        <label>Meeting</label>
+        <referenceTo>Meeting__c</referenceTo>
+        <relationshipName>PubStatuses</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Pub_Current_Status_Actual_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Publication_id__r.PubStatus__r.ActualDate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pub Current Status Actual Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Publication_id__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Publication_id</label>
+        <referenceTo>Publication__c</referenceTo>
+        <relationshipName>PubStatus</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reason_For_Change__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason For Change</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Delay in Data Availability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Delay in publication of primary manuscript</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External author requested timeline shift</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External author review delay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External Steering Committee delays</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal contributor delay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal reviewer delay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Program Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Requests for additional analyses</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Resourcing constraints</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RevisedTargetDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Latest Revised Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Route_Pattern__c</fullName>
+        <description>DS : SG : PI  used in routing.
+Terminate FPR Cycle will check if the RoutePattern is the same and alert user to change Route Pattern before Terminating a FPR Cycle.</description>
+        <externalId>false</externalId>
+        <label>Route Pattern</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SiebelRowId__c</fullName>
+        <externalId>true</externalId>
+        <label>SiebelRowId</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Status__r.Stage__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Stage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <referenceTo>Status__c</referenceTo>
+        <relationshipName>PubStatuses</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Submission_Cycle_Num_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submission_Cycle__r.Submission_Cycle_Num__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Submission Cycle #</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Submission_Cycle__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Submission Cycle</label>
+        <referenceTo>SubmissionCycle__c</referenceTo>
+        <relationshipName>Pub_Statuses</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TargetDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Target Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Target__c</fullName>
+        <description>Temp field to concatenate Journal name and Meeting name to display a unified target name</description>
+        <externalId>false</externalId>
+        <label>Target</label>
+        <length>200</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Publication Status</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Publication_id__c</columns>
+        <columns>NAME</columns>
+        <columns>Submission_Cycle_Num_Formula__c</columns>
+        <columns>FPR_Cycle_Num_Formula__c</columns>
+        <columns>Status__c</columns>
+        <columns>RevisedTargetDate__c</columns>
+        <columns>ActualDate__c</columns>
+        <columns>Journal__c</columns>
+        <columns>Meeting__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication_id__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-008241</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Ranjeet_View</fullName>
+        <columns>Publication_id__c</columns>
+        <columns>NAME</columns>
+        <columns>Submission_Cycle_Num_Formula__c</columns>
+        <columns>FPR_Cycle_Num_Formula__c</columns>
+        <columns>Submission_Cycle__c</columns>
+        <columns>FPR_Cycle__c</columns>
+        <columns>IsLogicallyDeleted__c</columns>
+        <columns>Status__c</columns>
+        <columns>RevisedTargetDate__c</columns>
+        <columns>ActualDate__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication_id__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-055069</value>
+        </filters>
+        <label>Ranjeet View</label>
+    </listViews>
+    <listViews>
+        <fullName>Scott_s_Publication_Statuses</fullName>
+        <columns>Publication_id__c</columns>
+        <columns>NAME</columns>
+        <columns>Submission_Cycle_Num_Formula__c</columns>
+        <columns>FPR_Cycle_Num_Formula__c</columns>
+        <columns>Status__c</columns>
+        <columns>RevisedTargetDate__c</columns>
+        <columns>ActualDate__c</columns>
+        <columns>Journal__c</columns>
+        <columns>Meeting__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Publication_id__c</field>
+            <operation>equals</operation>
+            <value>Pub-Id-002139</value>
+        </filters>
+        <label>Scott&apos;s Publication Statuses</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000000}</displayFormat>
+        <label>PubStatus Name</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Publication Statuses</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Legacy_Pub_Status</fullName>
+        <active>true</active>
+        <label>Legacy Pub Status</label>
+        <picklistValues>
+            <picklist>Reason_For_Change__c</picklist>
+            <values>
+                <fullName>Delay in Data Availability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delay in publication of primary manuscript</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Steering Committee delays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External author requested timeline shift</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External author review delay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal contributor delay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal reviewer delay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests for additional analyses</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resourcing constraints</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>default</fullName>
+        <active>true</active>
+        <label>default</label>
+        <picklistValues>
+            <picklist>Reason_For_Change__c</picklist>
+            <values>
+                <fullName>Delay in Data Availability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delay in publication of primary manuscript</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External Steering Committee delays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External author requested timeline shift</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>External author review delay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal contributor delay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal reviewer delay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Program Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Requests for additional analyses</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Resourcing constraints</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>TargetDate__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>RevisedTargetDate__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ActualDate__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Actual_Date_is_NOT_in_future</fullName>
+        <active>true</active>
+        <errorConditionFormula>ActualDate__c &gt; NOW()</errorConditionFormula>
+        <errorDisplayField>ActualDate__c</errorDisplayField>
+        <errorMessage>Please DO NOT Enter an Actual Date in Future</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Proposal_Complete_Update</fullName>
+        <active>true</active>
+        <description>Proposal Complete Actual Date can only be edited by BA or GPPL</description>
+        <errorConditionFormula>AND
+(NOT(OR( CONTAINS($Profile.Name, &apos;Admin&apos;),$Profile.Name = &apos;APPEAR GPPL&apos;)),
+ ISCHANGED( ActualDate__c),
+  ISPICKVAL(Status__r.PubRecordType__c,&quot;Execute&quot;),
+  ISPICKVAL(Status__r.Stage__c,&quot;Execute&quot;),
+ Status__r.Name = &quot;Proposal Complete&quot; 
+)</errorConditionFormula>
+        <errorDisplayField>ActualDate__c</errorDisplayField>
+        <errorMessage>Only a Business Administrator or GPPL can enter an actual date for Proposal Complete.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TargetDate_is_not_Editable</fullName>
+        <active>true</active>
+        <description>&quot;Target Date&quot; field not allow user to edit it if there is a value present for the Submitted/Completed status only.  The dates of which the changes should be able to be made are between 1/1 and 2/15</description>
+        <errorConditionFormula>AND(
+ISCHANGED(TargetDate__c),
+NOT(ISBLANK(PRIORVALUE(TargetDate__c))),
+NOT(OR(MONTH(TODAY()) == 1,And(MONTH(TODAY())==2,DAY(TODAY())&lt;=15))),
+Status__r.Name = &apos;Submitted/Completed&apos;,
+NOT(CONTAINS($Profile.Name, &apos;Admin&apos;))
+)</errorConditionFormula>
+        <errorMessage>Once Target Date on Submitted/Completed status is set, please use Latest Target Submission Date for any updates. The target date will be editable the following year from Jan 1st to Feb 15th</errorMessage>
+    </validationRules>
+</CustomObject>

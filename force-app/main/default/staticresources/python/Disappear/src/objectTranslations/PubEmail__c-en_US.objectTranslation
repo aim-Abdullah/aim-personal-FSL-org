@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Publication Email</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Publication Emails</value>
+    </caseValues>
+    <fields>
+        <label><!-- Author --></label>
+        <name>Author__c</name>
+        <relationshipLabel><!-- Publication Emails --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CC --></label>
+        <name>CC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email Body --></label>
+        <name>Email_Body__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publication Name --></label>
+        <name>Pub_Name_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publication Author --></label>
+        <name>Publication_Author__c</name>
+        <relationshipLabel><!-- Publication Emails --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Subject --></label>
+        <name>Subject__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Draft-Share Email</masterLabel>
+            <translation><!-- Draft-Share Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Final Author Approval Email</masterLabel>
+            <translation><!-- Final Author Approval Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Invitation Email</masterLabel>
+            <translation><!-- Invitation Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reminder Email</masterLabel>
+            <translation><!-- Reminder Email --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Publication Email Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Email Details --></label>
+            <section>Email Details</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

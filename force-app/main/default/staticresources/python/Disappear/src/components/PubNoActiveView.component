@@ -1,0 +1,14 @@
+<apex:component id="PubNoActiveView" >
+	<apex:attribute name="PubStatusModel" description="" type="PubStatusModel" required="true" />
+	<br/>
+    <H2>Please select an active Publication</H2>
+    <br/><br/><br/> 
+    <apex:form >
+    	<apex:CommandButton action="{!RedirectHomeTab}" 
+    		value="Home Tab" id="RedirectHomeTab"/>
+    	<apex:CommandButton action="{!RedirectSearchTabPub}" 
+    		value="Search for Publication" id="RedirectSearchTabPub"/>	
+    </apex:form>
+    
+
+</apex:component>

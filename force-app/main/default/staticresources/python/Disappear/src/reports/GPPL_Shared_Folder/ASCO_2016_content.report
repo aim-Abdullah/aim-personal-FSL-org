@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Search_Identifier__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Type__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Presentation_Type__c</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Status_FormulaField__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Status_Date_FormulaField__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Publication_Title__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Authors__c</field>
+    </columns>
+    <columns>
+        <field>Publication__c.Current_Target__c</field>
+    </columns>
+    <description>Oncology content</description>
+    <filter>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <column>Publication__c.Current_Target__c</column>
+            <operator>equals</operator>
+            <value>Annual Meeting of the American Society of Clinical Oncology</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Publication__c.Search_Identifier__c</column>
+            <operator>equals</operator>
+            <value>ASCO 2016</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Publication__c.Product_Indication__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>ASCO 2016 content</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$Publication__c@Publication__c.Meeting__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Publication__c.Current_Status_Date_FormulaField__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

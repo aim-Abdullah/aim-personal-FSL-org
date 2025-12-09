@@ -1,0 +1,15 @@
+<apex:component id="Appear_SharingComponent" allowDml="true"  >
+	<apex:attribute name="activePub" description="" type="AppearPubModel" required="true" />
+	
+	<apex:form >
+		<apex:outputtext escape="false" value="{!activePub.sharingDetails}" />
+		<apex:commandButton action="{!activePub.resetSharing}" value="Update Sharing" />
+		<apex:commandButton action="{!activePub.resetCurrentStatus}" value="Update Current Status" />
+		<apex:commandButton action="{!activePub.CountVote}" value="Count Vote" />
+		
+		<apex:outputtext rendered="{!activePub.isSystemAdmin}">
+			<apex:commandButton action="{!activePub.DeleteThisPub}" value="Delete this Publication to recover storage space" />
+		</apex:outputtext>
+		
+	</apex:form> 
+</apex:component>

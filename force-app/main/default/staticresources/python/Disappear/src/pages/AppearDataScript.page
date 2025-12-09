@@ -1,0 +1,11 @@
+<apex:page controller="AppearDataScriptController" >
+
+	<apex:form >
+		<apex:commandButton action="{!StatusDataScript}" value="Generate Status Script" id="Status"/>
+	</apex:form>
+	
+	<br/>
+	<br/>
+	<apex:outputText value="{!dataScriptValues}" escape="False" />
+
+</apex:page>

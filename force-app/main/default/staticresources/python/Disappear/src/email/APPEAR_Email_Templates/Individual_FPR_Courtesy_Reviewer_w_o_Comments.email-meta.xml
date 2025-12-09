@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Individual FPR Courtesy Reviewer Reviewed without Comments, others are still pending Email</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Individual FPR Courtesy Reviewer w/o Comments</name>
+    <style>none</style>
+    <subject>Courtesy FPR {!PubReviewTeam__c.Publication__c} Has been Reviewed</subject>
+    <textOnly>Do not reply to this email message.
+
+{!PubReviewTeam__c.Reviewer__c} has reviewed courtesy FPR {!PubReviewTeam__c.PubIDLink__c} . Please note, the FPR process has not completed and other reviews are still pending.
+
+Contact the FPR coordinator, {!PubReviewTeam__c.AssignedFPRCFF__c}, If you have questions or need support.
+
+{!PubReviewTeam__c.PubIDLink__c}
+
+Thank you,
+FPR System</textOnly>
+    <type>custom</type>
+</EmailTemplate>

@@ -1,0 +1,138 @@
+<apex:component allowDML="true"  controller="PubStatusNewViewModel">
+    <apex:attribute name="ActivePub" description="" type="AppearPubModel" required="true" />
+    <apex:attribute name="parentFrmId" description="" type="String" required="false" />
+    <script type="text/javascript">
+        jQuery("h2:contains('Publication Detail')").html('Publication Details');
+    </script>
+    <div class="{!IF(ActivePub.isPubTeamMemberOnRejectedPub,'','pubDetailModalOverlay')}" onclick="location.reload(); return false;" style="display: none; position: fixed; _position: absolute;  left: 0px; top: 0px; z-index: 9997; background-color: rgb(0, 0, 0); width: 100%; height: 100%; opacity: 0.8;"> </div>
+        
+    <div class="{!IF(ActivePub.isPubTeamMemberOnRejectedPub,'','pubDetailTargetModal')}" style="display: none; overflow: visible; position: absolute; top: 40%; left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <apex:form id="targetFrm" >
+            <apex:pageBlock >
+                <apex:pageMessages />
+                <table class="detailList">
+                    <tbody>
+                        <tr>
+                            <td class="labelCol">
+                                Target Type
+                            </td>
+                            <td class="dataCol">
+                                <select id="targetTypeSelect" onChange="onTargetTypeChanged();">
+                                    <option value="meeting">1. Meeting</option>
+                                    <option value="journal">2. Journal</option>
+                                </select>
+                            </td>
+                            <td class="labelCol">
+                                Target
+                            </td>
+                            <td class="data2Col">
+                                <div id="TargetSearchContainer" style="position: relative;">
+                                    <input type="text" class="TargetInput" 
+                                        onclick="predictiveSearchKeyUp('Target');" onkeyup="predictiveSearchKeyUp('Target');" id="TargetSearch"/>
+                                    <div id="TargetSearchDropdown" style="display: none; position: absolute; top: 19px; left: 2px; border: 1px solid gray; width: 400px; height: 150px; background: white; overflow-y: scroll;">
+                                        <ul id="TargetSearchList" style="list-style-type: none; padding:  0px; margin: 5px 0 0 0;">
+                                            <li><a onclick="alert('test');" style="cursor: pointer;">Test User1</a></li>
+                                            <li><a onclick="alert('test');" style="cursor: pointer;">Test User2</a></li>
+                                            <li><a onclick="alert('test');" style="cursor: pointer;">Test User3</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </apex:pageBlock>
+            
+            <div style="float: right; margin-top: 25px;">           
+                <apex:commandButton action="{!activePub.saveTarget}" value="Save" />
+                <input type="submit" value="Cancel" class="btn" onclick="location.reload(); return false;" />
+                
+            </div>
+            
+            <apex:inputHidden id="targetModeInput" value="{!ActivePub.targetMode}" />
+            <apex:inputHidden id="newTargetInput" value="{!ActivePub.newTargetId}" />
+        </apex:form>
+        <span id= "GppButtons">             
+            <apex:form id="GppButtonsForm" rendered="{!ActivePub.PubStatus.showMoveToGPPButton || ActivePub.PubStatus.showRemoveFromGPPButton}" style="display: inline">
+                <apex:commandButton action="{!ActivePub.PubStatus.MoveToGPPClick}" id="AddGPP" value="Add To GPP" oncomplete="javascript:errorPopUp('{!ActivePub.PubStatus.gppmessage}');window.location.reload();" rendered="{!ActivePub.PubStatus.showMoveToGPPButton}" />
+                <apex:commandButton action="{!ActivePub.PubStatus.RemoveFromGPPClick}" id="RemoveGPP" value="Remove From GPP" rendered="{!ActivePub.PubStatus.showRemoveFromGPPButton}" />
+            </apex:form>
+        </span>
+    </div>  
+    
+    <!-- TODO: Make this conditional server-side render and ajaxified load -->    
+    <div class="{!IF(ActivePub.isPubTeamMemberOnRejectedPub,'','pubProdIndModal')}" style="display: none; overflow: visible; position: absolute; top: 40%; left: 20%; width: 60%; padding: 2em; z-index: 9998; background: white; border-radius: .5em;">
+        <c:Appear_PubProdIndComponent PubProdIndModel="{!ActivePub.PubProdIndication}" parentFrmId="{!parentFrmId}" />
+    </div>  
+     
+    
+    <script type="text/javascript">
+        $('#GppButtons').appendTo($('.pbButton,.pbButtonb'));
+        //$('#GppButtons').insertAfter($('input[name="edit"]')); //this did not work with layouts containing no buttons
+    
+        jQuery('.pubDetailFrm').appendTo('body');
+                
+        jQuery('input.TargetInput').attr('autocomplete','off');     
+        jQuery('#targetTypeSelect').val(document.getElementById('{!$Component.targetFrm.targetModeInput}').value);
+        
+        var ProdIndValueCell = jQuery('.detailList td:contains("Product - Indication")').eq(0).next();
+        if ((ProdIndValueCell.html().charCodeAt(0) != 38) && (jQuery('.pubProdIndModal .message').length == 0)) {
+            ProdIndValueCell.html('<span class="primaryPalette" style="font-weight: bold;">'+ProdIndValueCell.html().substring(0,ProdIndValueCell.html().indexOf(';'))+'</span>'+ProdIndValueCell.html().substring(ProdIndValueCell.html().indexOf(';')))
+        } else { //required product indication loop
+            jQuery('.pubDetailModalOverlay').fadeToggle();
+            jQuery('.pubProdIndModal').delay(20).fadeToggle();
+        }
+
+        
+        function onTargetTypeChanged() {
+            document.getElementById('{!$Component.targetFrm.targetModeInput}').value = jQuery('#targetTypeSelect').val();
+            $('input.TargetInput')[0].value = '';
+        }
+        
+        function targetClicked(targetId, targetName) {
+            $('input.TargetInput')[0].value = targetName;
+            document.getElementById('{!$Component.targetFrm.newTargetInput}').value = targetId;
+            $('#TargetSearchDropdown').hide(250);           
+        }
+        
+        function predictiveSearchKeyUp(searchType){ 
+            var inputElement = $('input.'+searchType+'Input')[0];
+            var inputText = inputElement.value;
+            var searchDropdown = $('#'+searchType+'SearchDropdown');
+            var searchList = searchDropdown.children('#'+searchType+'SearchList');
+            var minChars = searchType == 'Target' ? 2 : 1;
+            
+            if (inputText.length < minChars) {
+                    searchDropdown.hide(250);
+                return;
+            }
+            var targetType = jQuery('#targetTypeSelect').val();
+            
+            if (searchType == 'Target') {
+                PubStatusNewViewModel.findTargetsByName(targetType ,inputText, function(result, event){
+                    if (event.status && document.activeElement.className == 'TargetInput') {
+                        searchList.html('');
+                        $.each(result, function(key, target){
+                            searchList.append('<li><a onClick="targetClicked(\'' + target.id + '\', \'' + target.name + '\')" style="cursor: pointer;">'+target.name+'</a></li>');
+                        });
+                        searchDropdown.show(250);
+                    }
+                }, {escape:true})
+            } else {
+                PubStatusNewViewModel.findDeptStatusByName(inputText, function(result, event){
+                    if (event.status && document.activeElement.className == 'StatusInput') {
+                        searchList.html('');
+                        $.each(result, function(key, status){
+                            searchList.append('<li><a onClick="statusClicked(\'' + status.id + '\', \'' + status.name + '\')" style="cursor: pointer;">'+status.name+'</a></li>');
+                        });
+                        searchDropdown.show(250);
+                    }
+                }, {escape:true})
+            }
+        }
+        function errorPopUp(msg)
+        {
+         alert(msg);
+        }
+    </script>
+</apex:component>
