@@ -1,9 +1,0 @@
-<apex:page name="AppearSearch" controller="AppearSearchController" 
-	showHeader="false" standardStylesheets="false" sidebar="false">
-	<script type="text/javascript" >
-		
-		location.href = window.location.protocol + '//' + window.location.host + '/_ui/search/ui/UnifiedSearchResults?searchType=2&str=pub&/#!/fen={!pubIdPrefix}&initialViewMode=detail';
-	</script>
-
-
-</apex:page>
